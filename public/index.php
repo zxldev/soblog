@@ -15,7 +15,7 @@ try {
 	/**
 	 * Read the configuration
 	 */
-	$config = new ConfigIni(APP_PATH . 'app/config/config.ini');
+    $config = include APP_PATH . "app/config/config.php";
 
 	/**
 	 * Auto-loader configuration
