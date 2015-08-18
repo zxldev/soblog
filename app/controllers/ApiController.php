@@ -28,7 +28,7 @@ class ApiController extends JsonControllerBase
      * @param int $numberPage
      * @return stdclass
      */
-    public function blogAction($numberPage = 1)
+    public function bloggetAction($numberPage = 1)
     {
         $parameters = array();
         $parameters["order"] = "created_at";

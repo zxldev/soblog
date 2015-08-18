@@ -91,13 +91,13 @@ $di->set('volt', function($view, $di) {
 /**
  * 注解路由
  */
-//$di->set('router', function() use ($config){
-//    $router = new \Phalcon\Mvc\Router\Annotations(false);
-//    $router->addResource('Api');
-//    $router->addResource('Index');
-////    $router->addResource('MFront');
-//    return $router;
-//});
+$di->set('router', function() use ($config){
+    $router = new \Phalcon\Mvc\Router\Annotations(false);
+    $router->addResource('Api');
+    $router->addResource('Index');
+//    $router->addResource('MFront');
+    return $router;
+});
 
 
 /**
@@ -214,10 +214,10 @@ $di->set('elements', function(){
 
 $di->set('config', $config);
 
-///**
-// * 注解
-// */
-//$di->setShared('annotations', function () {
-//    $reader = new Phalcon\Annotations\Adapter\Xcache();
-//    return $reader;
-//});
+/**
+ * 注解
+ */
+$di->setShared('annotations', function () {
+    $reader = new Phalcon\Annotations\Adapter\Xcache();
+    return $reader;
+});
