@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>{{ this.config.blog.auth }}博客</title>
-
+    <script data-main="js/main" src="js/lib/require.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -36,12 +36,12 @@
 
 </body>
 <!-- jQuery -->
-<script src="js/jquery.js"></script>
+{#<script src="js/jquery.js"></script>#}
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+{#<!-- Bootstrap Core JavaScript -->#}
+{#<script src="js/bootstrap.min.js"></script>#}
 
-<!-- Custom Theme JavaScript -->
-<script src="js/clean-blog.min.js"></script>
+{#<!-- Custom Theme JavaScript -->#}
+{#<script src="js/clean-blog.min.js"></script>#}
 
 </html>

@@ -2,7 +2,7 @@
 
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
-class Users extends \Phalcon\Mvc\Model
+class Comments extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -13,9 +13,21 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    public $type_id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $el_id;
+
+    /**
+     *
      * @var string
      */
-    public $name;
+    public $username;
 
     /**
      *
@@ -25,15 +37,15 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $password;
+    public $parent_id;
 
     /**
      *
      * @var string
      */
-    public $remember_token;
+    public $content;
 
     /**
      *
@@ -46,18 +58,6 @@ class Users extends \Phalcon\Mvc\Model
      * @var string
      */
     public $updated_at;
-
-    /**
-     *
-     * @var string
-     */
-    public $photo;
-
-    /**
-     *
-     * @var string
-     */
-    public $desc;
 
     /**
      * Validations and business logic
@@ -89,14 +89,14 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'users';
+        return 'comments';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users[]
+     * @return Comments[]
      */
     public static function find($parameters = null)
     {
@@ -107,7 +107,7 @@ class Users extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users
+     * @return Comments
      */
     public static function findFirst($parameters = null)
     {

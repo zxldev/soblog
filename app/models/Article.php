@@ -1,8 +1,6 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
-
-class Users extends \Phalcon\Mvc\Model
+class Article extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -13,27 +11,33 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $name;
+    public $cate_id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $user_id;
 
     /**
      *
      * @var string
      */
-    public $email;
+    public $title;
 
     /**
      *
      * @var string
      */
-    public $password;
+    public $content;
 
     /**
      *
      * @var string
      */
-    public $remember_token;
+    public $tags;
 
     /**
      *
@@ -51,36 +55,7 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $photo;
-
-    /**
-     *
-     * @var string
-     */
-    public $desc;
-
-    /**
-     * Validations and business logic
-     *
-     * @return boolean
-     */
-    public function validation()
-    {
-        $this->validate(
-            new Email(
-                array(
-                    'field'    => 'email',
-                    'required' => true,
-                )
-            )
-        );
-
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
-    }
+    public $pic;
 
     /**
      * Returns table name mapped in the model.
@@ -89,14 +64,14 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'users';
+        return 'article';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users[]
+     * @return Article[]
      */
     public static function find($parameters = null)
     {
@@ -107,7 +82,7 @@ class Users extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users
+     * @return Article
      */
     public static function findFirst($parameters = null)
     {

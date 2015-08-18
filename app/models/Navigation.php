@@ -1,8 +1,6 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as Email;
-
-class Users extends \Phalcon\Mvc\Model
+class Navigation extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -10,6 +8,18 @@ class Users extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $parent_id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $sequence;
 
     /**
      *
@@ -21,19 +31,7 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $email;
-
-    /**
-     *
-     * @var string
-     */
-    public $password;
-
-    /**
-     *
-     * @var string
-     */
-    public $remember_token;
+    public $url;
 
     /**
      *
@@ -48,55 +46,20 @@ class Users extends \Phalcon\Mvc\Model
     public $updated_at;
 
     /**
-     *
-     * @var string
-     */
-    public $photo;
-
-    /**
-     *
-     * @var string
-     */
-    public $desc;
-
-    /**
-     * Validations and business logic
-     *
-     * @return boolean
-     */
-    public function validation()
-    {
-        $this->validate(
-            new Email(
-                array(
-                    'field'    => 'email',
-                    'required' => true,
-                )
-            )
-        );
-
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Returns table name mapped in the model.
      *
      * @return string
      */
     public function getSource()
     {
-        return 'users';
+        return 'navigation';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users[]
+     * @return Navigation[]
      */
     public static function find($parameters = null)
     {
@@ -107,7 +70,7 @@ class Users extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users
+     * @return Navigation
      */
     public static function findFirst($parameters = null)
     {

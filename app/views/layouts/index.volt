@@ -46,7 +46,7 @@
         </div>
     </div>
 </header>
-
+{{ flash.output() }}
 <!-- Main Content -->
 <div class="container">
     {{ content() }}
