@@ -30,11 +30,6 @@
                         </li>\
                         </ul>';
                         $('._bloglist').html(html);
-
-
-
-
-
                     }
                 });
             }
