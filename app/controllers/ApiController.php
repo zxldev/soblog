@@ -38,7 +38,6 @@ class ApiController extends JsonControllerBase
             "limit"=> 10,
             "page" => $numberPage
         ));
-
         return $paginator->getPaginate();
     }
 }
