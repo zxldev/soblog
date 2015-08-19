@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ this.config.blog.auth }}博客</title>
+    <title>{{getTitle()  }}</title>
     <script data-main="js/main" src="js/lib/require.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">

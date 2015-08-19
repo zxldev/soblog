@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">赵枫杨微博</a>
+            <a class="navbar-brand" href="index.html">So Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
