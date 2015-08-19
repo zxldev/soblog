@@ -6,12 +6,18 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 class ArticleController extends ControllerBase
 {
 
+    public function initialize()
+    {
+        $this->tag->setTitle('文字列表');
+        parent::initialize();
+        $this->view->setTemplateAfter('header');
+    }
+
     /**
      * Index action
      */
     public function indexAction()
     {
-        $this->persistent->parameters = null;
     }
 
     /**
@@ -19,15 +25,38 @@ class ArticleController extends ControllerBase
      */
     public function searchAction($numberPage = 1)
     {
-        $parameters = array();
-        $parameters["order"] = "created_at";
+
+        $numberPage = 1;
+        if ($this->request->isPost()) {
+            $query = Criteria::fromInput($this->di, "Article", $_POST);
+            $this->persistent->parameters = $query->getParams();
+        } else {
+            $numberPage = $this->request->getQuery("page", "int");
+        }
+
+        $parameters = $this->persistent->parameters;
+        if (!is_array($parameters)) {
+            $parameters = array();
+        }
+        $parameters["order"] = "id";
+
         $article = Article::find($parameters);
+        if (count($article) == 0) {
+            $this->flash->notice("The search did not find any article");
+
+            return $this->dispatcher->forward(array(
+                "controller" => "article",
+                "action" => "index"
+            ));
+        }
+
         $paginator = new Paginator(array(
             "data" => $article,
             "limit"=> 10,
             "page" => $numberPage
         ));
-        return $paginator->getPaginate();
+
+        $this->view->page = $paginator->getPaginate();
     }
 
     /**
@@ -212,6 +241,10 @@ class ArticleController extends ControllerBase
             "controller" => "article",
             "action" => "index"
         ));
+    }
+
+    public function infoAction($id){
+        $this->view->setVar('blogid',$id);
     }
 
 }

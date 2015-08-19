@@ -4,8 +4,8 @@
 require.config({
     baseUrl: '/js/lib',
     paths: {
-        cleanblog: '../app/cleanblog',
-        index: '/js/app/index',
+        cleanblog: '/js/app/cleanblog',
+        blog: '/js/app/blog',
         jquery:'/js/lib/jquery.min',
         bootstrap:'/js/lib/bootstrap.min'
     }

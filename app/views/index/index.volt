@@ -5,7 +5,12 @@
 </div>
 
 <script>
-    require(['jquery', 'index'], function ($, index) {
-        index.blogList();
-    });
+    setTimeout(function(){
+        require(['jquery', 'blog'], function ($, blog) {
+            blog.blogList();
+        });
+    },100);
+
+
+
 </script>

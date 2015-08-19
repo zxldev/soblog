@@ -92,9 +92,10 @@ $di->set('volt', function($view, $di) {
  * 注解路由
  */
 $di->set('router', function() use ($config){
-    $router = new \Phalcon\Mvc\Router\Annotations(false);
+    $router = new \Phalcon\Mvc\Router\Annotations(true);
     $router->addResource('Api');
     $router->addResource('Index');
+    $router->addResource('Article');
 //    $router->addResource('MFront');
     return $router;
 });

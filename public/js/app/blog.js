@@ -1,12 +1,12 @@
 
 
 
-    define( "index", ['jquery'], function($) {
+    define( "blog", ['jquery'], function($) {
         var exports = {
             blogList: function (page){
                 page=page||1;
                 $.ajax({
-                    url: '/api/blog/'+page,
+                    url: '/api/page='+page+'/blog',
                     type: 'get',
                     dataType: 'json',
                     cache: false,
@@ -16,7 +16,7 @@
                             length = data.records.items.length;
                         for(i=0;i<length;i++){
                             html+='<div class="post-preview">\
-                            <a href="post.html">\
+                            <a href="/article/info/'+data.records.items[i].id+'">\
                             <h2 class="post-title">'+data.records.items[i].title+'</h2>\
                             <h3 class="post-subtitle">'+data.records.items[i].content+'</h3>\
                             </a>\
@@ -30,6 +30,28 @@
                         </li>\
                         </ul>';
                         $('._bloglist').html(html);
+                    }
+                });
+            },
+            blogInfo:function(id){
+                id=id||1;
+                $.ajax({
+                    url: '/api/id='+id+'/blog',
+                    type: 'get',
+                    dataType: 'json',
+                    cache: false,
+                    success: function (data) {
+                        var blog = data.records,
+                            html=' <ul class="pager">\
+                        <li class="next">\
+                        <a href="/"> &larr;返回</a>\
+                        </li>\
+                        </ul>';
+                        $('._blogInfo').html(blog.content+html);
+                        $('._mainheading').html(blog.title);
+                        $('._subheading').html('')
+
+
                     }
                 });
             }

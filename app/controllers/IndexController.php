@@ -6,9 +6,12 @@ class IndexController extends ControllerBase
     {
         $this->tag->setTitle('Welcome');
         parent::initialize();
+        $this->view->setTemplateAfter('header');
     }
 
     public function indexAction()
     {
+
+
     }
 }

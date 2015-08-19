@@ -24,11 +24,11 @@ class ApiController extends JsonControllerBase
     }
 
     /**
-     * @Route("/blog/{numberPage}", methods={"GET"}, name="blogget")
+     * @Route("/page={numberpage}/blog", methods={"GET"}, name="blogget")
      * @param int $numberPage
      * @return stdclass
      */
-    public function bloggetAction($numberPage = 1)
+    public function bloggetAction($numberpage = 1)
     {
         $parameters = array();
         $parameters["order"] = "created_at";
@@ -36,8 +36,18 @@ class ApiController extends JsonControllerBase
         $paginator = new Paginator(array(
             "data" => $article,
             "limit"=> 10,
-            "page" => $numberPage
+            "page" => $numberpage
         ));
         return $paginator->getPaginate();
+    }
+
+    /**
+     * @Route("/id={id}/blog", methods={"GET"}, name="bloggetinfo")
+     * @param int $id
+     * @return stdclass
+     */
+    public function bloggetinfoAction($id = 1)
+    {
+        return  Article::findFirstById($id);
     }
 }
