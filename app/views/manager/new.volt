@@ -1,9 +1,9 @@
 
-<?php echo $this->tag->form("article/create") ?>
+<?php echo $this->tag->form("manager/create") ?>
 
 <table width="100%">
     <tr>
-        <td align="left"><?php echo $this->tag->linkTo(array("article", "Go Back")) ?></td>
+        <td align="left"><?php echo $this->tag->linkTo(array("manager", "Go Back")) ?></td>
         <td align="right"><?php echo $this->tag->submitButton("Save") ?></td>
     </tr>
 </table>

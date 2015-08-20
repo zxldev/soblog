@@ -5,10 +5,10 @@
 <table width="100%">
     <tr>
         <td align="left">
-            <?php echo $this->tag->linkTo(array("article/index", "Go Back")); ?>
+            <?php echo $this->tag->linkTo(array("manager/index", "Go Back")); ?>
         </td>
         <td align="right">
-            <?php echo $this->tag->linkTo(array("article/new", "Create ")); ?>
+            <?php echo $this->tag->linkTo(array("manager/new", "Create ")); ?>
         </td>
     </tr>
 </table>
@@ -39,8 +39,8 @@
             <td><?php echo $article->created_at ?></td>
             <td><?php echo $article->updated_at ?></td>
             <td><?php echo $article->pic ?></td>
-            <td><?php echo $this->tag->linkTo(array("article/edit/" . $article->id, "Edit")); ?></td>
-            <td><?php echo $this->tag->linkTo(array("article/delete/" . $article->id, "Delete")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("manager/edit/" . $article->id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("manager/delete/" . $article->id, "Delete")); ?></td>
         </tr>
     <?php } ?>
     </tbody>
@@ -49,10 +49,10 @@
             <td colspan="2" align="right">
                 <table align="center">
                     <tr>
-                        <td><?php echo $this->tag->linkTo("article/search", "First") ?></td>
-                        <td><?php echo $this->tag->linkTo("article/search?page=" . $page->before, "Previous") ?></td>
-                        <td><?php echo $this->tag->linkTo("article/search?page=" . $page->next, "Next") ?></td>
-                        <td><?php echo $this->tag->linkTo("article/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $this->tag->linkTo("manager/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("manager/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("manager/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("manager/search?page=" . $page->last, "Last") ?></td>
                         <td><?php echo $page->current, "/", $page->total_pages ?></td>
                     </tr>
                 </table>

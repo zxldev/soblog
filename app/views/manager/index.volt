@@ -2,10 +2,10 @@
 <?php echo $this->getContent() ?>
 
 <div align="right">
-    <?php echo $this->tag->linkTo(array("article/new", "Create article")) ?>
+    <?php echo $this->tag->linkTo(array("manager/new", "Create article")) ?>
 </div>
 
-<?php echo $this->tag->form(array("article/search", "autocomplete" => "off")) ?>
+<?php echo $this->tag->form(array("manager/search", "autocomplete" => "off")) ?>
 
 <div align="center">
     <h1>Search article</h1>
