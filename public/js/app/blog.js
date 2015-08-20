@@ -1,7 +1,7 @@
 
 
 
-    define( "blog", ['jquery'], function($) {
+    define( "blog", ['jquery','showdown','hljs'], function($,showdown,hljs) {
         var exports = {
             blogList: function (page){
                 page=page||1;
@@ -47,7 +47,12 @@
                         <a href="/"> &larr;返回</a>\
                         </li>\
                         </ul>';
-                        $('._blogInfo').html(blog.content+html);
+                        var converter = new showdown.Converter();
+                        converter.setOption();
+                        $('._blogInfo').html('<div class="markdown-body">'+converter.makeHtml(blog.content)+'</div>'+html);
+                        $('pre code').each(function(i, block) {
+                            hljs.highlightBlock(block);
+                        });
                         $('._mainheading').html(blog.title);
                         $('._subheading').html('')
 
