@@ -17,6 +17,7 @@ class SessionController extends ControllerBase
     public function indexAction()
     {
         if (!$this->request->isPost()) {
+            $this->tag->setDefault('callback', $this->request->get('callback'));
         }
     }
 
@@ -29,7 +30,8 @@ class SessionController extends ControllerBase
     {
         $this->setSession('user',array('id'=>$user->id,
         'name'=>$user->name,
-        'email'=>$user->email));
+        'email'=>$user->email,
+        'type'=>$user->type));
     }
 
     /**
@@ -42,6 +44,7 @@ class SessionController extends ControllerBase
 
             $email = $this->request->getPost('email');
             $password = $this->request->getPost('password');
+            $callback = $this->request->getPost('callback',null,'/');
 
             $user = Users::findFirst(array(
                 "(email = :email: OR name = :email:) AND password = :password:",
@@ -50,7 +53,7 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);
-                return $this->forward('/');
+                return $this->forward($callback);
             }
 
             $this->flash->error('用户名或密码错误！');

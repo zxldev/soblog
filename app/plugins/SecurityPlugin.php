@@ -1,122 +1,93 @@
 <?php
 
-use Phalcon\Acl;
-use Phalcon\Acl\Role;
-use Phalcon\Acl\Resource;
-use Phalcon\Events\Event;
-use Phalcon\Mvc\User\Plugin;
-use Phalcon\Mvc\Dispatcher;
-use Phalcon\Acl\Adapter\Memory as AclList;
+use Phalcon\Events\Event,
+    Phalcon\Mvc\User\Plugin,
+    Phalcon\Mvc\Dispatcher,
+    Phalcon\Mvc\Model\Query,
+    Phalcon\Acl;
 
 /**
- * SecurityPlugin
+ * Security
  *
  * This is the security plugin which controls that users only have access to the modules they're assigned to
  */
 class SecurityPlugin extends Plugin
 {
 
-	/**
-	 * Returns an existing or new access control list
-	 *
-	 * @returns AclList
-	 */
-	public function getAcl()
-	{
+    public function  getSessionValue($key, $arraykey, $default = '')
+    {
+        $yh = $this->session->get($key);
+        if (isset($yh[$arraykey])) {
+            return $yh[$arraykey];
+        } else {
+            return $this->getMSessionValue($key, $arraykey, $default);
+        }
+    }
 
-		//throw new \Exception("something");
+    public function  getMSessionValue($key, $arraykey, $default = '')
+    {
+        $yh = $this->getSession($key, null);
+        if (isset($yh->$arraykey)) {
+            return $yh->$arraykey;
+        } else {
+            return $default;
+        }
+    }
 
-		if (!isset($this->persistent->acl)) {
 
-			$acl = new AclList();
+    public function getSession($key, $default = '')
+    {
+        return json_decode($this->redis->get($this->getSessionId()))->$key;
+    }
 
-			$acl->setDefaultAction(Acl::DENY);
+    public function getSessionId()
+    {
+        return 'oauth_access_tokens:' . $this->request->get('access_token');
+    }
 
-			//Register roles
-			$roles = array(
-				'users'  => new Role('Users'),
-				'guests' => new Role('Guests')
-			);
-			foreach ($roles as $role) {
-				$acl->addRole($role);
-			}
 
-			//Private area resources
-			$privateResources = array(
-				'companies'    => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-				'products'     => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-				'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-				'invoices'     => array('index', 'profile')
-			);
-			foreach ($privateResources as $resource => $actions) {
-				$acl->addResource(new Resource($resource), $actions);
-			}
+    /**
+     * This action is executed before execute any action in the application
+     *
+     * @param Event $event
+     * @param Dispatcher $dispatcher
+     */
+    public function beforeDispatch(Event $event, Dispatcher $dispatcher)
+    {
+        //获取要转发的controller名称
+        $controller = mb_strtolower($dispatcher->getControllerName());
+        //获取要转发的action
+        $action = mb_strtolower($dispatcher->getActionName());
 
-			//Public area resources
-			$publicResources = array(
-				'index'      => array('index'),
-				'about'      => array('index'),
-				'register'   => array('index'),
-				'errors'     => array('show401', 'show404', 'show500'),
-				'session'    => array('index', 'register', 'start', 'end'),
-				'contact'    => array('index', 'send')
-			);
-			foreach ($publicResources as $resource => $actions) {
-				$acl->addResource(new Resource($resource), $actions);
-			}
+        $annotations = $this->annotations->getMethod($dispatcher->getControllerClass(), $dispatcher->getActiveMethod());
+        //是私有，开始判断私用情况，不是的话就是共有，直接返回真
+        if ($annotations->has('privateResource')) {
+            $annotation = $annotations->get('privateResource');
+            //含有allow列表，则判断当前用户是否在allow列表中，否则，判断只要登录就返回真,未登陆用户跳转到登陆界面
+            if ($annotation->hasArgument('allowYlx')) {
+                $allow = $annotation->getArgument('allowYlx');
+                if ($allow != '' && in_array($this->getSessionValue('user', 'type'), mb_split(',', $allow))) {
+                    return true;
+                } else {
+                    if ($this->getSessionValue('user', 'id') == '') {
+                        $this->response->redirect("session/index/?callback=" . urlencode($_SERVER[REQUEST_URI]));
+                    }else{
+                        $this->response->redirect("errors/show401/?callback=" . urlencode($_SERVER[REQUEST_URI]));
+                    }
 
-			//Grant access to public areas to both users and guests
-			foreach ($roles as $role) {
-				foreach ($publicResources as $resource => $actions) {
-					foreach ($actions as $action){
-						$acl->allow($role->getName(), $resource, $action);
-					}
-				}
-			}
-
-			//Grant acess to private area to role Users
-			foreach ($privateResources as $resource => $actions) {
-				foreach ($actions as $action){
-					$acl->allow('Users', $resource, $action);
-				}
-			}
-
-			//The acl is stored in session, APC would be useful here too
-			$this->persistent->acl = $acl;
-		}
-
-		return $this->persistent->acl;
-	}
-
-	/**
-	 * This action is executed before execute any action in the application
-	 *
-	 * @param Event $event
-	 * @param Dispatcher $dispatcher
-	 */
-	public function beforeDispatch(Event $event, Dispatcher $dispatcher)
-	{
-
-		$auth = $this->session->get('auth');
-		if (!$auth){
-			$role = 'Guests';
-		} else {
-			$role = 'Users';
-		}
-
-		$controller = $dispatcher->getControllerName();
-		$action = $dispatcher->getActionName();
-
-		$acl = $this->getAcl();
-
-		$allowed = $acl->isAllowed($role, $controller, $action);
-		if ($allowed != Acl::ALLOW) {
-			$dispatcher->forward(array(
-				'controller' => 'errors',
-				'action'     => 'show401'
-			));
-                        $this->session->destroy();
-			return false;
-		}
-	}
+                    return false;
+                }
+            } else {
+                if ($this->getSessionValue('user', 'id') != '') {
+                    return true;
+                } else {
+                        $this->response->redirect("login?callback=" . urlencode($_SERVER[REQUEST_URI]));
+                }
+            }
+        } else {
+            return true;
+        }
+        //也没有在公共资源列表，则返回401未授权页面、返回false.
+        return false;
+    }
 }

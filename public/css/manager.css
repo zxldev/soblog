@@ -105,3 +105,32 @@ body {
     display: inline-block;
     border-radius: 50%;
 }
+
+a:hover{
+    cursor:pointer
+}
+
+
+.markdown-body-view{
+    width: 50%;
+    height: 100%;
+position: fixed;
+    left:0;
+    top:0;
+background: white;
+border: 2px solid;
+z-index: 99999;
+padding: 10px 10px;
+}
+
+.markdown-pen-view{
+    width: 50%;
+    height: 100%;
+    position: fixed;
+    right:0;
+    top:0;
+    background: white;
+    border: 2px solid;
+    z-index: 99999;
+    padding: 10px 10px;
+}

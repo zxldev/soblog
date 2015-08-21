@@ -41,10 +41,10 @@
     </tr>
     <tr>
         <td align="right">
-            <label for="content">Content</label>
+            <label for="contentI">Content</label>
         </td>
         <td align="left">
-                <?php echo $this->tag->textArea(array("content", "cols" => 30, "rows" => 4)) ?>
+                <?php echo $this->tag->textArea(array("content", "cols" => 30, "rows" => 4,"class"=>'_showowninput')) ?>
         </td>
     </tr>
     <tr>
@@ -87,3 +87,31 @@
 </table>
 
 </form>
+
+
+<script>
+    setTimeout(require(['iimarkdown'],function(iimark){
+        iimark.init('._showowninput');
+    }),100);
+//    require(['jquery','showdown'],function($,showdown){
+//        var selector = '._showowninput';
+//        $(selector).bind('keyup',function(){
+//            var converter = new showdown.Converter();
+//            var has = $(selector).parent().find('.markdown-body-view');
+//            if(has.length){
+//                has.html(converter.makeHtml($(selector).val()));
+//            }else{
+//                $(selector).parent().append('<div class="markdown-body-view">'+converter.makeHtml($(selector).val())+'</div>');
+//            }
+//            $('pre code').each(function(i, block) {
+//                hljs.highlightBlock(block);
+//            });
+//        }).bind('focus',function(){
+//            $(this).addClass('markdown-pen-view');
+//        }).bind('blur',function(){
+//            $(this).removeClass('markdown-pen-view');
+//        });
+//
+//    })
+
+</script>

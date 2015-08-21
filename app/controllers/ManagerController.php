@@ -16,6 +16,7 @@ class ManagerController extends ControllerBase
     }
 
     /**
+     * @privateResource(allowYlx="1")
      * Index action
      */
     public function indexAction()
@@ -23,6 +24,7 @@ class ManagerController extends ControllerBase
     }
 
     /**
+     * @privateResource(allowYlx="1")
      * Searches for article
      */
     public function searchAction($numberPage = 1)
@@ -62,6 +64,7 @@ class ManagerController extends ControllerBase
     }
 
     /**
+     * @privateResource(allowYlx="1")
      * Displays the creation form
      */
     public function newAction()
@@ -70,6 +73,7 @@ class ManagerController extends ControllerBase
     }
 
     /**
+     * @privateResource(allowYlx="1")
      * Edits a article
      *
      * @param string $id
@@ -105,6 +109,7 @@ class ManagerController extends ControllerBase
     }
 
     /**
+     * @privateResource(allowYlx="1")
      * Creates a new article
      */
     public function createAction()
@@ -150,6 +155,7 @@ class ManagerController extends ControllerBase
     }
 
     /**
+     * @privateResource(allowYlx="1")
      * Saves a article edited
      *
      */
@@ -208,6 +214,7 @@ class ManagerController extends ControllerBase
     }
 
     /**
+     * @privateResource(allowYlx="1")
      * Deletes a article
      *
      * @param string $id

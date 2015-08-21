@@ -55,7 +55,12 @@
                 </li>
                 {% if user %}
                     <li>
-                        <a href="/session">{{ user['name']}}</a>
+                        {% if user['type']=='1' %}
+                        <a href="/manager">
+                        {% else %}
+                        <a href="/">
+                        {% endif %}
+                            {{ user['name']}}</a>
                     </li>
                     <li>
                         <a class="_btn_end_session">退出</a>

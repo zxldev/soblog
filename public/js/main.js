@@ -9,7 +9,8 @@ require.config({
         jquery:'/js/lib/jquery.min',
         bootstrap:'/js/lib/bootstrap.min',
         showdown:'/js/lib/showdown',
-        hljs:'/js/lib/highlight.min'
+        hljs:'/js/lib/highlight.min',
+        iimarkdown:'/js/lib/iimarkdown'
     }
 });
 

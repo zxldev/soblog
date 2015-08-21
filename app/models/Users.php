@@ -59,6 +59,12 @@ class Users extends \Phalcon\Mvc\Model
      */
     public $desc;
 
+
+    /**
+     *
+     * @var string
+     */
+    public $type;
     /**
      * Validations and business logic
      *

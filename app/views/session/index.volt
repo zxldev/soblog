@@ -9,6 +9,7 @@
         </div>
         {{ form('session/start', 'role': 'form') }}
             <fieldset>
+                {{ hidden_field('callback', 'class': "form-control") }}
                 <div class="form-group">
                     <label for="email">用户名/Email</label>
                     <div class="controls">
