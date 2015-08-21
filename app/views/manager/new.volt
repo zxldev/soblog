@@ -1,25 +1,20 @@
 
-<?php echo $this->getContent() ?>
+<?php echo $this->tag->form("manager/create") ?>
 
-<div align="right">
-    <?php echo $this->tag->linkTo(array("article/new", "Create article")) ?>
-</div>
+<table width="100%">
+    <tr>
+        <td align="left"><?php echo $this->tag->linkTo(array("manager", "Go Back")) ?></td>
+        <td align="right"><?php echo $this->tag->submitButton("Save") ?></td>
+    </tr>
+</table>
 
-<?php echo $this->tag->form(array("article/search", "autocomplete" => "off")) ?>
+<?php echo $this->getContent(); ?>
 
 <div align="center">
-    <h1>Search article</h1>
+    <h1>Create article</h1>
 </div>
 
 <table>
-    <tr>
-        <td align="right">
-            <label for="id">Id</label>
-        </td>
-        <td align="left">
-            <?php echo $this->tag->textField(array("id", "type" => "number")) ?>
-        </td>
-    </tr>
     <tr>
         <td align="right">
             <label for="cate_id">Cate</label>
@@ -87,7 +82,7 @@
 
     <tr>
         <td></td>
-        <td><?php echo $this->tag->submitButton("Search") ?></td>
+        <td><?php echo $this->tag->submitButton("Save") ?></td>
     </tr>
 </table>
 

@@ -1,11 +1,11 @@
 
 <?php echo $this->getContent(); ?>
 
-<?php echo $this->tag->form("article/save") ?>
+<?php echo $this->tag->form("manager/save") ?>
 
 <table width="100%">
     <tr>
-        <td align="left"><?php echo $this->tag->linkTo(array("article", "Back")) ?></td>
+        <td align="left"><?php echo $this->tag->linkTo(array("manager", "Back")) ?></td>
         <td align="right"><?php echo $this->tag->submitButton("Save") ?></td>
     </tr>
 </table>
