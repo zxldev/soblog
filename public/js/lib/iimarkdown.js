@@ -7,6 +7,7 @@ define('iimarkdown',['jquery','showdown'],function($,showdown){
             $(selector).bind('keyup',function(e){
                 if(e.keyCode==27){
                     $(this).blur();
+                    return;
                 }
                 var converter = new showdown.Converter();
                 var has = $(selector).parent().find('.markdown-body-view');
