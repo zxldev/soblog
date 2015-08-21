@@ -90,9 +90,17 @@
 
 
 <script>
-    setTimeout(require(['iimarkdown'],function(iimark){
-        iimark.init('._showowninput');
-    }),100);
+
+    require(['domready'], function (domReady) {
+        domReady(function () {
+            require(['iimarkdown'],function(iimark){
+                iimark.init('._showowninput');
+            });
+        });
+    });
+
+
+
 //    require(['jquery','showdown'],function($,showdown){
 //        var selector = '._showowninput';
 //        $(selector).bind('keyup',function(){

@@ -10,7 +10,8 @@ require.config({
         bootstrap:'/js/lib/bootstrap.min',
         showdown:'/js/lib/showdown',
         hljs:'/js/lib/highlight.min',
-        iimarkdown:'/js/lib/iimarkdown'
+        iimarkdown:'/js/lib/iimarkdown',
+        domready:'/js/lib/domReady'
     }
 });
 

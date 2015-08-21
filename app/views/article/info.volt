@@ -4,10 +4,13 @@
 </div>
 
 <script>
-        setTimeout(function(){
+
+    require(['domready'], function (domReady) {
+        domReady(function () {
             require(['jquery', 'blog'], function ($, blog) {
                 blog.blogInfo({{blogid}});
             });
-        },100);
+        });
+    });
 
 </script>

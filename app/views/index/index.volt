@@ -5,12 +5,13 @@
 </div>
 
 <script>
-    setTimeout(function(){
-        require(['jquery', 'blog'], function ($, blog) {
-            blog.blogList();
+
+
+    require(['domready'], function (domReady) {
+        domReady(function () {
+            require(['jquery', 'blog'], function ($, blog) {
+                blog.blogList();
+            });
         });
-    },100);
-
-
-
+    });
 </script>
