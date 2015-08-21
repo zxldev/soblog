@@ -14,5 +14,5 @@
         </div>
     </div>
 </header>
-
+{{ flash.output() }}
 {{ content() }}

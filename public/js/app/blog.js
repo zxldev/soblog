@@ -59,6 +59,20 @@
 
                     }
                 });
+            },
+            logout:function(){
+                $.ajax({
+                    url: '/session/end',
+                    type: 'post',
+                    dataType: 'json',
+                    cache: false,
+                    success: function (data) {
+                        window.location.href=window.location.origin;
+                    },
+                    error:function(data){
+                        window.location.href=window.location.origin;
+                    }
+                });
             }
         };
         return exports;

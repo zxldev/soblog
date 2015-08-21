@@ -53,12 +53,20 @@
                 <li>
                     <a href="/">主页</a>
                 </li>
-                <li>
-                    <a href="#">关于</a>
-                </li>
-                <li>
-                    <a href="#">联系我</a>
-                </li>
+                {% if user %}
+                    <li>
+                        <a href="/session">{{ user['name']}}</a>
+                    </li>
+                    <li>
+                        <a class="_btn_end_session">退出</a>
+                    </li>
+                    {% else %}
+                        <li>
+                            <a href="/session">登录</a>
+                        </li>
+                {% endif %}
+
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->

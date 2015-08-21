@@ -13,6 +13,13 @@ require.config({
     }
 });
 
-require(['bootstrap','cleanblog','showdown'],function(bootstrap,cleanblog,showdown){
+require(['jquery','blog'],function($,blog){
+    $(document)
+        .on('click', '._btn_end_session', function () {
+            blog.logout();
+        })
+
 });
+
+
 

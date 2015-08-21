@@ -9,6 +9,7 @@ class SessionController extends ControllerBase
 {
     public function initialize()
     {
+        $this->view->setTemplateAfter('header');
         $this->tag->setTitle('Sign Up/Sign In');
         parent::initialize();
     }
@@ -16,8 +17,6 @@ class SessionController extends ControllerBase
     public function indexAction()
     {
         if (!$this->request->isPost()) {
-            $this->tag->setDefault('email', 'demo@phalconphp.com');
-            $this->tag->setDefault('password', 'phalcon');
         }
     }
 
@@ -28,10 +27,9 @@ class SessionController extends ControllerBase
      */
     private function _registerSession(Users $user)
     {
-        $this->session->set('auth', array(
-            'id' => $user->id,
-            'name' => $user->name
-        ));
+        $this->setSession('user',array('id'=>$user->id,
+        'name'=>$user->name,
+        'email'=>$user->email));
     }
 
     /**
@@ -46,16 +44,16 @@ class SessionController extends ControllerBase
             $password = $this->request->getPost('password');
 
             $user = Users::findFirst(array(
-                "(email = :email: OR username = :email:) AND password = :password: AND active = 'Y'",
+                "(email = :email: OR name = :email:) AND password = :password:",
                 'bind' => array('email' => $email, 'password' => sha1($password))
             ));
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);
-                return $this->forward('invoices/index');
+                return $this->forward('/');
             }
 
-            $this->flash->error('Wrong email/password');
+            $this->flash->error('用户名或密码错误！');
         }
 
         return $this->forward('session/index');
@@ -68,8 +66,8 @@ class SessionController extends ControllerBase
      */
     public function endAction()
     {
-        $this->session->remove('auth');
-        $this->flash->success('Goodbye!');
-        return $this->forward('index/index');
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
+        $this->destorySession();
+        $this->response->setStatusCode(200);
     }
 }

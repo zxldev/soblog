@@ -8,6 +8,7 @@ class ControllerBase extends Base
     protected function initialize()
     {
         $this->tag->prependTitle('INVO | ');
+        $this->view->setVar('user',$this->getSession('user'));
     }
 
     protected function forward($uri)
