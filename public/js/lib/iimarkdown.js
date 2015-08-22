@@ -23,7 +23,7 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
         init: function (selector) {
             iimarkdown.prototype.selector = selector;
             $(selector).addClass('markdown-textarea-view');
-            $(selector).before('<div class="iiMarkdownContainer" style="display: none"><div class="markdown-body-view"></div><nav class="navbar navbar-inverse navbar-fixed-bottom markdown-toolbar-view">\
+            $(selector).before('<div class="iiMarkdownContainer" style="display: none"><div class="markdown-body"><div class="markdown-body-view "></div></div><nav class="navbar navbar-inverse navbar-fixed-bottom markdown-toolbar-view">\
             <div class="container-fluid">\
             <div class="navbar-header">\
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">\
@@ -65,10 +65,10 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
                     // means user operation,do
                     // then,
                     // chain reaction,do nothing
-                    if (iimarkdown.prototype.doubleScorllHelper.increament > 2 || iimarkdown.prototype.doubleScorllHelper.increament < -2) {
+                    if (iimarkdown.prototype.doubleScorllHelper.increament > 3 || iimarkdown.prototype.doubleScorllHelper.increament < -3) {
                         $('.markdown-pen-view .markdown-textarea-view').scrollTop(
-                            $('.markdown-pen-view .markdown-textarea-view')[0].scrollHeight /
-                            e.target.scrollHeight *
+                            ($('.markdown-pen-view .markdown-textarea-view')[0].scrollHeight-$('.markdown-pen-view .markdown-textarea-view')[0].clientHeight) /
+                            (e.target.scrollHeight - e.target.clientHeight) *
                             e.target.scrollTop);
                     }
                 }
@@ -98,8 +98,8 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
                     $('.markdown-body-view').scrollTop($('.markdown-body-view')[0].scrollHeight);
                 } else {
                     $('.markdown-body-view').scrollTop(
-                        $('.markdown-body-view')[0].scrollHeight /
-                        e.target.scrollHeight *
+                        ($('.markdown-body-view')[0].scrollHeight-$('.markdown-body-view')[0].clientHeight) /
+                        (e.target.scrollHeight-e.target.clientHeight) *
                         e.target.scrollTop);
                 }
             }).bind('keydown',function(e){

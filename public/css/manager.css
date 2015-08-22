@@ -127,7 +127,7 @@ a:hover {
 }
 
 .markdown-pen-view {
-    overflow:hidden;
+    overflow:auto;
     width: 50%;
     position: fixed;
     right: 0;
