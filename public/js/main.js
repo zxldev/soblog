@@ -11,7 +11,7 @@ require.config({
         showdown:'/js/lib/showdown',
         hljs:'/js/lib/highlight.min',
         iimarkdown:'/js/lib/iimarkdown',
-        domready:'/js/lib/domReady'
+        domready:'/js/domReady'
     }
 });
 
