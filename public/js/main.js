@@ -15,7 +15,7 @@ require.config({
     }
 });
 
-require(['jquery','blog'],function($,blog){
+require(['jquery','blog','bootstrap','cleanblog'],function($,blog,bootstrap,cleanblog){
     $(document)
         .on('click', '._btn_end_session', function () {
             blog.logout();

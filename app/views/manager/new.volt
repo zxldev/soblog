@@ -100,26 +100,4 @@
     });
 
 
-
-//    require(['jquery','showdown'],function($,showdown){
-//        var selector = '._showowninput';
-//        $(selector).bind('keyup',function(){
-//            var converter = new showdown.Converter();
-//            var has = $(selector).parent().find('.markdown-body-view');
-//            if(has.length){
-//                has.html(converter.makeHtml($(selector).val()));
-//            }else{
-//                $(selector).parent().append('<div class="markdown-body-view">'+converter.makeHtml($(selector).val())+'</div>');
-//            }
-//            $('pre code').each(function(i, block) {
-//                hljs.highlightBlock(block);
-//            });
-//        }).bind('focus',function(){
-//            $(this).addClass('markdown-pen-view');
-//        }).bind('blur',function(){
-//            $(this).removeClass('markdown-pen-view');
-//        });
-//
-//    })
-
 </script>

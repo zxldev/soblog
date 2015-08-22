@@ -8,6 +8,12 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
             doubleScorllHelper: {//temp var to break chain reaction;
                 lastScorll: 1, //last ScorllTop position;
                 increament: 0 //compare the last, store the increament
+            },
+            selector:'',
+            save:function(){
+                $(iimarkdown.prototype.selector).blur();
+                $(iimarkdown.prototype.selector).parent().removeClass('markdown-pen-view');
+                $('.iiMarkdownContainer').hide();
             }
         },
         /**
@@ -15,8 +21,40 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
          * @param selector input element,jquery selector
          */
         init: function (selector) {
+            iimarkdown.prototype.selector = selector;
             $(selector).addClass('markdown-textarea-view');
-            $(selector).before('<div class="markdown-body-view" style="display: none"></div><nav class="navbar navbar-inverse navbar-fixed-bottom markdown-toolbar-view"></nav>');
+            $(selector).before('<div class="iiMarkdownContainer" style="display: none"><div class="markdown-body-view"></div><nav class="navbar navbar-inverse navbar-fixed-bottom markdown-toolbar-view">\
+            <div class="container-fluid">\
+            <div class="navbar-header">\
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">\
+                    <span class="sr-only">Toggle navigation</span>\
+                    <span class="icon-bar"></span>\
+                    <span class="icon-bar"></span>\
+                    <span class="icon-bar"></span>\
+                </button>\
+                <a class="navbar-brand">IIMarkdownEditor</a>\
+            </div>\
+                                                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">\
+                                                                             <ul class="nav navbar-nav navbar-right">\
+                                                                                 <li><a href="#">Link</a></li>\
+                                                                                 <li class="dropdown">\
+                                                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>\
+                                                                                     <ul class="dropdown-menu">\
+                                                                                         <li><a href="#">Action</a></li>\
+                                                                                         <li><a href="#">Another action</a></li>\
+                                                                                         <li><a href="#">Something else here</a></li>\
+                                                                                         <li role="separator" class="divider"></li>\
+                                                                                         <li><a href="#">Separated link</a></li>\
+                                                                                     </ul>\
+                                                                                 </li>\
+                                                                                 <li><a class="iimarkdown-btn-finish">完成</a></li>\
+                                                                             </ul>\
+                                                                         </div>\
+                                                                     </div>\
+            </nav></div>');
+            $('.iimarkdown-btn-finish').bind('click',function(){
+                iimarkdown.prototype.save();
+            });
             $('.markdown-body-view').bind('scroll', function (e) {
                 iimarkdown.prototype.doubleScorllHelper.increament = e.target.scrollTop - iimarkdown.prototype.doubleScorllHelper.lastScorll;
                 iimarkdown.prototype.doubleScorllHelper.lastScorll = e.target.scrollTop;
@@ -38,9 +76,7 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
             $(selector).bind('keyup', function (e) {
                 //press ESC to exit editor
                 if (e.keyCode == 27) {
-                    $(this).blur();
-                    $(this).parent().removeClass('markdown-pen-view');
-                    $('.markdown-body-view').hide();
+                    iimarkdown.prototype.save();
                     return false;
                 }
                 var converter = new showdown.Converter();
@@ -52,7 +88,7 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
             }).bind('focus', function () {
                 //add editor css ,show viewer
                 $(this).parent().addClass('markdown-pen-view');
-                $('.markdown-body-view').show();
+                $('.iiMarkdownContainer').show();
             }).bind('blur', function () {
                 //remove editor css ,hide viewer
                 //$(this).removeClass('markdown-pen-view');
