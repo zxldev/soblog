@@ -41,10 +41,9 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
                     $(this).blur();
                     $(this).parent().removeClass('markdown-pen-view');
                     $('.markdown-body-view').hide();
-                    return;
+                    return false;
                 }
                 var converter = new showdown.Converter();
-debugger;
                 $(selector).parent().find('.markdown-body-view').html(converter.makeHtml($(selector).val()));
                 //highlight the code
                 $('pre code').each(function (i, block) {
@@ -67,6 +66,9 @@ debugger;
                         e.target.scrollHeight *
                         e.target.scrollTop);
                 }
+            }).bind('keydown',function(e){
+                //disable IE  ESC key default delete text action
+                if (e.keyCode == 27) { e.   preventDefault();}
             });
         }
     };
