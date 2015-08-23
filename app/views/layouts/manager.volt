@@ -1,6 +1,6 @@
 
 
-{{ flash.output() }}
+
 <!-- Main Content -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -61,6 +61,7 @@
 
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {{ flash.output() }}
             {{ content() }}
         </div>
     </div>

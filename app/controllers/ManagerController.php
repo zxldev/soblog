@@ -49,7 +49,7 @@ class ManagerController extends ControllerBase
             $this->flash->notice("The search did not find any article");
 
             return $this->dispatcher->forward(array(
-                "controller" => "article",
+                "controller" => "manager",
                 "action" => "index"
             ));
         }
@@ -88,7 +88,7 @@ class ManagerController extends ControllerBase
                 $this->flash->error("article was not found");
 
                 return $this->dispatcher->forward(array(
-                    "controller" => "article",
+                    "controller" => "manager",
                     "action" => "index"
                 ));
             }
@@ -97,12 +97,9 @@ class ManagerController extends ControllerBase
 
             $this->tag->setDefault("id", $article->id);
             $this->tag->setDefault("cate_id", $article->cate_id);
-            $this->tag->setDefault("user_id", $article->user_id);
             $this->tag->setDefault("title", $article->title);
             $this->tag->setDefault("content", $article->content);
             $this->tag->setDefault("tags", $article->tags);
-            $this->tag->setDefault("created_at", $article->created_at);
-            $this->tag->setDefault("updated_at", $article->updated_at);
             $this->tag->setDefault("pic", $article->pic);
             
         }
@@ -117,7 +114,7 @@ class ManagerController extends ControllerBase
 
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
-                "controller" => "article",
+                "controller" => "manager",
                 "action" => "index"
             ));
         }
@@ -125,12 +122,12 @@ class ManagerController extends ControllerBase
         $article = new Article();
 
         $article->cate_id = $this->request->getPost("cate_id");
-        $article->user_id = $this->request->getPost("user_id");
+        $article->user_id = $this->getSession('user')['id'];
         $article->title = $this->request->getPost("title");
         $article->content = $this->request->getPost("content");
         $article->tags = $this->request->getPost("tags");
-        $article->created_at = $this->request->getPost("created_at");
-        $article->updated_at = $this->request->getPost("updated_at");
+        $article->created_at = date('Y-m-d H:i:s',time());
+        $article->updated_at = date('Y-m-d H:i:s',time());
         $article->pic = $this->request->getPost("pic");
         
 
@@ -140,7 +137,7 @@ class ManagerController extends ControllerBase
             }
 
             return $this->dispatcher->forward(array(
-                "controller" => "article",
+                "controller" => "manager",
                 "action" => "new"
             ));
         }
@@ -148,7 +145,7 @@ class ManagerController extends ControllerBase
         $this->flash->success("article was created successfully");
 
         return $this->dispatcher->forward(array(
-            "controller" => "article",
+            "controller" => "manager",
             "action" => "index"
         ));
 
@@ -164,7 +161,7 @@ class ManagerController extends ControllerBase
 
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
-                "controller" => "article",
+                "controller" => "manager",
                 "action" => "index"
             ));
         }
@@ -176,18 +173,17 @@ class ManagerController extends ControllerBase
             $this->flash->error("article does not exist " . $id);
 
             return $this->dispatcher->forward(array(
-                "controller" => "article",
+                "controller" => "manager",
                 "action" => "index"
             ));
         }
 
         $article->cate_id = $this->request->getPost("cate_id");
-        $article->user_id = $this->request->getPost("user_id");
+        $article->user_id = $this->getSession('user')['id'];
         $article->title = $this->request->getPost("title");
         $article->content = $this->request->getPost("content");
         $article->tags = $this->request->getPost("tags");
-        $article->created_at = $this->request->getPost("created_at");
-        $article->updated_at = $this->request->getPost("updated_at");
+        $article->updated_at = date('Y-m-d H:i:s',time());
         $article->pic = $this->request->getPost("pic");
         
 
@@ -198,7 +194,7 @@ class ManagerController extends ControllerBase
             }
 
             return $this->dispatcher->forward(array(
-                "controller" => "article",
+                "controller" => "manager",
                 "action" => "edit",
                 "params" => array($article->id)
             ));
@@ -207,7 +203,7 @@ class ManagerController extends ControllerBase
         $this->flash->success("article was updated successfully");
 
         return $this->dispatcher->forward(array(
-            "controller" => "article",
+            "controller" => "manager",
             "action" => "index"
         ));
 
@@ -227,7 +223,7 @@ class ManagerController extends ControllerBase
             $this->flash->error("article was not found");
 
             return $this->dispatcher->forward(array(
-                "controller" => "article",
+                "controller" => "manager",
                 "action" => "index"
             ));
         }
@@ -239,7 +235,7 @@ class ManagerController extends ControllerBase
             }
 
             return $this->dispatcher->forward(array(
-                "controller" => "article",
+                "controller" => "manager",
                 "action" => "search"
             ));
         }
@@ -247,7 +243,7 @@ class ManagerController extends ControllerBase
         $this->flash->success("article was deleted successfully");
 
         return $this->dispatcher->forward(array(
-            "controller" => "article",
+            "controller" => "manager",
             "action" => "index"
         ));
     }
