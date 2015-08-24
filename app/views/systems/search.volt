@@ -3,9 +3,6 @@
 
 <table width="100%">
     <tr>
-        <td align="left">
-            {{ link_to("systems/index", "Go Back","class":"btn btn-primary") }}
-        </td>
         <td align="right">
             {{ link_to("systems/new", "Create ","class":"btn btn-primary") }}
         </td>
@@ -30,8 +27,10 @@
             <td>{{ system.cate }}</td>
             <td>{{ system.system_name }}</td>
             <td>{{ system.system_value }}</td>
-            <td>{{ link_to("systems/edit/"~system.id, "Edit") }}</td>
-            <td>{{ link_to("systems/delete/"~system.id, "Delete") }}</td>
+            <td>{{ link_to("systems/edit/"~system.id, "编辑","class":"label label-info") }}{% if( system.cate != 1) %}
+                    {{ link_to("systems/delete/"~system.id, "删除","class":"label label-danger") }}
+                {% endif %}</td>
+
         </tr>
     {% endfor %}
     {% endif %}
@@ -41,10 +40,10 @@
             <td colspan="2" align="right">
                 <table align="center">
                     <tr>
-                        <td>{{ link_to("systems/search", "First") }}</td>
-                        <td>{{ link_to("systems/search?page="~page.before, "Previous") }}</td>
-                        <td>{{ link_to("systems/search?page="~page.next, "Next") }}</td>
-                        <td>{{ link_to("systems/search?page="~page.last, "Last") }}</td>
+                        <td>{{ link_to("systems/search", "First","class":"btn btn-default btn-sm") }}</td>
+                        <td>{{ link_to("systems/search?page="~page.before, "Previous","class":"btn btn-default btn-sm") }}</td>
+                        <td>{{ link_to("systems/search?page="~page.next, "Next","class":"btn btn-default btn-sm") }}</td>
+                        <td>{{ link_to("systems/search?page="~page.last, "Last","class":"btn btn-default btn-sm") }}</td>
                         <td>{{ page.current~"/"~page.total_pages }}</td>
                     </tr>
                 </table>

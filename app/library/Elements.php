@@ -46,7 +46,7 @@ class Elements extends Component
         ),
         '系统设置' => array(
             'controller' => 'systems',
-            'action' => 'index',
+            'action' => 'search',
             'iconClass'=>'glyphicon glyphicon-pencil',
             'any' => true
         ),

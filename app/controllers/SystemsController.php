@@ -9,6 +9,7 @@ class SystemsController extends ControllerBase
 
     public function initialize()
 {
+    $this->persistent->parameters = null;
     $this->tag->setTitle('');
     parent::initialize();
     $this->view->disableLevel(\Phalcon\Mvc\View::LEVEL_MAIN_LAYOUT);
@@ -31,12 +32,12 @@ class SystemsController extends ControllerBase
     {
 
         $numberPage = 1;
-        if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "Systems", $_POST);
-            $this->persistent->parameters = $query->getParams();
-        } else {
+//        if ($this->request->isPost()) {
+//            $query = Criteria::fromInput($this->di, "Systems", $_POST);
+//            $this->persistent->parameters = $query->getParams();
+//        } else {
             $numberPage = $this->request->getQuery("page", "int");
-        }
+//        }
 
         $parameters = $this->persistent->parameters;
         if (!is_array($parameters)) {
@@ -50,7 +51,7 @@ class SystemsController extends ControllerBase
 
             return $this->dispatcher->forward(array(
                 "controller" => "systems",
-                "action" => "index"
+                "action" => "search"
             ));
         }
 
@@ -87,7 +88,7 @@ class SystemsController extends ControllerBase
 
                 return $this->dispatcher->forward(array(
                     "controller" => "systems",
-                    "action" => "index"
+                    "action" => "search"
                 ));
             }
 
@@ -110,7 +111,7 @@ class SystemsController extends ControllerBase
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
                 "controller" => "systems",
-                "action" => "index"
+                "action" => "search"
             ));
         }
 
@@ -136,7 +137,7 @@ class SystemsController extends ControllerBase
 
         return $this->dispatcher->forward(array(
             "controller" => "systems",
-            "action" => "index"
+            "action" => "search"
         ));
 
     }
@@ -151,7 +152,7 @@ class SystemsController extends ControllerBase
         if (!$this->request->isPost()) {
             return $this->dispatcher->forward(array(
                 "controller" => "systems",
-                "action" => "index"
+                "action" => "search"
             ));
         }
 
@@ -163,7 +164,7 @@ class SystemsController extends ControllerBase
 
             return $this->dispatcher->forward(array(
                 "controller" => "systems",
-                "action" => "index"
+                "action" => "search"
             ));
         }
 
@@ -189,7 +190,7 @@ class SystemsController extends ControllerBase
 
         return $this->dispatcher->forward(array(
             "controller" => "systems",
-            "action" => "index"
+            "action" => "search"
         ));
 
     }
@@ -208,7 +209,7 @@ class SystemsController extends ControllerBase
 
             return $this->dispatcher->forward(array(
                 "controller" => "systems",
-                "action" => "index"
+                "action" => "search"
             ));
         }
 
@@ -228,7 +229,7 @@ class SystemsController extends ControllerBase
 
         return $this->dispatcher->forward(array(
             "controller" => "systems",
-            "action" => "index"
+            "action" => "search"
         ));
     }
 
