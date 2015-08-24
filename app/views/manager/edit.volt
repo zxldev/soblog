@@ -1,12 +1,10 @@
-
-<?php echo $this->getContent(); ?>
-
-<?php echo $this->tag->form("manager/save") ?>
+{{ content() }}
+{{ form("manager/save", "method":"post") }}
 
 <table width="100%">
     <tr>
-        <td align="left"><?php echo $this->tag->linkTo(array("manager", "Back")) ?></td>
-        <td align="right"><?php echo $this->tag->submitButton("Save") ?></td>
+        <td align="left">{{ link_to("manager", "返回","class":"btn btn-primary") }}</td>
+        <td align="right">{{ submit_button("保存","class":"btn btn-primary") }}</td>
     </tr>
 </table>
 
@@ -20,7 +18,7 @@
             <label for="cate_id">Cate</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("cate_id", "type" => "number")) ?>
+            {{ text_field("cate_id", "type" : "numeric","class":"form-control") }}
         </td>
     </tr>
     <tr>
@@ -28,7 +26,7 @@
             <label for="title">Title</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("title", "size" => 30)) ?>
+            {{ text_field("title", "size" : 30,"class":"form-control") }}
         </td>
     </tr>
     <tr>
@@ -36,7 +34,7 @@
             <label for="content">Content</label>
         </td>
         <td align="left">
-                <?php echo $this->tag->textArea(array("content", "cols" => 30, "rows" => 4)) ?>
+                {{ text_area("content", "cols": "30", "rows": "4","class":"form-control") }}
         </td>
     </tr>
     <tr>
@@ -44,7 +42,7 @@
             <label for="tags">Tags</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("tags", "size" => 30)) ?>
+            {{ text_field("tags", "size" : 30,"class":"form-control") }}
         </td>
     </tr>
 
@@ -53,13 +51,13 @@
             <label for="pic">Pic</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("pic", "size" => 30)) ?>
+            {{ text_field("pic", "size" : 30,"class":"form-control") }}
         </td>
     </tr>
 
     <tr>
-        <td><?php echo $this->tag->hiddenField("id") ?></td>
-        <td><?php echo $this->tag->submitButton("Save") ?></td>
+        <td>{{ hidden_field("id") }}</td>
+        <td>{{ submit_button("保存","class":"btn btn-primary") }}</td>
     </tr>
 </table>
 

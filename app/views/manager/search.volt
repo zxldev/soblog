@@ -1,19 +1,18 @@
-<?php use Phalcon\Tag; ?>
 
-<?php echo $this->getContent(); ?>
+{{ content() }}
 
 <table width="100%">
     <tr>
         <td align="left">
-            <?php echo $this->tag->linkTo(array("manager/index", "Go Back")); ?>
+            {{ link_to("manager/index", "返回","class":"btn btn-primary") }}
         </td>
         <td align="right">
-            <?php echo $this->tag->linkTo(array("manager/new", "Create ")); ?>
+            {{ link_to("manager/new", "新建 ","class":"btn btn-primary") }}
         </td>
     </tr>
 </table>
 
-<table class="browse" align="center">
+<table class="browse table table-striped table-bordered table-hover table-responsive" align="center">
     <thead>
         <tr>
             <th>Id</th>
@@ -25,35 +24,38 @@
             <th>Created</th>
             <th>Updated</th>
             <th>Pic</th>
-         </tr>
+
+            <th colspan="2">操作</th></tr>
     </thead>
     <tbody>
-    <?php foreach ($page->items as $article) { ?>
+    {% if page.items is defined %}
+    {% for article in page.items %}
         <tr>
-            <td><?php echo $article->id ?></td>
-            <td><?php echo $article->cate_id ?></td>
-            <td><?php echo $article->user_id ?></td>
-            <td><?php echo $article->title ?></td>
-            <td><?php echo $article->content ?></td>
-            <td><?php echo $article->tags ?></td>
-            <td><?php echo $article->created_at ?></td>
-            <td><?php echo $article->updated_at ?></td>
-            <td><?php echo $article->pic ?></td>
-            <td><?php echo $this->tag->linkTo(array("manager/edit/" . $article->id, "Edit")); ?></td>
-            <td><?php echo $this->tag->linkTo(array("manager/delete/" . $article->id, "Delete")); ?></td>
+            <td>{{ article.id }}</td>
+            <td>{{ article.cate_id }}</td>
+            <td>{{ article.user_id }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.content }}</td>
+            <td>{{ article.tags }}</td>
+            <td>{{ article.created_at }}</td>
+            <td>{{ article.updated_at }}</td>
+            <td>{{ article.pic }}</td>
+            <td>{{ link_to("manager/edit/"~article.id, "编辑","class":"label label-info") }}</td>
+            <td>{{ link_to("manager/delete/"~article.id, "删除","class":"label label-danger") }}</td>
         </tr>
-    <?php } ?>
+    {% endfor %}
+    {% endif %}
     </tbody>
     <tbody>
         <tr>
-            <td colspan="2" align="right">
+            <td colspan="6" align="right">
                 <table align="center">
                     <tr>
-                        <td><?php echo $this->tag->linkTo("manager/search", "First") ?></td>
-                        <td><?php echo $this->tag->linkTo("manager/search?page=" . $page->before, "Previous") ?></td>
-                        <td><?php echo $this->tag->linkTo("manager/search?page=" . $page->next, "Next") ?></td>
-                        <td><?php echo $this->tag->linkTo("manager/search?page=" . $page->last, "Last") ?></td>
-                        <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                        <td>{{ link_to("manager/search", "First","class":"btn btn-default btn-sm") }}</td>
+                        <td>{{ link_to("manager/search?page="~page.before, "Previous","class":"btn btn-default btn-sm") }}</td>
+                        <td>{{ link_to("manager/search?page="~page.next, "Next","class":"btn btn-default btn-sm") }}</td>
+                        <td>{{ link_to("manager/search?page="~page.last, "Last","class":"btn btn-default btn-sm") }}</td>
+                        <td>{{ page.current~"/"~page.total_pages }}</td>
                     </tr>
                 </table>
             </td>
