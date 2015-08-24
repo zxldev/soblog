@@ -38,31 +38,18 @@ class Elements extends Component
     );
 
     private $_tabs = array(
-        'Invoices' => array(
-            'controller' => 'invoices',
+        '我的博客' => array(
+            'controller' => 'manager',
             'action' => 'index',
-            'any' => false
-        ),
-        'Companies' => array(
-            'controller' => 'companies',
-            'action' => 'index',
+            'iconClass'=>'glyphicon glyphicon-book',
             'any' => true
         ),
-        'Products' => array(
-            'controller' => 'products',
+        '系统设置' => array(
+            'controller' => 'systems',
             'action' => 'index',
+            'iconClass'=>'glyphicon glyphicon-pencil',
             'any' => true
         ),
-        'Product Types' => array(
-            'controller' => 'producttypes',
-            'action' => 'index',
-            'any' => true
-        ),
-        'Your Profile' => array(
-            'controller' => 'invoices',
-            'action' => 'profile',
-            'any' => false
-        )
     );
 
     /**
@@ -109,14 +96,14 @@ class Elements extends Component
     {
         $controllerName = $this->view->getControllerName();
         $actionName = $this->view->getActionName();
-        echo '<ul class="nav nav-tabs">';
+        echo '<ul class="nav nav-sidebar">';
         foreach ($this->_tabs as $caption => $option) {
             if ($option['controller'] == $controllerName && ($option['action'] == $actionName || $option['any'])) {
                 echo '<li class="active">';
             } else {
                 echo '<li>';
             }
-            echo $this->tag->linkTo($option['controller'] . '/' . $option['action'], $caption), '</li>';
+            echo  '<a href="/'.$option['controller'] . '/' . $option['action'].'"><span class="'.$option['iconClass'].'" aria-hidden="true"></span>'.$caption. '</a></li>';
         }
         echo '</ul>';
     }
