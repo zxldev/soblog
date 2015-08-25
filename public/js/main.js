@@ -6,10 +6,9 @@ require.config({
     paths: {
         cleanblog: '/js/app/cleanblog',
         blog: '/js/app/blog',
-        jquery:'/js/lib/jquery.min',
-        bootstrap:'/js/lib/bootstrap.min',
+        jquery:['http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min','/js/lib/jquery.min'],
         showdown:'/js/lib/showdown',
-        hljs:'/js/lib/highlight.min',
+        hljs:['http://apps.bdimg.com/libs/highlight.js/8.6/highlight.min','/js/lib/highlight.min'],
         iimarkdown:'/js/lib/iimarkdown',
         domready:'/js/domReady'
     }
