@@ -107,4 +107,16 @@ class Elements extends Component
         }
         echo '</ul>';
     }
+
+    public function getSysVar($key){
+        //TODO 添加redis支持
+        $conf = Systems::findFirst(array(
+            "system_name = :system_name:",
+            'bind'=>array(
+                'system_name'=>$key
+            )
+        ));
+        if(isset($conf->system_value))
+        echo $conf->system_value;
+    }
 }

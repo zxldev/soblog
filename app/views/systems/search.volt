@@ -37,7 +37,7 @@
     </tbody>
     <tbody>
         <tr>
-            <td colspan="2" align="right">
+            <td colspan="6" align="right">
                 <table align="center">
                     <tr>
                         <td>{{ link_to("systems/search", "First","class":"btn btn-default btn-sm") }}</td>

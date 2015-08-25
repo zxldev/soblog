@@ -71,22 +71,8 @@ $di->set('view', function() use ($config) {
     return $view;
 });
 
-/**
- * Setting up volt
- */
-$di->set('volt', function($view, $di) {
 
-    $volt = new VoltEngine($view, $di);
-
-    $volt->setOptions(array(
-        "compiledPath" => APP_PATH . "cache/volt/"
-    ));
-
-    $compiler = $volt->getCompiler();
-    $compiler->addFunction('is_a', 'is_a');
-
-    return $volt;
-}, true);
+require APP_PATH . 'app/config/Volt.php';
 
 /**
  * 注解路由

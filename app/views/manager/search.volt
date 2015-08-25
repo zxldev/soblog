@@ -35,7 +35,7 @@
             <td>{{ article.cate_id }}</td>
             <td>{{ article.user_id }}</td>
             <td>{{ article.title }}</td>
-            <td>{{ article.content }}</td>
+            <td>{{ substr(article.content,0,400) }}</td>
             <td>{{ article.tags }}</td>
             <td>{{ article.created_at }}</td>
             <td>{{ article.updated_at }}</td>
@@ -48,7 +48,7 @@
     </tbody>
     <tbody>
         <tr>
-            <td colspan="6" align="right">
+            <td colspan="12" align="right">
                 <table align="center">
                     <tr>
                         <td>{{ link_to("manager/search", "First","class":"btn btn-default btn-sm") }}</td>

@@ -86,7 +86,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     <li>
-                        <a href="#">
+                        <a href="{{ elements.getSysVar('githubURL') }}" target="_blank">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -94,15 +94,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-weixin fa-stack-1x fa-inverse"></i>
-                                </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
+                        <a href="{{ elements.getSysVar('weiboURL') }}" target="_blank">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
@@ -110,7 +102,7 @@
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; souii.com 2015</p>
+                <p class="copyright text-muted">Copyright &copy; {{ elements.getSysVar('copyright') }}</p>
             </div>
         </div>
     </div>
