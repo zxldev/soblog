@@ -126,7 +126,7 @@ class SystemsController extends ControllerBase
             foreach ($system->getMessages() as $message) {
                 $this->flash->error($message);
             }
-
+            $this->redisUtils->deleteTableCache('systems');
             return $this->dispatcher->forward(array(
                 "controller" => "systems",
                 "action" => "new"
@@ -185,7 +185,7 @@ class SystemsController extends ControllerBase
                 "params" => array($system->id)
             ));
         }
-
+        $this->redisUtils->deleteTableCache('systems');
         $this->flash->success("system was updated successfully");
 
         return $this->dispatcher->forward(array(
@@ -224,7 +224,7 @@ class SystemsController extends ControllerBase
                 "action" => "search"
             ));
         }
-
+        $this->redisUtils->deleteTableCache('systems');
         $this->flash->success("system was deleted successfully");
 
         return $this->dispatcher->forward(array(

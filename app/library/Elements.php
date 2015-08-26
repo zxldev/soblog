@@ -109,14 +109,20 @@ class Elements extends Component
     }
 
     public function getSysVar($key){
-        //TODO 添加redis支持
+        echo $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['SYSTEMS']['KEY'],'Elements::getSysVarCall',$key);
+    }
+
+    public static function getSysVarCall($key){
         $conf = Systems::findFirst(array(
             "system_name = :system_name:",
             'bind'=>array(
                 'system_name'=>$key
             )
         ));
-        if(isset($conf->system_value))
-        echo $conf->system_value;
+        if(isset($conf->system_value)){
+            return $conf->system_value;
+        }else{
+            return '';
+        }
     }
 }

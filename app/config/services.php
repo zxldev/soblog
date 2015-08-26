@@ -164,6 +164,10 @@ $di->setShared('redis',function()  use ($config){
     return $redis;
 });
 
+$di->setShared('redisUtils',function(){
+    return new \RedisUtils();
+});
+
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */

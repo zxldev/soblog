@@ -141,7 +141,7 @@ class ManagerController extends ControllerBase
                 "action" => "new"
             ));
         }
-
+        $this->redisUtils->deleteTableCache('article');
         $this->flash->success("article was created successfully");
 
         return $this->dispatcher->forward(array(
@@ -199,7 +199,7 @@ class ManagerController extends ControllerBase
                 "params" => array($article->id)
             ));
         }
-
+        $this->redisUtils->deleteTableCache('article');
         $this->flash->success("article was updated successfully");
 
         return $this->dispatcher->forward(array(
@@ -239,7 +239,7 @@ class ManagerController extends ControllerBase
                 "action" => "search"
             ));
         }
-
+        $this->redisUtils->deleteTableCache('article');
         $this->flash->success("article was deleted successfully");
 
         return $this->dispatcher->forward(array(
