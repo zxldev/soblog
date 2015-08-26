@@ -25,7 +25,7 @@ $di->set('volt', function($view, $di) {
 
 
     $compiler = $volt->getCompiler();
-//    $compiler->addFunction('substr', 'substr');
+    $compiler->addFunction('substr', 'substr');
 
     return $volt;
 }, true);

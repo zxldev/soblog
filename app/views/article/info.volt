@@ -5,8 +5,8 @@
 
 <script>
 
-    require(['domready'], function (domReady) {
-        domReady(function () {
+    require(['domready'], function (domready) {
+        domready(function () {
             require(['jquery', 'blog'], function ($, blog) {
                 blog.blogInfo({{blogid}});
             });

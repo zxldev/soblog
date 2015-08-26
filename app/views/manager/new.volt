@@ -68,8 +68,8 @@
 
 <script>
 
-    require(['domready'], function (domReady) {
-        domReady(function () {
+    require(['domready'], function (domready) {
+        domready(function () {
             require(['iimarkdown'],function(iimark){
                 iimark.init('._showowninput');
             });

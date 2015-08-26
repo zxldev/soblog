@@ -10,7 +10,7 @@ require.config({
         showdown:'/js/lib/showdown',
         hljs:['http://apps.bdimg.com/libs/highlight.js/8.6/highlight.min','/js/lib/highlight.min'],
         iimarkdown:'/js/lib/iimarkdown',
-        domready:'/js/domReady'
+        domready:'/js/domready'
     }
 });
 
