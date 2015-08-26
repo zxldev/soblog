@@ -30,7 +30,7 @@ class ApiController extends JsonControllerBase
      */
     public function bloggetAction($numberpage = 1)
     {
-        return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['BLOG']['PAGE'],'ApiController::blogget',$numberpage);
+        return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE'],'ApiController::blogget',$numberpage);
     }
 
     public static function blogget($numberpage){
