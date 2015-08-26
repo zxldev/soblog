@@ -9,7 +9,7 @@
     <meta name="author" content="">
 
    {{getTitle()  }}
-    <script data-main="/js/main" src="/js/lib/require.min.js"></script>
+    <script data-main="/js/main" src="http://apps.bdimg.com/libs/require.js/2.1.11/require.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 

@@ -34,7 +34,7 @@
             <label for="content">Content</label>
         </td>
         <td align="left">
-                {{ text_area("content", "cols": "30", "rows": "4","class":"form-control") }}
+                {{ text_area("content", "cols": "30", "rows": "4","class":"form-control _showowninput") }}
         </td>
     </tr>
     <tr>
@@ -62,3 +62,16 @@
 </table>
 
 </form>
+
+<script>
+
+    require(['domready'], function (domready) {
+        domready(function () {
+            require(['iimarkdown'],function(iimark){
+                iimark.init('._showowninput');
+            });
+        });
+    });
+
+
+</script>
