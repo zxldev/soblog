@@ -6,3 +6,6 @@
 /app/config/*.bak
 .idea/*
 /app/logs/*.log
+
+/vendor/*
+composer.lock

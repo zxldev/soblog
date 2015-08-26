@@ -1,0 +1,11 @@
+{
+  "require": {"predis/predis": "1.1.*@dev" ,
+      "knplabs/github-api": "~1.4"
+  },
+  "repositories": [
+    {"type": "composer",
+      "url": "http://pkg.phpcomposer.com/repo/packagist/"
+    },
+    {"packagist": false}
+  ]
+}
