@@ -9,8 +9,8 @@ use Phalcon\Mvc\User\Component;
 class RedisUtils extends Component{
 
     public static $CACHEKEYS = array(
-        'BLOG' =>array(
-            'PAGE'=>'h:cache:blog:cache'
+        'ARTICLE' =>array(
+            'PAGE'=>'h:cache:article:cache'
         ),
         'SYSTEMS' =>array(
             'KEY'=>'h:cache:systems:key'
