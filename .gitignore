@@ -1,7 +1,6 @@
 /cache/*
 
 /config/development/
-/app/config/config.php
 /app/config/config*.php
 /app/config/*.bak
 .idea/*
