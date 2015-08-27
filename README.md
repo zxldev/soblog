@@ -15,6 +15,7 @@
  * showdown
  * hightlight
  * bootstrap
+ * tokenfield
 
 ```javascript
 $('').bind('scroll', function (e) {
@@ -35,3 +36,4 @@ $('').bind('scroll', function (e) {
   * rss
   * a better way to dispaly blog
   * user login and comment
+  * tags[tokenfield]
