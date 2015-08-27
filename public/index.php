@@ -27,6 +27,10 @@ try {
 	 */
 	require APP_PATH . 'app/config/services.php';
 
+    if(file_exists(APP_PATH . 'vendor/autoload.php')){
+        require APP_PATH . 'vendor/autoload.php';
+    }
+
 	$application = new Application($di);
 
 	echo $application->handle()->getContent();
