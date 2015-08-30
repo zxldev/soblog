@@ -42,7 +42,7 @@
             <label for="tags">Tags</label>
         </td>
         <td align="left">
-            {{ text_field("tags", "size" : 30,"class":"form-control") }}
+            {{ text_field("tags", "size" : 30,"class":"form-control","id":"tags") }}
         </td>
     </tr>
 
@@ -67,8 +67,9 @@
 
     require(['domready'], function (domready) {
         domready(function () {
-            require(['iimarkdown'],function(iimark){
+            require(['iimarkdown','tokenfield'],function(iimark,tokenfield){
                 iimark.init('._showowninput');
+                $('#tags').tokenfield();
             });
         });
     });

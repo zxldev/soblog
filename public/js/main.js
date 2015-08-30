@@ -10,7 +10,9 @@ require.config({
         showdown:['http://libs.cdnjs.net/showdown/1.2.1/showdown.min','/js/lib/showdown'],
         hljs:['http://apps.bdimg.com/libs/highlight.js/8.6/highlight.min','/js/lib/highlight.min'],
         iimarkdown:'/js/lib/iimarkdown',
-        domready:'/js/domready'
+        domready:'/js/domready',
+        bootstrap:'/js/lib/bootstrap.min',
+        tokenfield:['http://cdn.bootcss.com/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min','/js/lib/bootstrap-tokenfield.min']
     }
 });
 
