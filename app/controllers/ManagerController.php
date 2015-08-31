@@ -99,7 +99,12 @@ class ManagerController extends ControllerBase
             $this->tag->setDefault("cate_id", $article->cate_id);
             $this->tag->setDefault("title", $article->title);
             $this->tag->setDefault("content", $article->content);
-            $this->tag->setDefault("tags", $article->tags);
+            $namesArr = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['TAGS']['ALL'],'TAGS::getAll','ALL');
+            $names = [];
+            foreach(explode(',',$article->tags) as $id){
+                $names[] = $namesArr[$id]['name'];
+            }
+            $this->tag->setDefault("tags", implode(',',$names));
             $this->tag->setDefault("pic", $article->pic);
             
         }
@@ -182,7 +187,7 @@ class ManagerController extends ControllerBase
         $article->user_id = $this->getSession('user')['id'];
         $article->title = $this->request->getPost("title");
         $article->content = $this->request->getPost("content");
-        $article->tags = $this->request->getPost("tags");
+        $article->tags = Tags::getIDs($this->redisUtils,$this->request->getPost("tags")) ;
         $article->updated_at = date('Y-m-d H:i:s',time());
         $article->pic = $this->request->getPost("pic");
         

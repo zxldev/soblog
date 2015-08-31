@@ -14,6 +14,9 @@ class RedisUtils extends Component{
         ),
         'SYSTEMS' =>array(
             'KEY'=>'h:cache:systems:key'
+        ),
+        'TAGS'=>array(
+            'ALL'=>'h:cache:tags:all'
         )
     );
 
