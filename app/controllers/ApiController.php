@@ -36,13 +36,27 @@ class ApiController extends JsonControllerBase
     public static function blogget($numberpage){
         $parameters = array();
         $parameters["order"] = "created_at desc";
+        $parameters['columns'] = array('title,tags,updated_at');
         $article = Article::find($parameters);
         $paginator = new Paginator(array(
             "data" => $article,
             "limit"=> 10,
             "page" => $numberpage
         ));
-        return $paginator->getPaginate();
+        $page =          $paginator->getPaginate();
+        $map = Tags::getAll();
+
+        foreach($page->items as $item){
+            $ret = [];
+            $tags = explode(',',$item->tags);
+            foreach($tags as $tag){
+                if(!empty($tag)){
+                    $ret[] = $map[$tag]['name'];
+                }
+            }
+            $item->tags = implode(',',$ret);
+        }
+        return $page;
     }
 
     /**

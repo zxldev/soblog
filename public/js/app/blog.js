@@ -18,8 +18,8 @@
                             html+='<div class="post-preview">\
                             <a href="/article/info/'+data.records.items[i].id+'">\
                             <h2 class="post-title">'+data.records.items[i].title+'</h2>\
-                            <h3 class="post-subtitle">'+  data.records.items[i].content.substr(0,200).replace(/(<([^>]+)>)/ig,"").replace(/[<>]/ig,'')+'</h3>\
                             </a>\
+                            <h3 class="post-subtitle">'+data.records.items[i].tags+'</h3>\
                                 <p class="post-meta">发布于'+data.records.items[i].updated_at+'</p>\
                             </div>\
                             <hr>'

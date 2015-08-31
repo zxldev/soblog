@@ -102,7 +102,9 @@ class ManagerController extends ControllerBase
             $namesArr = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['TAGS']['ALL'],'TAGS::getAll','ALL');
             $names = [];
             foreach(explode(',',$article->tags) as $id){
-                $names[] = $namesArr[$id]['name'];
+                if(!empty($id)){
+                    $names[] = $namesArr[$id]['name'];
+                }
             }
             $this->tag->setDefault("tags", implode(',',$names));
             $this->tag->setDefault("pic", $article->pic);
