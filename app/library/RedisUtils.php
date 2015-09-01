@@ -30,7 +30,7 @@ class RedisUtils extends Component{
         $prefix = array_shift($param);
         $callback = array_shift($param);
         $key = implode(':',$param);
-        $ret = json_decode($this->redis->hGet($prefix,$key));
+        $ret = json_decode($this->redis->hGet($prefix,$key),true);
         if(!$ret){
             $ret = call_user_func_array($callback,$param);
             $this->redis->hset($prefix,$key,json_encode($ret));
