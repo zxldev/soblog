@@ -36,7 +36,7 @@ class ApiController extends JsonControllerBase
     public static function blogget($numberpage){
         $parameters = array();
         $parameters["order"] = "created_at desc";
-        $parameters['columns'] = array('title,tags,updated_at');
+        $parameters['columns'] = array('id,title,tags,updated_at');
         $article = Article::find($parameters);
         $paginator = new Paginator(array(
             "data" => $article,
