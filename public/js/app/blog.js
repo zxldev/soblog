@@ -73,6 +73,25 @@
                         window.location.href=window.location.origin;
                     }
                 });
+            },
+            tagClass :{
+                a:"label label-default",
+                b:"label label-primary",
+                c:"label label-success",
+                d:"label label-info",
+                e:"label label-warning",
+                f:"label label-danger"
+            },
+            calClass:function(tagName){
+                switch (tagName.length%7){
+                    case 1:return exports.tagClass.a;break;
+                    case 2:return exports.tagClass.b;break;
+                    case 3:return exports.tagClass.c;break;
+                    case 4:return exports.tagClass.d;break;
+                    case 5:return exports.tagClass.e;break;
+                    case 6:return exports.tagClass.f;break;
+                    default: return exports.tagClass.a;
+                }
             }
         };
         return exports;
