@@ -7,7 +7,8 @@ class ControllerBase extends Base
 
     protected function initialize()
     {
-        $this->tag->prependTitle('INVO | ');
+
+        $this->tag->prependTitle($this->elements->getSysVar('siteName').'| ');
         $this->view->setVar('user',$this->getSession('user'));
     }
 

@@ -19,7 +19,14 @@
                             <a href="/article/info/'+data.records.items[i].id+'">\
                             <h2 class="post-title">'+data.records.items[i].title+'</h2>\
                             </a>\
-                            <h3 class="post-subtitle">'+data.records.items[i].tags+'</h3>\
+                            <h4  class="post-subtitle">';
+                            if(data.records.items[i].tags.length > 0){
+                                var tag,tags = data.records.items[i].tags.split(',');
+                                $.each(tags,function(i,tag){
+                                    html+='<span  class="'+exports.calClass(tag)+'">'+tag+'</span>'
+                                });
+                            }
+                            html+='</h4>\
                                 <p class="post-meta">发布于'+data.records.items[i].updated_at+'</p>\
                             </div>\
                             <hr>'
