@@ -1,6 +1,11 @@
 <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 _bloglist">
+    <div id="_bloglist" class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 _bloglist">
+        <div class="post"></div>
 
+
+    </div>
+    <div class="_nav">
+        <a class="" href="/api/page=1/blog">shouye</a>
     </div>
 </div>
 
