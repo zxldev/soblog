@@ -79,12 +79,7 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
                     iimarkdown.prototype.save();
                     return false;
                 }
-                var converter = new showdown.Converter();
-                $(selector).parent().find('.markdown-body-view').html(converter.makeHtml($(selector).val()));
-                //highlight the code
-                $('pre code').each(function (i, block) {
-                    hljs.highlightBlock(block);
-                });
+                iimarkdown.updateMarkdownBody(selector);
             }).bind('focus', function () {
                 //add editor css ,show viewer
                 $(this).parent().addClass('markdown-pen-view');
@@ -105,6 +100,15 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
             }).bind('keydown',function(e){
                 //disable IE  ESC key default delete text action
                 if (e.keyCode == 27) { e.   preventDefault();}
+            });
+            iimarkdown.updateMarkdownBody(selector);
+        },
+        updateMarkdownBody:function(selector){
+            var converter = new showdown.Converter();
+            $(selector).parent().find('.markdown-body-view').html(converter.makeHtml($(selector).val()));
+            //highlight the code
+            $('pre code').each(function (i, block) {
+                hljs.highlightBlock(block);
             });
         }
     };

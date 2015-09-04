@@ -7,7 +7,6 @@
             blogTotalPages:1,
             //根据页码生成ajax请求链接
             pageUrl:function(page){
-                debugger;
                 return "/api/page="+page+"/blog";
             },
             //ajax回调绘制列表页面
@@ -41,8 +40,8 @@
                     loading: {
                         finished: undefined,
                         finishedMsg: "<em>已经到达最后一页，无更多内容。</em>",
-                        img: null,
-                        msg: null,
+                        //img: null,
+                        //msg: null,
                         msgText: "<em>载入下一页中s...</em>",
                         selector: null,
                         speed: 'fast',

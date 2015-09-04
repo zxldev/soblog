@@ -5,7 +5,7 @@
 
     </div>
     <div class="_nav">
-        <a class="" href="/api/page=1/blog">shouye</a>
+        <a class="" href="/api/page=1/blog"></a>
     </div>
 </div>
 
