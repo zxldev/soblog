@@ -105,6 +105,7 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
         },
         updateMarkdownBody:function(selector){
             var converter = new showdown.Converter();
+            converter.setFlavor('github');
             $(selector).parent().find('.markdown-body-view').html(converter.makeHtml($(selector).val()));
             //highlight the code
             $('pre code').each(function (i, block) {
