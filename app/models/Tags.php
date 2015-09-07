@@ -88,6 +88,7 @@ class Tags extends \Phalcon\Mvc\Model
                 $tag->name = $name;
                 $tag->number = 1;
                 $tag->create();
+                $ret[] = $tag->id;
             }
         }
         return implode(',',$ret);
