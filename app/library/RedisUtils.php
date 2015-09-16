@@ -10,7 +10,8 @@ class RedisUtils extends Component{
 
     public static $CACHEKEYS = array(
         'ARTICLE' =>array(
-            'PAGE'=>'h:cache:article:cache'
+            'PAGE'=>'h:cache:article:cache',
+            'ID'=>'h:cache:article:id'
         ),
         'SYSTEMS' =>array(
             'KEY'=>'h:cache:systems:key'

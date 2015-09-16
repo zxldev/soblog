@@ -66,6 +66,20 @@ class ApiController extends JsonControllerBase
      */
     public function bloggetinfoAction($id = 1)
     {
-        return  Article::findFirstById($id);
+        return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['ID'],'ApiController::bloggetinfo',$id);
+    }
+
+    public static function bloggetinfo($id){
+        $atricle = Article::findFirstById($id);
+        $map = Tags::getAll();
+        $ret = [];
+        $tags = explode(',',$atricle->tags);
+        foreach($tags as $tag){
+            if(!empty($tag)){
+                $ret[] = $map[$tag]['name'];
+            }
+        }
+        $atricle->tags = implode(',',$ret);
+        return $atricle;
     }
 }

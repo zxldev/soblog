@@ -52,7 +52,7 @@ class SessionController extends ControllerBase
             ));
             if ($user != false) {
                 $this->_registerSession($user);
-                $this->flash->success('Welcome ' . $user->name);
+                $this->flash->success('欢迎 ' . $user->name);
                 return $this->forward($callback);
             }
 
