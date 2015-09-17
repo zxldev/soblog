@@ -24,13 +24,45 @@ class ApiController extends JsonControllerBase
     }
 
     /**
-     * @Route("/page={numberpage}/blog", methods={"GET"}, name="blogget")
+     * @Route("/page={numberpage}/tag={tag}/blog", methods={"GET"}, name="blogget")
      * @param int $numberPage
      * @return stdclass
      */
-    public function bloggetAction($numberpage = 1)
+    public function bloggetAction($numberpage = 1,$tag='')
     {
-        return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE'],'ApiController::blogget',$numberpage);
+        if($tag!=''){
+            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['TAG'],'ApiController::blogget',$numberpage,$tag);
+        }else{
+            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE'],'ApiController::blogget',$numberpage);
+        }
+
+    }
+
+    public static function bloggettag($numberpage,$tag){
+        $parameters = array();
+        $parameters["order"] = "created_at desc";
+        $parameters["order"] = "created_at desc";
+        $parameters['columns'] = array('id,title,tags,updated_at');
+        $article = Article::find($parameters);
+        $paginator = new Paginator(array(
+            "data" => $article,
+            "limit"=> 10,
+            "page" => $numberpage
+        ));
+        $page =          $paginator->getPaginate();
+        $map = Tags::getAll();
+
+        foreach($page->items as $item){
+            $ret = [];
+            $tags = explode(',',$item->tags);
+            foreach($tags as $tag){
+                if(!empty($tag)){
+                    $ret[] = $map[$tag]['name'];
+                }
+            }
+            $item->tags = implode(',',$ret);
+        }
+        return $page;
     }
 
     public static function blogget($numberpage){
