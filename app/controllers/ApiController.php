@@ -31,7 +31,7 @@ class ApiController extends JsonControllerBase
     public function bloggetAction($numberpage = 1,$tag='')
     {
         if($tag!=''){
-            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['TAG'],'ApiController::blogget',$numberpage,$tag);
+            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['TAG'],'ApiController::bloggettag',$numberpage,$tag);
         }else{
             return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE'],'ApiController::blogget',$numberpage);
         }
@@ -41,7 +41,8 @@ class ApiController extends JsonControllerBase
     public static function bloggettag($numberpage,$tag){
         $parameters = array();
         $parameters["order"] = "created_at desc";
-        $parameters["order"] = "created_at desc";
+        $parameters["conditions"] = 'tag like ';
+        //TODO 从这里开始
         $parameters['columns'] = array('id,title,tags,updated_at');
         $article = Article::find($parameters);
         $paginator = new Paginator(array(

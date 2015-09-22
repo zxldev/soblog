@@ -9,9 +9,13 @@ class IndexController extends ControllerBase
         $this->view->setTemplateAfter('header');
     }
 
-    public function indexAction()
+    /**
+     * @Route("/tag={tag}", methods={"GET"}, name="index")
+     * @param string $tag
+     */
+    public function indexAction($tag = '')
     {
-
-
+        $this->tag->setDefault("tag", $tag);
+//        $this->view->tag = $tag;
     }
 }
