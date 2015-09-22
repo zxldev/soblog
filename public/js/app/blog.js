@@ -107,8 +107,10 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                     });
                     $('._mainheading').html(blog.title);
                     $('._subheading').html('');
-
-
+                    //使连接在新窗口中打开
+                    $('.markdown-body a').each(function () {
+                        $(this).attr('target', '_blank');
+                    });
                 }
             });
         },
@@ -138,7 +140,6 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
             return exports.tagClass[tagName.length % 6];
         },
         getRole: function (needRole) {
-            debugger;
             var ret = '',
                 roleStr = $('meta[name=currentUser]').attr('role');
             needRole = needRole || '';
