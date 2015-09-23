@@ -10,6 +10,8 @@
     <meta name="author" content="">
     <meta name="currentUser" username="{{ user?user['name']:'' }}" role="{{ user?user['type']:''  }}">
 
+    <meta property="qc:admins" content="21417660276375116375" />
+
    {{getTitle()  }}
     <script data-main="/js/main" src="http://apps.bdimg.com/libs/require.js/2.1.11/require.min.js"></script>
     <!-- Bootstrap Core CSS -->
