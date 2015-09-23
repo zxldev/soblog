@@ -18,6 +18,10 @@ class SessionController extends ControllerBase
     {
         if (!$this->request->isPost()) {
             $this->tag->setDefault('callback', $this->request->get('callback'));
+            $url = $this->weiboOauth->getAuthorizeURL($this->config->thirdpart['weibo']['WB_CALLBACK_URL']);
+            $this->view->setVar('weiboCallBack',$url);
+        }else{
+
         }
     }
 

@@ -102,17 +102,46 @@ class ApiController extends JsonControllerBase
         return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['ID'],'ApiController::bloggetinfo',$id);
     }
 
-    public static function bloggetinfo($id){
+    public static function bloggetinfo($id)
+    {
         $atricle = Article::findFirstById($id);
         $map = Tags::getAll();
         $ret = [];
-        $tags = explode(',',$atricle->tags);
-        foreach($tags as $tag){
-            if(!empty($tag)){
+        $tags = explode(',', $atricle->tags);
+        foreach ($tags as $tag) {
+            if (!empty($tag)) {
                 $ret[] = $map[$tag]['name'];
             }
         }
-        $atricle->tags = implode(',',$ret);
+        $atricle->tags = implode(',', $ret);
         return $atricle;
+    }
+
+    /**
+     * @Route("/weiboLogincallback", methods={"GET"}, name="blogget")
+     */
+    public function weiboLogincallbackAction()
+    {
+        $o = $this->weiboOauth;
+
+        if (isset($_REQUEST['code'])) {
+            $keys = array();
+            $keys['code'] = $_REQUEST['code'];
+            $keys['redirect_uri'] = $this->config->thirdpart['weibo']['WB_CALLBACK_URL'];
+            try {
+                $token = $o->getAccessToken('code', $keys);
+            } catch (OAuthException $e) {
+            }
+        }
+
+        if ($token) {
+//            //登陆
+//            $_SESSION['token'] = $token;
+//            setcookie('weibojs_' . $o->client_id, http_build_query($token));
+//            //授权完成,<a href="weibolist.php">进入你的微博列表页面</a><br />
+        } else {
+            //授权失败。
+        }
+
     }
 }

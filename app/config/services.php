@@ -220,3 +220,9 @@ $di->setShared('sphinx',function() use ($config){
     $sc->setArrayResult(true);
     return $sc;
 });
+
+$di->set('weiboOauth',function() use ($config){
+    $o = new WeiBoOAuth($config->thirdpart->weibo->WB_AKEY , $config->thirdpart->weibo->WB_SKEY );
+//    $code_url = $o->getAuthorizeURL( $config->thirdpart->weibo->WB_CALLBACK_URL );
+    return $o;
+});

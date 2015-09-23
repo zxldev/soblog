@@ -11,6 +11,9 @@ class Users extends \Phalcon\Mvc\Model
      */
     public $id;
 
+    public $uid;
+
+    public $source;
     /**
      *
      * @var string

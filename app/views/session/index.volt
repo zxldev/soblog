@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ submit_button('登录', 'class': 'btn btn-primary btn-large') }}
+                    {{ submit_button('登录', 'class': 'btn btn-primary btn-large') }}<a href="{{ weiboCallBack }}"><img src="http://timg.sjs.sinajs.cn/t4/appstyle/widget/images/loginButton/loginButton_24.png" title="点击进入授权页面" alt="点击进入授权页面" border="0" /></a>
                 </div>
             </fieldset>
         </form>
