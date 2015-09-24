@@ -144,4 +144,15 @@ class ApiController extends JsonControllerBase
         }
 
     }
+
+    /**
+     * @Route("/qqLogincallback", methods={"GET"}, name="blogget")
+     */
+    public function qqLogincallbackAction()
+    {
+        if (isset($_REQUEST['access_token'])) {
+           echo $_REQUEST['access_token'];
+        }
+
+    }
 }
