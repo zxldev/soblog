@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="{{ elements.getSysVar('seo_desc') }}">
+    <meta name="keywords" content="{{ elements.getSysVar('seo_key') }}">
     <meta name="author" content="">
     <meta name="currentUser" username="{{ user?user['name']:'' }}" role="{{ user?user['type']:''  }}">
 
@@ -103,7 +104,7 @@
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted">Copyright &copy; {{ elements.getSysVar('copyright') }}</p>
+                <p class="copyright text-muted"> &copy; {{ elements.getSysVar('copyright') }}</p>
             </div>
         </div>
     </div>
