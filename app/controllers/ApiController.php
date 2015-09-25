@@ -117,16 +117,18 @@ class ApiController extends JsonControllerBase
         return $atricle;
     }
 
-
-
     /**
-     * @Route("/qqLogincallback", methods={"GET"}, name="blogget")
+     * @Route("/qqlogin", methods={"POST"}, name="qqlogin")
      */
-    public function qqLogincallbackAction()
-    {
-        if (isset($_REQUEST['access_token'])) {
-           echo $_REQUEST['access_token'];
-        }
-
+    public function qqloginAction(){
+        $token = $this->request->getPost('token',null,'');
+        $uid = $this->request->getPost('uid',null,'');
+        $name = $this->request->getPost('name',null,'');
+        $photo = $this->request->getPost('photo',null,'');
+        $user = SessionController::registerUser($uid,Users::USER_SOURCE_QQ,$name,null,$photo);
+        $this->_registerSession($user);
+        $this->setSession('token',$token);
+        $this->setSession('tokentype',Users::USER_SOURCE_QQ);
     }
+
 }

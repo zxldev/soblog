@@ -32,7 +32,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101254880" data-callback="true" data-redirecturi="http://www.souii.com/api/qqLogincallback" charset="utf-8"></script>
+    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101254880"  data-redirecturi="http://www.souii.com/session/qqlogincallback" charset="utf-8"></script>
 
 </head>
 

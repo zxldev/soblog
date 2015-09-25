@@ -86,7 +86,7 @@ class SessionController extends ControllerBase
         $this->response->setStatusCode(200);
     }
 
-    public static  function registerUser($uid,$source,$name=null,$email=null){
+    public static  function registerUser($uid,$source,$name=null,$email=null,$photo = null){
         $user = Users::findFirst(
             array( "conditions" => "uid=:uid: and source=:source:", "bind" => array('uid'=>$uid,'source'=>$source) )
         );
@@ -108,11 +108,15 @@ class SessionController extends ControllerBase
         if($email!=null){
             $user->email = $email;
         }
+        if($photo!=null){
+            $user->photo = $photo;
+        }
         $retss = $user->save();
         return $user;
     }
 
     /**
+     * 微博登陆
      */
     public function weiboLogincallbackAction()
     {
@@ -134,11 +138,23 @@ class SessionController extends ControllerBase
             $user = SessionController::registerUser($token['uid'],Users::USER_SOURCE_WEIBO);
             $this->_registerSession($user);
             $this->setSession('token',$token);
+            $this->setSession('tokentype',Users::USER_SOURCE_WEIBO);
             setcookie('weibojs_' . $o->client_id, http_build_query($token));
         } else {
             //授权失败。
         }
 
+    }
+
+    /**
+     * qq登陆
+     */
+    public function qqlogincallbackAction()
+    {
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+        if (isset($_REQUEST['access_token'])) {
+            echo $_REQUEST['access_token'];
+        }
     }
 
 }
