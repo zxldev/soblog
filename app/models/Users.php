@@ -5,6 +5,13 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
 class Users extends \Phalcon\Mvc\Model
 {
 
+    const USER_SOURCE_LOACL = 1;
+    const USER_SOURCE_QQ = 2;
+    const USER_SOURCE_WEIBO = 3;
+    const USER_SOURCE_GITHUB = 4;
+
+    const USER_TYPE_ADMIN = 1;
+    const USER_TYPE_REGISTER_USER = 2;
     /**
      *
      * @var integer
@@ -73,23 +80,23 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @return boolean
      */
-    public function validation()
-    {
-        $this->validate(
-            new Email(
-                array(
-                    'field'    => 'email',
-                    'required' => true,
-                )
-            )
-        );
-
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
-    }
+//    public function validation()
+//    {
+//        $this->validate(
+//            new Email(
+//                array(
+//                    'field'    => 'email',
+//                    'required' => true,
+//                )
+//            )
+//        );
+//
+//        if ($this->validationHasFailed() == true) {
+//            return false;
+//        }
+//
+//        return true;
+//    }
 
     /**
      * Returns table name mapped in the model.
