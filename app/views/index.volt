@@ -71,7 +71,7 @@
                     </li>
                     {% else %}
                         <li>
-                            <a href="/session">登录</a>
+                            <a class="_btn_start_session">登录</a>
                         </li>
                 {% endif %}
 
