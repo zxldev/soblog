@@ -90,6 +90,16 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                         editHtml = '<div class="col-md-6"><a class="btn btn-info pull-right btn-sm" href="/manager/edit/' + id + '">编辑</a></div>',
                         tags = blog.tags.split(','),
                         converter = new showdown.Converter();
+                    $('title').html(blog.title+ ' - 赵枫杨的博客');
+                    /* * * CONFIGURATION VARIABLES * * */
+                    var disqus_shortname = 'souii';
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
                     if (tags.length > 0 && tags[0] !== "") {
                         html += 'TAGS: ';
                     }
@@ -114,13 +124,31 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                 }
             });
         },
+        resetDisqus : function (newIdentifier, newUrl, newTitle, newLanguage) {
+            DISQUS.reset({
+                reload: true,
+                config: function () {
+                    this.page.identifier = newIdentifier;
+                    this.page.url = newUrl;
+                    this.page.title = newTitle;
+                    this.language = newLanguage;
+                }
+            });
+        },
         logout: function () {
             $.ajax({
-                url: '/session/end',
+                url: '/api/endsession',
                 type: 'post',
                 dataType: 'json',
                 cache: false,
                 success: function () {
+                    debugger;
+                    try{
+                        if(QC.Login.check()){
+                            QC.Login.signOut();
+                        }
+                    }catch (e ) {
+                    }
                     window.location.href = window.location.origin;
                 },
                 error: function () {

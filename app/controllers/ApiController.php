@@ -126,9 +126,23 @@ class ApiController extends JsonControllerBase
         $name = $this->request->getPost('name',null,'');
         $photo = $this->request->getPost('photo',null,'');
         $user = SessionController::registerUser($uid,Users::USER_SOURCE_QQ,$name,null,$photo);
-        $this->_registerSession($user);
+        $this->setSession('user',array('id'=>$user->id,
+            'name'=>$user->name,
+            'email'=>$user->email,
+            'type'=>$user->type,
+            'uid'=>$user->uid,
+            'source'=>$user->source));
         $this->setSession('token',$token);
         $this->setSession('tokentype',Users::USER_SOURCE_QQ);
+    }
+
+    /**
+     * @Route("/endsession", methods={"POST"}, name="endsession")
+     * @return bool
+     */
+    public function  endsessionAction(){
+        $this->destorySession();
+        return true;
     }
 
 }

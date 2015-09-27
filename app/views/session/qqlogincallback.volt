@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101254880"  data-redirecturi="http://www.souii.com/session/qqlogincallback" charset="utf-8"></script>
+    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101254880"  data-redirecturi="http://www.souii.com/session/qqlogincallback"  charset="utf-8"></script>
     <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
@@ -13,7 +13,17 @@
 </div>
 
 <script>
-
+    var time = 3;
+    function jump() {
+        window.opener.location.reload();
+        self.close();
+    }
+    function changeTime() {
+        if (time >= 0) {
+            time--;
+            document.getElementById('timeSpan').innerHTML = time;
+        }
+    }
     QC.Login({
         btnId:"qqLoginBtnwin"    //插入按钮的节点id
     }, function(reqData, opts){//登录成功
@@ -35,38 +45,26 @@
         }));
         debugger;
         QC.Login.getMe(function(openId, accessToken){
-            debugger;
             uid = openId;
             token = accessToken;
-        });
-        debugger;
-        $.ajax({
-            url: '/api/qqlogin',
-            type: 'post',
-            dataType: 'json',
-            cache: false,
-            data: {
-                'uid': uid,
-                'token': token,
-                'name': reqData.nickname,
-                "photo": reqData.figureurl_qq_2//产品id （大于0）已发布的产品ID"
-            },
-            success: function (data) {
-                var time = 3;
-                function jump() {
-                    window.opener.location.reload();
-                    self.close();
+            $.ajax({
+                url: '/api/qqlogin',
+                type: 'post',
+                dataType: 'json',
+                cache: false,
+                data: {
+                    'uid': uid,
+                    'token': token,
+                    'name': reqData.nickname,
+                    "photo": reqData.figureurl_qq_2//产品id （大于0）已发布的产品ID"
+                },
+                success: function (data) {
+                    setTimeout(jump, 3000);
+                    setInterval(changeTime, 1000);
                 }
-                function changeTime() {
-                    if (time >= 0) {
-                        time--;
-                        document.getElementById('timeSpan').innerHTML = time;
-                    }
-                }
-                setTimeout(jump, 3000);
-                setInterval(changeTime, 1000);
-            }
+            });
         });
+
     }, function(opts){//注销成功
         alert('QQ登录 注销成功');
     });

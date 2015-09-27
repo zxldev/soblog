@@ -74,17 +74,6 @@ class SessionController extends ControllerBase
         return $this->forward('session/index');
     }
 
-    /**
-     * Finishes the active session redirecting to the index
-     *
-     * @return unknown
-     */
-    public function endAction()
-    {
-        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
-        $this->destorySession();
-        $this->response->setStatusCode(200);
-    }
 
     public static  function registerUser($uid,$source,$name=null,$email=null,$photo = null){
         $user = Users::findFirst(
@@ -118,7 +107,7 @@ class SessionController extends ControllerBase
     /**
      * 微博登陆
      */
-    public function weiboLogincallbackAction()
+    public function weibologincallbackAction()
     {
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
         $o = $this->weiboOauth;
