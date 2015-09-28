@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Controller;
+use Souii\Responses\JSONResponse as JSONResponse;
 
 class JsonControllerBase extends Base
 {
@@ -29,7 +30,7 @@ class JsonControllerBase extends Base
         $records = $dispatcher->getReturnedValue();
         $error = false;
         !isset($records->error)||$error=$records->error;
-        $response = new JSONResponse();
+        $response =new JSONResponse();
         $response->useEnvelope(true)
             ->convertSnakeCase(false)
             ->send($records,$error);

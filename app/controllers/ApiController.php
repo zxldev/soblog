@@ -2,6 +2,7 @@
  
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Souii\Redis\RedisUtils as RedisUtils;
 
 /**
  * @RoutePrefix("/api")

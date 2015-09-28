@@ -1,4 +1,5 @@
 <?php
+namespace Souii\Redis;
 /**
  * Created by PhpStorm.
  * User: zx

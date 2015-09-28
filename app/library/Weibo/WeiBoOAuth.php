@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Weibo;
 use Phalcon\Mvc\User\Component;
 /**
  * PHP SDK for weibo.com (using OAuth2)
@@ -10,7 +10,7 @@ use Phalcon\Mvc\User\Component;
 /**
  * @ignore
  */
-class OAuthException extends Exception {
+class OAuthException extends \Exception {
 	// pass
 }
 

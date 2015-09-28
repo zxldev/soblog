@@ -150,7 +150,7 @@ $di->set('session', function ()  use ($config) {
 //        'cookie_secure'=>'',
 //        'cookie_domain' =>'bst.com',
     );
-    $session = new RedisSession($array);
+    $session = new Souii\Redis\RedisSession($array);
     $session->start();
     return $session;
 });
@@ -165,7 +165,7 @@ $di->setShared('redis',function()  use ($config){
 });
 
 $di->setShared('redisUtils',function(){
-    return new \RedisUtils();
+    return new Souii\Redis\RedisUtils();
 });
 
 /**
@@ -199,7 +199,7 @@ $di->set('flash', function(){
  * Register a user component
  */
 $di->set('elements', function(){
-    return new Elements();
+    return new Souii\Site\Elements();
 });
 
 
@@ -222,7 +222,7 @@ $di->setShared('sphinx',function() use ($config){
 });
 
 $di->set('weiboOauth',function() use ($config){
-    $o = new WeiBoOAuth($config->thirdpart->weibo->WB_AKEY , $config->thirdpart->weibo->WB_SKEY );
+    $o = new Souii\Weibo\WeiBoOAuth($config->thirdpart->weibo->WB_AKEY , $config->thirdpart->weibo->WB_SKEY );
 //    $code_url = $o->getAuthorizeURL( $config->thirdpart->weibo->WB_CALLBACK_URL );
     return $o;
 });

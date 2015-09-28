@@ -1,5 +1,7 @@
 {
-  "require": {"predis/predis": "1.1.*@dev" ,
+  "require": {
+      "predis/predis": "1.1.*@dev" ,
+      "guzzlehttp/guzzle": ">=4.1.4 <7.0",
       "knplabs/github-api": "~1.4"
   },
   "repositories": [

@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Sphinx;
 //
 // $Id$
 //

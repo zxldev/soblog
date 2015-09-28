@@ -1,6 +1,7 @@
 <?php
-
+namespace Souii\Site;
 use Phalcon\Mvc\User\Component;
+use Souii\Redis\RedisUtils as RedisUtils;
 
 /**
  * Elements

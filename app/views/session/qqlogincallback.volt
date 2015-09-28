@@ -59,6 +59,7 @@
                     "photo": reqData.figureurl_qq_2//产品id （大于0）已发布的产品ID"
                 },
                 success: function (data) {
+                    debugger;
                     setTimeout(jump, 3000);
                     setInterval(changeTime, 1000);
                 }

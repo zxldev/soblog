@@ -15,7 +15,7 @@
   | Authors: kenjikobe <kenji.minamoto@gmail.com>                          |
   +------------------------------------------------------------------------+
 */
-
+namespace Souii\Redis;
 
 use Phalcon\Session\Adapter;
 use Phalcon\Session\AdapterInterface;
