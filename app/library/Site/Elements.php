@@ -110,7 +110,7 @@ class Elements extends Component
     }
 
     public function getSysVar($key){
-        return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['SYSTEMS']['KEY'],'Elements::getSysVarCall',$key);
+        return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['SYSTEMS']['KEY'],'Souii\Site\Elements::getSysVarCall',$key);
     }
 
     public static function getSysVarCall($key){

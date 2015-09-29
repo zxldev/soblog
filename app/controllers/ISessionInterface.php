@@ -1,4 +1,6 @@
 <?php
+namespace Souii\Controllers;
+use Souii\Models;
 /**
  * Created by PhpStorm.
  * User: xiaolong

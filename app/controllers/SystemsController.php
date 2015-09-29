@@ -1,5 +1,6 @@
 <?php
- 
+namespace Souii\Controllers;
+use Souii\Models;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -33,7 +34,7 @@ class SystemsController extends ControllerBase
 
         $numberPage = 1;
 //        if ($this->request->isPost()) {
-//            $query = Criteria::fromInput($this->di, "Systems", $_POST);
+//            $query = Criteria::fromInput($this->di, "Souii\Models\Systems", $_POST);
 //            $this->persistent->parameters = $query->getParams();
 //        } else {
             $numberPage = $this->request->getQuery("page", "int");

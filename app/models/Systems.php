@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Models;
 class Systems extends \Phalcon\Mvc\Model
 {
 

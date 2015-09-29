@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Models;
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
 class Comments extends \Phalcon\Mvc\Model

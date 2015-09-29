@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Models;
 class Categories extends \Phalcon\Mvc\Model
 {
 

@@ -1,5 +1,6 @@
 <?php
-
+namespace Souii\Controllers;
+use Souii\Models;
 class ErrorsController extends ControllerBase
 {
     public function initialize()

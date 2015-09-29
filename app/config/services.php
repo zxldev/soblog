@@ -37,7 +37,7 @@ $di->set('dispatcher', function() use ($di,$config) {
 
 
     $dispatcher = new Phalcon\Mvc\Dispatcher();
-
+    $dispatcher->setDefaultNamespace('Souii\Controllers');
     //-----------------------WARNING！----------------------------
     //-------------------------注意！-----------------------------
     //高级调试模式时，会允许访问所有链接【如果不是非常明白，严禁打开此模式，严禁注释此代码！】
@@ -79,9 +79,10 @@ require APP_PATH . 'app/config/Volt.php';
  */
 $di->set('router', function() use ($config){
     $router = new \Phalcon\Mvc\Router\Annotations(true);
-    $router->addResource('Api');
-    $router->addResource('Index');
-    $router->addResource('Article');
+    $router->setDefaultNamespace('Souii\Controllers');
+    $router->addResource('Souii\Controllers\Api');
+    $router->addResource('Souii\Controllers\Index');
+    $router->addResource('Souii\Controllers\Article');
 //    $router->addResource('MFront');
     return $router;
 });

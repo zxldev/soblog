@@ -1,5 +1,6 @@
 <?php
- 
+namespace Souii\Controllers;
+use Souii\Models;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -32,7 +33,7 @@ class TagsController extends ControllerBase
 
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "Tags", $_POST);
+            $query = Criteria::fromInput($this->di, "Souii\Models\Tags", $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");

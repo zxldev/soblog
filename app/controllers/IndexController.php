@@ -1,5 +1,6 @@
 <?php
-
+namespace Souii\Controllers;
+use Souii\Models;
 class IndexController extends ControllerBase
 {
     public function initialize()

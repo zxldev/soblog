@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Models;
 class Tags extends \Phalcon\Mvc\Model
 {
 

@@ -1,5 +1,7 @@
 <?php
- 
+namespace Souii\Controllers;
+use Souii\Models\Article as Article;
+use Souii\Models\Tags as Tags;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 use Souii\Redis\RedisUtils as RedisUtils;
@@ -32,9 +34,9 @@ class ApiController extends JsonControllerBase
     public function bloggetAction($numberpage = 1,$tag='')
     {
         if($tag!=''){
-            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['TAG'],'ApiController::bloggettag',$numberpage,$tag);
+            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['TAG'],'Souii\Controllers\ApiController::bloggettag',$numberpage,$tag);
         }else{
-            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE'],'ApiController::blogget',$numberpage);
+            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE'],'Souii\Controllers\ApiController::blogget',$numberpage);
         }
 
     }
@@ -100,7 +102,7 @@ class ApiController extends JsonControllerBase
      */
     public function bloggetinfoAction($id = 1)
     {
-        return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['ID'],'ApiController::bloggetinfo',$id);
+        return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['ID'],'Souii\Controllers\ApiController::bloggetinfo',$id);
     }
 
     public static function bloggetinfo($id)

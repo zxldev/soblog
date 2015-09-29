@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Models;
 class ArticleStatus extends \Phalcon\Mvc\Model
 {
 

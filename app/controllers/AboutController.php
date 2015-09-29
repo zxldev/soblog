@@ -1,5 +1,6 @@
 <?php
-
+namespace Souii\Controllers;
+use Souii\Models;
 class AboutController extends ControllerBase
 {
     public function initialize()

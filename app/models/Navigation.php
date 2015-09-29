@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Models;
 class Navigation extends \Phalcon\Mvc\Model
 {
 

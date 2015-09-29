@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Models;
 class Migrations extends \Phalcon\Mvc\Model
 {
 

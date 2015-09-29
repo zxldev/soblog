@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Models;
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
 class PasswordResets extends \Phalcon\Mvc\Model

@@ -1,5 +1,6 @@
 <?php
- 
+namespace Souii\Controllers;
+use Souii\Models;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -28,7 +29,7 @@ class ArticleController extends ControllerBase
 
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "Article", $_POST);
+            $query = Criteria::fromInput($this->di, "Souii\Models\Article", $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");

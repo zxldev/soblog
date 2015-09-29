@@ -1,5 +1,7 @@
 <?php
- 
+namespace Souii\Controllers;
+use Souii\Models\Article as Article;
+use Souii\Models\Tags as Tags;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 use Souii\Redis\RedisUtils as RedisUtils;
@@ -33,7 +35,7 @@ class ManagerController extends ControllerBase
 
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "Article", $_POST);
+            $query = Criteria::fromInput($this->di, "Souii\Models\Article", $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -100,7 +102,7 @@ class ManagerController extends ControllerBase
             $this->tag->setDefault("cate_id", $article->cate_id);
             $this->tag->setDefault("title", $article->title);
             $this->tag->setDefault("content", $article->content);
-            $namesArr = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['TAGS']['ALL'],'TAGS::getAll','ALL');
+            $namesArr = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['TAGS']['ALL'],'Souii\Models\TAGS::getAll','ALL');
             $names = [];
             foreach(explode(',',$article->tags) as $id){
                 if(!empty($id)){

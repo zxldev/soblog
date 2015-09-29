@@ -1,5 +1,6 @@
 <?php
-
+namespace Souii\Controllers;
+use Souii\Models;
 use Phalcon\Flash;
 use Phalcon\Session;
 
