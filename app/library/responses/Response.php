@@ -1,5 +1,5 @@
 <?php
-
+namespace Souii\Responses;
 class Response extends \Phalcon\DI\Injectable{
 
 	protected $head = false;

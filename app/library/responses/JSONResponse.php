@@ -1,6 +1,7 @@
 <?php
+namespace Souii\Responses;
 
-class JSONResponse extends Response{
+class JSONResponse extends \Souii\Responses\Response{
 
 	protected $snake = false;
 	protected $envelope = false;

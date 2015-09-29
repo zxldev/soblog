@@ -1,6 +1,6 @@
 <?php
-
-class CSVResponse extends Response{
+namespace Souii\Responses;
+class CSVResponse extends \Souii\Responses\Response{
 
 	protected $headers = true;
 
