@@ -1,6 +1,9 @@
 <?php
 namespace Souii\Controllers;
 use Souii\Models\Users as Users;
+use Souii\Github\Users as GithubUsers;
+use Souii\Github\OAuth;
+use Phalcon\Mvc\Model as Model;
 /**
  * SessionController
  *
@@ -147,4 +150,157 @@ class SessionController extends ControllerBase
         }
     }
 
+    public function githubloginAction()
+    {
+
+        if (!$this->getSession('tokentype','')==Users::USER_SOURCE_GITHUB) {
+            $oauth = new OAuth($this->config->thirdpart->github);
+            return $oauth->authorize();
+        }
+
+        return $this->discussionsRedirect();
+    }
+
+    /**
+     * Returns to the discussion
+     *
+     * @return \Phalcon\Http\ResponseInterface
+     */
+    protected function discussionsRedirect()
+    {
+        $referer = $this->request->getHTTPReferer();
+        $path    = parse_url($referer, PHP_URL_PATH);
+        if ($path) {
+            $this->router->handle($path);
+            return $this->router->wasMatched() ? $this->response->redirect($path, true) : $this->indexRedirect();
+        } else {
+            return $this->indexRedirect();
+        }
+    }
+
+    protected function indexRedirect()
+    {
+        return $this->response->redirect('/');
+    }
+
+    /**
+     * @return \Phalcon\Http\ResponseInterface
+     */
+    public function githubAccessTokenAction()
+    {
+        $oauth = new OAuth($this->config->thirdpart->github);
+
+        $response = $oauth->accessToken();
+        if (is_array($response)) {
+
+            if (isset($response['error'])) {
+                $this->flashSession->error('Github: ' . $response['error']);
+                return $this->indexRedirect();
+            }
+
+            $githubUser = new GithubUsers($response['access_token']);
+
+            if (!$githubUser->isValid()) {
+                $this->flashSession->error('Invalid Github response. Please try again');
+                return $this->indexRedirect();
+            }
+
+            /**
+             * Edit/Create the user
+             */
+            $user = Users::findFirstByUid($githubUser->getId());
+            if ($user == false) {
+                $user               = new Users();
+                $user->uid = $githubUser->getId();
+                $user->source = Users::USER_SOURCE_GITHUB;
+                $user->remember_token =  $response['access_token'];
+                $user->type = Users::USER_TYPE_REGISTER_USER;
+                $user->created_at = date('Y-m-d H:i:s');
+                $user->updated_at = date('Y-m-d H:i:s');
+                $user->password = '000000';
+//                $user->token_type   = $response['token_type'];
+//                $user->access_token = $response['access_token'];
+            }
+
+//            if ($user->banned == 'Y') {
+//                $this->flashSession->error('You have been banned from the forum.');
+//                return $this->indexRedirect();
+//            }
+
+            //$user = ForumUsers::findFirst();
+
+            // Update session id
+            session_regenerate_id(true);
+
+            /**
+             * Update the user information
+             */
+            $user->name  = $githubUser->getName();
+//            $user->login = $githubUser->getLogin();
+            $email       = $githubUser->getEmail();
+
+            if (is_string($email)) {
+                $user->email = $email;
+            } else {
+                if (is_array($email)) {
+                    if (isset($email['email'])) {
+                        $user->email = $email['email'];
+                    }
+                }
+            }
+
+//            $user->gravatar_id = $githubUser->getGravatarId();
+//            if (!$user->gravatar_id) {
+//                if ($user->email && strpos($user->email, '@') !== false) {
+//                    $user->gravatar_id = md5(strtolower($user->email));
+//                }
+//            }
+//
+//            $user->increaseKarma(Karma::LOGIN);
+
+            if (!$user->save()) {
+                foreach ($user->getMessages() as $message) {
+                    $this->flashSession->error((string)$message);
+                    return $this->indexRedirect();
+                }
+            }
+
+            /**
+             * Store the user data in session
+             */
+//            $this->session->set('identity', $user->id);
+//            $this->session->set('identity-name', $user->name);
+//            $this->session->set('identity-gravatar', $user->gravatar_id);
+//            $this->session->set('identity-timezone', $user->timezone);
+//            $this->session->set('identity-theme', $user->theme);
+//            $this->session->set('identity-moderator', $user->moderator);
+            $this->_registerSession($user);
+            $this->setSession('token',$response['access_token']);
+            $this->setSession('tokentype',Users::USER_SOURCE_GITHUB);
+            if ($user->getOperationMade() ==  Model::OP_CREATE) {
+                $this->flashSession->success('Welcome ' . $user->name);
+            } else {
+                $this->flashSession->success('Welcome back ' . $user->name);
+            }
+
+//            if ($user->email && strpos($user->email, '@') !== false) {
+//
+//                if (strpos($user->email, '@users.noreply.github.com') !== false) {
+//                    $messageNotAlllow = 'Your current e-mail: ' . $this->escaper->escapeHtml($user->email)
+//                        . ' does not allow us to send you e-mail notifications';
+//                    $this->flashSession->notice($messageNotAlllow);
+//                }
+//            } else {
+//
+//                $messageCantSend
+//                    = 'We weren\'t able to obtain your e-mail address'
+//                    . ' from Github, we can\'t send you e-mail notifications';
+//                $this->flashSession->notice($messageCantSend);
+//            }
+            return $this->discussionsRedirect();
+        }
+
+        $this->flashSession->error('Invalid Github response. Please try again');
+        return $this->discussionsRedirect();
+    }
 }

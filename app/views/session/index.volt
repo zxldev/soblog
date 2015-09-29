@@ -23,9 +23,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ submit_button('登录', 'class': 'btn btn-primary btn-large') }}
+                    {{ submit_button('登录', 'class': 'btn btn-primary btn-sm') }}
+                    <a class="btn btn-primary btn-sm" href="/session/githublogin">Github登录</a>
                     <a class="_weiboLogin"><img src="http://timg.sjs.sinajs.cn/t4/appstyle/widget/images/loginButton/loginButton_24.png" title="点击进入授权页面" alt="点击进入授权页面" border="0" /></a>
                     <span id="qqLoginBtn"></span>
+
 
                 </div>
             </fieldset>

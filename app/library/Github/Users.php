@@ -83,6 +83,15 @@ class Users
         return $this->response['login'];
     }
 
+    public function getId(){
+        if (isset($this->response['id'])) {
+            if ($this->response['id']) {
+                return $this->response['id'];
+            }
+        }
+        return $this->response['login'];
+    }
+
     /**
      * @return null
      */
