@@ -1,6 +1,6 @@
 <?php
 namespace Souii\Controllers;
-use Souii\Models;
+use Souii\Models\Systems as Systems;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
