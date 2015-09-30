@@ -9,7 +9,7 @@
     <meta name="description" content="{{ elements.getSysVar('seo_desc') }}">
     <meta name="keywords" content="{{ elements.getSysVar('seo_key') }}">
     <meta name="author" content="">
-    <meta name="currentUser" username="{{ user?user['name']:'' }}" role="{{ user?user['type']:''  }}">
+    <meta name="currentUser" username="{{ (user is not empty) ?user['name']:'' }}" role="{{ (user is not empty)?user['type']:''  }}">
 
     <meta property="qc:admins" content="21417660276375116375" />
 
@@ -57,7 +57,7 @@
                 <li>
                     <a href="/">主页</a>
                 </li>
-                {% if user %}
+                {% if user is not empty %}
                     <li>
                         {% if user['type']=='1' %}
                         <a href="/manager">

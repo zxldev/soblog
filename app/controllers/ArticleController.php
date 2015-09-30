@@ -3,6 +3,7 @@ namespace Souii\Controllers;
 use Souii\Models;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Souii\Site\NetWorkUtils as NetWorkUtils;
 
 class ArticleController extends ControllerBase
 {
@@ -246,6 +247,13 @@ class ArticleController extends ControllerBase
 
     public function infoAction($id){
         $this->view->setVar('blogid',$id);
+        if(NetWorkUtils::isSpider()){
+            $atricle = ApiController::bloggetinfo($id);
+            $htmlTail = '<ul class="pager"><li class="next"><a href="/"> &larr;返回</a></li></ul>';
+            $html = '<div class="row"><div class="col-md-6"></div>';
+            $ret =  $html . '</div></div><div class="markdown-body">' . $atricle->content . '</div>' . $htmlTail;
+            echo $ret;
+        }
     }
 
 }

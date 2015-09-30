@@ -1,7 +1,7 @@
 <div class="row">
     <div id="_bloglist" class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 _bloglist">
         <div class="post"></div>
-
+        {{ content() }}
 
     </div>
     {{ hidden_field("tag") }}

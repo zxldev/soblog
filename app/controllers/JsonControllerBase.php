@@ -1,5 +1,6 @@
 <?php
 namespace Souii\Controllers;
+use Phalcon\Mvc\View;
 use Souii\Models;
 use Phalcon\Mvc\Controller;
 use Souii\Responses\JSONResponse as JSONResponse;
@@ -28,14 +29,16 @@ class JsonControllerBase extends Base
 
     public function afterExecuteRoute($dispatcher)
     {
-        $records = $dispatcher->getReturnedValue();
-        $error = false;
-        !isset($records->error)||$error=$records->error;
-        $response =new JSONResponse();
-        $response->useEnvelope(true)
-            ->convertSnakeCase(false)
-            ->send($records,$error);
-        return;
+        if($this->request->isAjax()){
+            $records = $dispatcher->getReturnedValue();
+            $error = false;
+            !isset($records->error)||$error=$records->error;
+            $response =new JSONResponse();
+            $response->useEnvelope(true)
+                ->convertSnakeCase(false)
+                ->send($records,$error);
+            return;
+        }
     }
 
 
