@@ -83,6 +83,7 @@ $di->set('router', function() use ($config){
     $router->addResource('Souii\Controllers\Api');
     $router->addResource('Souii\Controllers\Index');
     $router->addResource('Souii\Controllers\Article');
+    $router->addResource('Souii\Controllers\Sitemap');
 //    $router->addResource('MFront');
     return $router;
 });
