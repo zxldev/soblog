@@ -9,6 +9,8 @@ use Phalcon\Mvc\Model\Metadata\Memory as MetaData;
 use Phalcon\Flash\Session as FlashSession;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use Qiniu\Auth as Auth;
+use Qiniu\Storage\UploadManager as UploadManager;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -227,4 +229,19 @@ $di->set('weiboOauth',function() use ($config){
     $o = new Souii\Weibo\WeiBoOAuth($config->thirdpart->weibo->WB_AKEY , $config->thirdpart->weibo->WB_SKEY );
 //    $code_url = $o->getAuthorizeURL( $config->thirdpart->weibo->WB_CALLBACK_URL );
     return $o;
+});
+
+$di->setShared('qiniuuploadMgr',function() use ($config){
+    return new UploadManager();
+});
+
+$di->setShared('qiniuToken',function() use ($config){
+    // 构建鉴权对象
+    $auth = new Auth($config->thirdpart->qiniu->accessKey, $config->thirdpart->qiniu->secretKey);
+
+    // 要上传的空间
+    $bucket = $config->thirdpart->qiniu->bucket;
+
+    // 生成上传 Token
+    return  $auth->uploadToken($bucket);
 });

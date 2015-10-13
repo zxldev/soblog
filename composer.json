@@ -2,7 +2,8 @@
   "require": {
       "predis/predis": "1.1.*@dev" ,
       "guzzlehttp/guzzle": ">=4.1.4 <7.0",
-      "knplabs/github-api": "~1.4"
+      "knplabs/github-api": "~1.4",
+      "qiniu/php-sdk" : "*"
   },
   "repositories": [
     {"type": "composer",

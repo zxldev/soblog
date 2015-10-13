@@ -43,4 +43,16 @@ class IndexController extends ControllerBase
         }
         $this->view->tag = $tag;
     }
+
+    public function uploadAction(){
+        $root = $this->config->database->username;
+        $pass = $this->config->database->password;
+        $dbname = $this->config->database->dbname;
+        $timestr = date('YmdHis');
+        $fileName = "backupMysqlFile-$timestr.sql.gz";
+        $filePath = "/backup/mysql/$fileName";
+        $command = "mysqldump -h127.0.0.1 -u$root -p$pass $dbname | gzip > $filePath";
+        exec($command);
+        $ret = $this->qiniuuploadMgr->putFile($this->qiniuToken,$fileName,$filePath);
+    }
 }
