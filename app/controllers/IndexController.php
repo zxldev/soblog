@@ -25,10 +25,10 @@ class IndexController extends ControllerBase
             $items = $data->items;
              $i = 0;
                 $html = '';
-               $length = $data->total_items;
+               $length = count($data->items);
                 $tags = '';
             for ($i = 0; $i < $length; $i++) {
-                $html .= '<div class="post-preview"><a href="/article/info/' .
+                $html .= '<div class="post-preview"><a href="'.$this->config->site['url'].'/article/info/' .
                     $items[$i]['id'] . '"><h2 class="post-title">' .
                 $items[$i]['title'] . '</h2></a><h4  class="post-subtitle">';
 
