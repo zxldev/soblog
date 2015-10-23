@@ -9,6 +9,7 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
                 lastScorll: 1, //last ScorllTop position;
                 increament: 0 //compare the last, store the increament
             },
+            isimmediately : true, //if transform text immediately
             selector:'',
             save:function(){
                 $(iimarkdown.prototype.selector).blur();
@@ -37,6 +38,7 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
                                                                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">\
                                                                              <ul class="nav navbar-nav navbar-right">\
                                                                                  <li><a href="#">Link</a></li>\
+                                                                                 <li><a class="_immedateflaga"><span  class="_immedateflag glyphicon glyphicon-pause" aria-hidden="true">停止同步</span></a></li>\
                                                                                  <li class="dropdown">\
                                                                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>\
                                                                                      <ul class="dropdown-menu">\
@@ -54,6 +56,9 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
             </nav></div>');
             $('.iimarkdown-btn-finish').bind('click',function(){
                 iimarkdown.prototype.save();
+            });
+            $('._immedateflaga').bind('click',function(e){
+                iimarkdown.updateImmediately();
             });
             $('.markdown-body-view').bind('scroll', function (e) {
                 iimarkdown.prototype.doubleScorllHelper.increament = e.target.scrollTop - iimarkdown.prototype.doubleScorllHelper.lastScorll;
@@ -79,7 +84,14 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
                     iimarkdown.prototype.save();
                     return false;
                 }
-                iimarkdown.updateMarkdownBody(selector);
+                //如果按键式ctrl+alt+p , 则切换【是否立即更新状态】
+                if(e.ctrlKey&& e.altKey&& e.keyCode==80){
+                    iimarkdown.updateImmediately();
+                }
+                //只有立即更新启用时，才调用更新。
+                if(iimarkdown.prototype.isimmediately){
+                    iimarkdown.updateMarkdownBody(selector);
+                }
             }).bind('focus', function () {
                 //add editor css ,show viewer
                 $(this).parent().addClass('markdown-pen-view');
@@ -111,7 +123,22 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
             $('pre code').each(function (i, block) {
                 hljs.highlightBlock(block);
             });
+        },
+        //更新同步状态的显示
+        updateImmediately:function(){
+            iimarkdown.prototype.isimmediately = !iimarkdown.prototype.isimmediately;
+            if(iimarkdown.prototype.isimmediately){
+                $('._immedateflag').removeClass('glyphicon-play');
+                $('._immedateflag').addClass('glyphicon-pause');
+                $('._immedateflag').html('停止同步');
+                iimarkdown.updateMarkdownBody(iimarkdown.prototype.selector);
+            }else{
+                $('._immedateflag').removeClass('glyphicon-pause');
+                $('._immedateflag').addClass('glyphicon-play');
+                $('._immedateflag').html('开始同步');
+            }
         }
+
     };
     return iimarkdown;
 });
