@@ -115,7 +115,7 @@ a:hover {
 
 .markdown-body-view {
     overflow: auto;
-    width: 50%;
+    width: 60%;
     position: fixed;
     left: 0;
     top: 0;
@@ -128,7 +128,7 @@ a:hover {
 
 .markdown-pen-view {
     overflow:auto;
-    width: 50%;
+    width: 40%;
     position: fixed;
     right: 0;
     top: 0;

@@ -45,7 +45,7 @@ class ManagerController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = array();
         }
-        $parameters["order"] = "id";
+        $parameters["order"] = "created_at desc";
 
         $article = Article::find($parameters);
         if (count($article) == 0) {
