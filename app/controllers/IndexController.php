@@ -13,15 +13,16 @@ class IndexController extends ControllerBase
     }
 
     /**
-     * @Route("/tag={tag}", methods={"GET"}, name="index")
+     * @Route("/page={page}/tag={tag}", methods={"GET"}, name="index")
      * @param string $tag
      */
-    public function indexAction($tag = '')
+    public function indexAction($page = 1,$tag = '')
     {
         $this->tag->setDefault("tag", $tag);
         //爬虫特殊处理
         if(NetWorkUtils::isSpider()){
-            $data = ApiController::blogget(0);
+            $data = ApiController::blogget($page);
+            $totalpage = $data->total_pages;
             $items = $data->items;
              $i = 0;
                 $html = '';
@@ -39,6 +40,14 @@ class IndexController extends ControllerBase
 
                 $html .= '</h4><p class="post-meta">发布于' . $items[$i]['updated_at'] . '</p></div><hr>';
             }
+            if($page<$totalpage){
+                $html.=' <ul class="pager">
+                        <li class="next">
+                        <a href="'.$this->config->site['url'].'/page='.($page+1).'/tag=">更多 &rarr;</a>
+                        </li>
+                        </ul>';
+            }
+
             echo $html;
         }
         $this->view->tag = $tag;
