@@ -2,6 +2,9 @@
 
 return new \Phalcon\Config(
     array(
+        'site' => array(
+            'url' => ''
+        ),
         'database' => array(
             'adapter' => 'Mysql',
             'host' => '',
@@ -16,41 +19,59 @@ return new \Phalcon\Config(
                 'port' => '6379',
                 'auth' => ''
             ),
+            'sphinx' => array(
+                'ip' => '',
+                'port' => '',
+            )
         ),
         'application' => array(
-            'modelsDir' => APP_PATH.'app/models/', //用于指示代码生成器models目录在哪里
-            'controllersDir' => APP_PATH.'app/controllers/',//用于指示代码生成器controllersDir目录在哪里
-            'viewsDir' => APP_PATH.'app/views/',//用于指示代码生成器controllersDir目录在哪里
-            'cacheDir' => APP_PATH.'app/cache/',
-            'pluginsDir' => APP_PATH.'app/plugins/',
-            'formsDir' => APP_PATH.'app/forms/',
-            'libraryDir' => APP_PATH.'app/library/',
+            'modelsDir' => APP_PATH . 'app/models/', //用于指示代码生成器models目录在哪里
+            'controllersDir' => APP_PATH . 'app/controllers/',//用于指示代码生成器controllersDir目录在哪里
+            'viewsDir' => APP_PATH . 'app/views/',//用于指示代码生成器controllersDir目录在哪里
+            'cacheDir' => APP_PATH . 'app/cache/',
+            'pluginsDir' => APP_PATH . 'app/plugins/',
+            'formsDir' => APP_PATH . 'app/forms/',
+            'libraryDir' => APP_PATH . 'app/library/',
             'baseUri' => '/',
             'cryptKey' => '#ldjB$=dp?.ak//j1V$a!d#d',// 只支持16, 24 或 32位
             //是否debug模式
-            'debug' => true,
+            'debug' => false,
             //高级调试模式开关。
-            'SeniorDebug' => true,
-            'registerDir'=>array(
+            'SeniorDebug' => false,
+            'registerDir' => array(
                 'default' => array(
-                    'modelsDir' => APP_PATH.'app/models/', //用于指示代码生成器models目录在哪里
-                    'controllersDir' => APP_PATH.'app/controllers/',//用于指示代码生成器controllersDir目录在哪里
-                    'viewsDir' => APP_PATH.'app/views/',//用于指示代码生成器controllersDir目录在哪里
-                    'pluginsDir' => APP_PATH.'app/plugins/',
-                    'formsDir' => APP_PATH.'app/forms/',
-                    'libraryDir' => APP_PATH.'app/library/',
-                    'libraryDirResponse' => APP_PATH.'app/library/responses',
+                    'modelsDir' => APP_PATH . 'app/models/', //用于指示代码生成器models目录在哪里
+                    'controllersDir' => APP_PATH . 'app/controllers/',//用于指示代码生成器controllersDir目录在哪里
+                    'viewsDir' => APP_PATH . 'app/views/',//用于指示代码生成器controllersDir目录在哪里
+                    'pluginsDir' => APP_PATH . 'app/plugins/',
+                    'formsDir' => APP_PATH . 'app/forms/',
                 )
             ),
-            'namespaecs'=>array(
+            'namespaecs' => array(
+                'Souii' => APP_PATH . 'app/library/',
+                'Souii\Models'        => APP_PATH . 'app/models/',
+                'Souii\Controllers'   => APP_PATH . 'app/controllers/',
             ),
         ),
-        'blog'=>array(
-            'author'=>''
+        'blog' => array(
+            'author' => '赵枫杨'
         ),
-        'github'      => array(
-            'clientId'     => '',
-            'clientSecret' => '',
-            'redirectUri'  => ''
+        'thirdpart' => array(
+            'weibo' => array(
+                "WB_AKEY" => '',
+                "WB_SKEY" => '',
+                "WB_CALLBACK_URL" => 'http://www.souii.com/session/weibologincallback',
+            ),
+            'github' => array(
+                'clientId' => '',
+                'clientSecret' => '',
+                'redirectUri' => 'http://www.souii.com/session/githubaccesstoken/'
+            ),
+            'qiniu'=>array(
+                'accessKey'=>'',
+                'secretKey'=>'',
+                'bucket'=>'souii',
+            )
         ),
+
     ));
