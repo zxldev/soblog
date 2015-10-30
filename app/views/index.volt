@@ -12,6 +12,7 @@
     <meta name="currentUser" username="{{ (user is not empty) ?user['name']:'' }}" role="{{ (user is not empty)?user['type']:''  }}">
 
     <meta property="qc:admins" content="21417660276375116375" />
+    <meta baidu-gxt-verify-token="a67fb56f024c39aecc4f03815dcf9085">
 
    {{getTitle()  }}
     <script data-main="/js/main" src="http://apps.bdimg.com/libs/require.js/2.1.11/require.min.js"></script>
@@ -38,7 +39,7 @@
 
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<nav class="navbar navbar-inverse  navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
@@ -111,5 +112,14 @@
         </div>
     </div>
 </footer>
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        bp.src = '//push.zhanzhang.baidu.com/push.js';
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 </body>
 </html>
