@@ -17,15 +17,18 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                 tags = '';
             for (i = 0; i < length; i++) {
                 html += '<div class="post-preview"><a href="/article/info/' +
-                    data.records.items[i].id + '"><h2 class="post-title">' +
-                    data.records.items[i].title + '</h2></a><h4  class="post-subtitle">';
+                    data.records.items[i].id + '"><h3 class="post-title">' +
+                    data.records.items[i].title + '</h3></a><h4  class="post-subtitle">';
+
+                html += '</h4><p class="post-meta"><span class="post-meta-index post-meta-date-index"><i class="glyphicon glyphicon-calendar"></i>'
+                + data.records.items[i].updated_at + '</span><span class="post-meta-index post-meta-tag-index"><i class=" glyphicon glyphicon-tags"></i><span class="post-meta-tag-content">';
                 if (data.records.items[i].tags.length > 0) {
                     tags = data.records.items[i].tags.split(',');
                     $.each(tags, function (i, tag) {
                         html += '<span  class="' + exports.calClass(tag) + '">' + tag + '</span> ';
                     });
                 }
-                html += '</h4><p class="post-meta">发布于' + data.records.items[i].updated_at + '</p></div><hr>';
+                html+= '</span></span></p></div><hr>';
             }
             $('._bloglist').append(html);
         },

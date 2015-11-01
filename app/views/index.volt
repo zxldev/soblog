@@ -39,7 +39,7 @@
 
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-inverse  navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-custom  navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
@@ -68,15 +68,13 @@
                             {{ user['name']}}</a>
                     </li>
                     <li>
-                        <a class="_btn_end_session">退出</a>
+                        <a class="_btn_end_session"><i class="glyphicon glyphicon-log-out"></i> 退出</a>
                     </li>
                     {% else %}
                         <li>
-                            <a class="_btn_start_session">登录</a>
+                            <a class="_btn_start_session"><i class="glyphicon glyphicon-log-in"></i> 登录</a>
                         </li>
                 {% endif %}
-
-
             </ul>
         </div>
         <!-- /.navbar-collapse -->
