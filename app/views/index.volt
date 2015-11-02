@@ -58,6 +58,14 @@
                 <li>
                     <a href="/">主页</a>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">友情链接 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#"></a></li>
+                    </ul>
+                </li>
                 {% if user is not empty %}
                     <li>
                         {% if user['type']=='1' %}

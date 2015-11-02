@@ -4,11 +4,12 @@
 require.config({
     baseUrl: '/js/lib',
     paths: {
+        app: '/js/app/app',
         cleanblog: '/js/app/cleanblog',
         blog: '/js/app/blog',
         jquery:['http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min','/js/jquery'],
-        showdown:['http://libs.cdnjs.net/showdown/1.2.1/showdown.min','/js/lib/showdown'],
-        hljs:['http://apps.bdimg.com/libs/highlight.js/8.6/highlight.min','/js/lib/highlight.min'],
+        showdown:'/js/lib/showdown',
+        hljs:'/js/lib/highlight.min',
         iimarkdown:'/js/lib/iimarkdown',
         domready:'/js/domready',
         bootstrap:'/js/lib/bootstrap.min',
@@ -17,17 +18,7 @@ require.config({
     }
 });
 
-require(['jquery','blog','bootstrap','cleanblog'],function($,blog,bootstrap,cleanblog){
-    JQuery = $;
-    $(document)
-        .on('click', '._btn_end_session', function () {
-            blog.logout();
-        })
-        .on('click', '._btn_start_session', function () {
-            window.location.href = '/session/index?callback=' + encodeURIComponent(window.location.pathname + window.location.search);
-        });
-
-});
+require(['app']);
 
 
 
