@@ -42,8 +42,14 @@ class Elements extends Component
     private $_tabs = array(
         '我的博客' => array(
             'controller' => 'manager',
-            'action' => 'index',
+            'action' => 'search',
             'iconClass'=>'glyphicon glyphicon-book',
+            'any' => true
+        ),
+        '分类设置' => array(
+            'controller' => 'category',
+            'action' => 'search',
+            'iconClass'=>'glyphicon glyphicon-list',
             'any' => true
         ),
         '系统设置' => array(
@@ -105,7 +111,7 @@ class Elements extends Component
             } else {
                 echo '<li>';
             }
-            echo  '<a href="/'.$option['controller'] . '/' . $option['action'].'"><span class="'.$option['iconClass'].'" aria-hidden="true"></span>'.$caption. '</a></li>';
+            echo  '<a href="/'.$option['controller'] . '/' . $option['action'].'"><i class="'.$option['iconClass'].'" aria-hidden="true"></i><span> '.$caption. '</span></a></li>';
         }
         echo '</ul>';
     }

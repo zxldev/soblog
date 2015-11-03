@@ -15,7 +15,7 @@ try {
 	/**
 	 * Read the configuration
 	 */
-    $config = include APP_PATH . "app/config/config.php";
+    $config = include APP_PATH . "app/config/config.bak";
 
 	/**
 	 * Auto-loader configuration
