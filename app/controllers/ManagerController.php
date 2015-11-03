@@ -1,6 +1,8 @@
 <?php
 namespace Souii\Controllers;
 use Souii\Models\Article as Article;
+use Souii\Models\Categories;
+use Souii\Models\Category;
 use Souii\Models\Tags as Tags;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
@@ -72,7 +74,11 @@ class ManagerController extends ControllerBase
      */
     public function newAction()
     {
+        $this->view->cates =$this->redisUtils->getCache(RedisUtils::$CACHEKEYS['CATEGORY']['ALL'],'Souii\Controllers\ManagerController::categoryAll');
+    }
 
+    public static function categoryAll(){
+        return  Category::find();
     }
 
     /**
@@ -111,7 +117,7 @@ class ManagerController extends ControllerBase
             }
             $this->tag->setDefault("tags", implode(',',$names));
             $this->tag->setDefault("pic", $article->pic);
-            
+            $this->view->cates = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['CATEGORY']['ALL'],'Souii\Controllers\ManagerController::categoryAll');
         }
     }
 

@@ -103,6 +103,7 @@ class CategoryController extends ControllerBase
             $this->tag->setDefault("seo_desc", $category->seo_desc);
             $this->tag->setDefault("created_at", $category->created_at);
             $this->tag->setDefault("updated_at", $category->updated_at);
+            $this->tag->setDefault("class_name", $category->class_name);
             
         }
     }
@@ -133,6 +134,7 @@ class CategoryController extends ControllerBase
         $category->seo_desc = $this->request->getPost("seo_desc");
         $category->created_at = date('Y-m-d H:i:s');
         $category->updated_at = date('Y-m-d H:i:s');
+        $category->class_name = $this->request->getPost("class_name");
         
 
         if (!$category->save()) {
@@ -147,7 +149,7 @@ class CategoryController extends ControllerBase
         }
 
         $this->flash->success("category was created successfully");
-
+        $this->redisUtils->deleteTableCache('category');
         return $this->dispatcher->forward(array(
             "controller" => "category",
             "action" => "index"
@@ -187,8 +189,8 @@ class CategoryController extends ControllerBase
         $category->seo_title = $this->request->getPost("seo_title");
         $category->seo_key = $this->request->getPost("seo_key");
         $category->seo_desc = $this->request->getPost("seo_desc");
-        $category->created_at = $this->request->getPost("created_at");
-        $category->updated_at = $this->request->getPost("updated_at");
+        $category->updated_at = date('Y-m-d H:i:s');
+        $category->class_name = $this->request->getPost("class_name");
         
 
         if (!$category->save()) {
@@ -203,7 +205,8 @@ class CategoryController extends ControllerBase
                 "params" => array($category->id)
             ));
         }
-
+        $this->redisUtils->deleteTableCache('article');
+        $this->redisUtils->deleteTableCache('category');
         $this->flash->success("category was updated successfully");
 
         return $this->dispatcher->forward(array(

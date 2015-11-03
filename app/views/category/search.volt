@@ -24,6 +24,7 @@
             <th>Seo Of Desc</th>
             <th>Created</th>
             <th>Updated</th>
+            <th>Class Of Name</th>
 
             <th colspan="2">操作</th></tr>
     </thead>
@@ -40,6 +41,7 @@
             <td>{{ category.seo_desc }}</td>
             <td>{{ category.created_at }}</td>
             <td>{{ category.updated_at }}</td>
+            <td>{{ category.class_name }}</td>
             <td>{{ link_to("category/edit/"~category.id, "编辑","class":"label label-info") }}</td>
             <td>{{ link_to("category/delete/"~category.id, "删除","class":"label label-danger") }}</td>
         </tr>

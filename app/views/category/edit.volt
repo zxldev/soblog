@@ -61,7 +61,14 @@
             {{ text_field("seo_desc", "size" : 30,"class":"form-control") }}
         </td>
     </tr>
-
+    <tr>
+        <td align="right">
+            <label for="class_name">Class Of Name</label>
+        </td>
+        <td align="left">
+            {{ text_field("class_name", "size" : 30,"class":"form-control") }}
+        </td>
+    </tr>
 
     <tr>
         <td>{{ hidden_field("id") }}</td>

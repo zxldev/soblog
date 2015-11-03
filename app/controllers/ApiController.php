@@ -1,6 +1,7 @@
 <?php
 namespace Souii\Controllers;
 use Souii\Models\Article as Article;
+use Souii\Models\Category;
 use Souii\Models\Tags as Tags;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
@@ -72,7 +73,7 @@ class ApiController extends JsonControllerBase
     public static function blogget($numberpage){
         $parameters = array();
         $parameters["order"] = "created_at desc";
-        $parameters['columns'] = array('id,title,tags,updated_at');
+        $parameters['columns'] = array('id,title,tags,cate_id,updated_at');
         $article = Article::find($parameters);
         $paginator = new Paginator(array(
             "data" => $article,
@@ -81,6 +82,7 @@ class ApiController extends JsonControllerBase
         ));
         $page =          $paginator->getPaginate();
         $map = Tags::getAll();
+        $categorysmap = Category::getAll();
 
         foreach($page->items as $item){
             $ret = [];
@@ -90,6 +92,8 @@ class ApiController extends JsonControllerBase
                     $ret[] = $map[$tag]['name'];
                 }
             }
+            $item->cate_name = $categorysmap[$item->cate_id]['cate_name'];
+            $item->class_name = $categorysmap[$item->cate_id]['class_name'];
             $item->tags = implode(',',$ret);
         }
         return $page;

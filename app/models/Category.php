@@ -58,6 +58,12 @@ class Category extends \Phalcon\Mvc\Model
     public $updated_at;
 
     /**
+     *
+     * @var string
+     */
+    public $class_name;
+
+    /**
      * Returns table name mapped in the model.
      *
      * @return string
@@ -87,6 +93,18 @@ class Category extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    public function  getAll(){
+        $tags = Category::find()->toArray();
+        $ret = [];
+        foreach($tags as $tag){
+            $ret[$tag['id']]= array(
+                'cate_name'=>$tag['cate_name'],
+                'class_name'=>$tag['class_name']
+            );
+        }
+        return $ret;
     }
 
 }
