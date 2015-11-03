@@ -28,14 +28,16 @@ class ApiController extends JsonControllerBase
     }
 
     /**
-     * @Route("/page={numberpage}/tag={tag}/blog", methods={"GET"}, name="blogget")
+     * @Route("/page={numberpage}/tag={tag}/cate={cate}/blog", methods={"GET"}, name="blogget")
      * @param int $numberPage
      * @return stdclass
      */
-    public function bloggetAction($numberpage = 1,$tag='')
+    public function bloggetAction($numberpage = 1,$tag='',$cate='')
     {
         if($tag!=''){
             return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['TAG'],'Souii\Controllers\ApiController::bloggettag',$numberpage,$tag);
+        }else if($cate!=''){
+            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['CATE'],'Souii\Controllers\ApiController::bloggetcate',$numberpage,$cate);
         }else{
             return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE'],'Souii\Controllers\ApiController::blogget',$numberpage);
         }
@@ -47,7 +49,35 @@ class ApiController extends JsonControllerBase
         $parameters["order"] = "created_at desc";
         $parameters["conditions"] = 'tag like ';
         //TODO 从这里开始
-        $parameters['columns'] = array('id,title,tags,updated_at');
+        $parameters['columns'] = array('id,title,tags,cate_id,updated_at');
+        $article = Article::find($parameters);
+        $paginator = new Paginator(array(
+            "data" => $article,
+            "limit"=> 10,
+            "page" => $numberpage
+        ));
+        $page =          $paginator->getPaginate();
+        $map = Tags::getAll();
+
+        foreach($page->items as $item){
+            $ret = [];
+            $tags = explode(',',$item->tags);
+            foreach($tags as $tag){
+                if(!empty($tag)){
+                    $ret[] = $map[$tag]['name'];
+                }
+            }
+            $item->tags = implode(',',$ret);
+        }
+        return $page;
+    }
+
+    public static function bloggetcate($numberpage,$cate){
+        $parameters = array();
+        $parameters["order"] = "created_at desc";
+        $parameters["conditions"] = 'tag like ';
+        //TODO 从这里开始
+        $parameters['columns'] = array('id,title,tags,cate_id,updated_at');
         $article = Article::find($parameters);
         $paginator = new Paginator(array(
             "data" => $article,

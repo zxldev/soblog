@@ -14,9 +14,7 @@ p {
     line-height: 1.5;
     margin: 25px 0;
 }
-p a {
-    text-decoration: underline;
-}
+
 h1,
 h2,
 h3,
@@ -63,6 +61,12 @@ hr.small {
     letter-spacing: 1px;
 }
 
+/*
+博客列表样式
+*/
+.post-preview{
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
 .post-preview > a {
     color: #404040;
@@ -73,7 +77,7 @@ hr.small {
     color: #0085a1;
 }
 .post-preview > a > .post-title {
-
+    color: #428bca;
     margin-top: 15px;
     margin-bottom: 5px;
 }
@@ -82,8 +86,10 @@ hr.small {
     font-weight: 300;
     margin-bottom: 10px;
 }
+
 .post-preview > .post-meta {
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 16px;
     margin-top: 0;
 }
 .post-preview > .post-meta > a {
@@ -93,20 +99,26 @@ hr.small {
 .post-preview > .post-meta > a:hover,
 .post-preview > .post-meta > a:focus {
     color: #0085a1;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .post-meta-index{
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
-.post-meta-tag-content{
-    margin-left: 8px;
 
+.post-meta-cate-content{
+    font-size: 12px;
+}
+.post-meta-tag-content{
+
+    margin-left: 8px;
 }
 .post-meta-tag-content span {
     vertical-align: text-top;
 }
+
+
 @media only screen and (min-width: 768px) {
     .post-preview > a > .post-title {
     }
@@ -250,4 +262,6 @@ body {
 
 a:hover{
      cursor:pointer
- }
+}
+
+

@@ -1,5 +1,6 @@
 <?php
 namespace Souii\Controllers;
+use Phalcon\Text;
 use Souii\Models;
 use Souii\Site\NetWorkUtils;
 
@@ -13,12 +14,14 @@ class IndexController extends ControllerBase
     }
 
     /**
-     * @Route("/page={page}/tag={tag}", methods={"GET"}, name="index")
+     * @Route("/page={page}/tag={tag}/cate={cate}", methods={"GET"}, name="index")
      * @param string $tag
      */
-    public function indexAction($page = 1,$tag = '')
+    public function indexAction($page = 1,$tag = '',$cate='')
     {
+        Text::random(Text::R,32);
         $this->tag->setDefault("tag", $tag);
+        $this->tag->setDefault("cate", $cate);
         //爬虫特殊处理
         if(NetWorkUtils::isSpider()){
             $data = ApiController::blogget($page);
@@ -51,6 +54,7 @@ class IndexController extends ControllerBase
             echo $html;
         }
         $this->view->tag = $tag;
+        $this->view->cate = $cate;
     }
 
     public function uploadAction(){
