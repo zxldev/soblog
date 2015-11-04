@@ -1,9 +1,12 @@
 <div class="row">
-    <div id="_bloglist" class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 _bloglist">
-        <div class="post"></div>
-        {{ content() }}
-
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="_cate_title">{% if  cateEntity is not empty %} <h1><i class="{{ cateEntity.class_name }}"></i> {{ cateEntity.cate_name }} </h1>{% endif %}{% if tag %} <h1><i class="glyphicon glyphicon-tag"></i> {{ tag }} </h1>{% endif %}</div>
+        <div id="_bloglist" class="_bloglist">
+            <div class="post"></div>
+            {{ content() }}
+        </div>
     </div>
+
     {{ hidden_field("tag") }}
     {{ hidden_field("cate") }}
     <div class="_nav">

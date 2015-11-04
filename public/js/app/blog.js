@@ -82,14 +82,8 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                 dataType: 'json',
                 cache: false,
                 success: function (data) {
-                    debugger;
                     exports.buildListPage(data);
                     exports.infiniteScrollList();
-                },
-                error: function (a,b) {
-                    debugger;
-                   console.log(a);
-                    console.log();
                 }
             });
         },
@@ -108,6 +102,7 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                         editHtml = '<div class="col-md-6"><a class="btn btn-info pull-right btn-sm" href="/manager/edit/' + id + '">编辑</a></div>',
                         tags = blog.tags.split(','),
                         converter = new showdown.Converter();
+                    $('._blog_title h1').html(blog.title);
                     $('title').html(blog.title+ ' - 赵枫杨的博客');
                     /* * * CONFIGURATION VARIABLES * * */
                     var disqus_shortname = 'souii';

@@ -64,6 +64,12 @@ hr.small {
 /*
 博客列表样式
 */
+._cate_title{
+    margin-bottom: 30px;
+}
+._bloglist{
+    margin-top: 20px;
+}
 .post-preview{
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -265,3 +271,10 @@ a:hover{
 }
 
 
+/*
+博客样式
+*/
+._blog_title{
+    margin-top: 35px;
+    margin-bottom: 40px;
+}

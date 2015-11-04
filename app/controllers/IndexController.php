@@ -19,8 +19,7 @@ class IndexController extends ControllerBase
      */
     public function indexAction($page = 1,$tag = '',$cate='')
     {
-        $this->tag->setDefault("tag", $tag);
-        $this->tag->setDefault("cate", $cate);
+
         //爬虫特殊处理
         if(NetWorkUtils::isSpider()){
             $data = ApiController::blogget($page);
@@ -52,8 +51,13 @@ class IndexController extends ControllerBase
 
             echo $html;
         }
+
+        $this->tag->setDefault("tag", $tag);
+        $this->tag->setDefault("cate", $cate);
         $this->view->tag = $tag;
-        $this->view->cate = $cate;
+        if($cate!=''){
+            $this->view->cateEntity = Models\Category::findFirst($cate);
+        }
     }
 
     public function uploadAction(){
