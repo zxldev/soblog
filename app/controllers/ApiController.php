@@ -34,76 +34,31 @@ class ApiController extends JsonControllerBase
      */
     public function bloggetAction($numberpage = 1,$tag='',$cate='')
     {
+            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE:TAG:CATE'],'Souii\Controllers\ApiController::blogget',$numberpage,$tag,$cate);
+    }
+
+
+
+
+
+    public static function blogget($numberpage,$tag='',$cate=''){
+        $parameters = array();
+        $parameters["order"] = "created_at desc";
+        $parameters['columns'] = array('id,title,tags,cate_id,updated_at');
+        $conditions = "1=1";
+        $parameter = array();
+        if($cate!=''){
+            $conditions .= " AND cate_id = :cate_id:";
+            $parameter['cate_id']=$cate;
+        }
         if($tag!=''){
-            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['TAG'],'Souii\Controllers\ApiController::bloggettag',$numberpage,$tag);
-        }else if($cate!=''){
-            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['CATE'],'Souii\Controllers\ApiController::bloggetcate',$numberpage,$cate);
-        }else{
-            return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE'],'Souii\Controllers\ApiController::blogget',$numberpage);
+            $ids = Tags::getIDs($tag,null,false,false);
+            $conditions .= " AND tags in (:tags:)";
+            $parameter['tags']=$ids;
         }
+        $parameters['conditions'] = $conditions;
+        $parameters['bind'] = $parameter;
 
-    }
-
-    public static function bloggettag($numberpage,$tag){
-        $parameters = array();
-        $parameters["order"] = "created_at desc";
-        $parameters["conditions"] = 'tag like ';
-        //TODO 从这里开始
-        $parameters['columns'] = array('id,title,tags,cate_id,updated_at');
-        $article = Article::find($parameters);
-        $paginator = new Paginator(array(
-            "data" => $article,
-            "limit"=> 10,
-            "page" => $numberpage
-        ));
-        $page =          $paginator->getPaginate();
-        $map = Tags::getAll();
-
-        foreach($page->items as $item){
-            $ret = [];
-            $tags = explode(',',$item->tags);
-            foreach($tags as $tag){
-                if(!empty($tag)){
-                    $ret[] = $map[$tag]['name'];
-                }
-            }
-            $item->tags = implode(',',$ret);
-        }
-        return $page;
-    }
-
-    public static function bloggetcate($numberpage,$cate){
-        $parameters = array();
-        $parameters["order"] = "created_at desc";
-        $parameters["conditions"] = 'tag like ';
-        //TODO 从这里开始
-        $parameters['columns'] = array('id,title,tags,cate_id,updated_at');
-        $article = Article::find($parameters);
-        $paginator = new Paginator(array(
-            "data" => $article,
-            "limit"=> 10,
-            "page" => $numberpage
-        ));
-        $page =          $paginator->getPaginate();
-        $map = Tags::getAll();
-
-        foreach($page->items as $item){
-            $ret = [];
-            $tags = explode(',',$item->tags);
-            foreach($tags as $tag){
-                if(!empty($tag)){
-                    $ret[] = $map[$tag]['name'];
-                }
-            }
-            $item->tags = implode(',',$ret);
-        }
-        return $page;
-    }
-
-    public static function blogget($numberpage){
-        $parameters = array();
-        $parameters["order"] = "created_at desc";
-        $parameters['columns'] = array('id,title,tags,cate_id,updated_at');
         $article = Article::find($parameters);
         $paginator = new Paginator(array(
             "data" => $article,

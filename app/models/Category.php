@@ -95,7 +95,7 @@ class Category extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
-    public function  getAll(){
+    public static function  getAll(){
         $tags = Category::find()->toArray();
         $ret = [];
         foreach($tags as $tag){

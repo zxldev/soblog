@@ -65,14 +65,28 @@ class Tags extends \Phalcon\Mvc\Model
         return $ret;
     }
 
+    public  static function getAllNameMap(){
+        $tags = Tags::find()->toArray();
+        $ret = [];
+        foreach($tags as $tag){
+            $ret[$tag['name']]= array(
+                'id'=>$tag['id'],
+                'number'=>$tag['number']
+            );
+        }
+        return $ret;
+    }
+
     /**
      * 由名称获取id
-     * @param $cacheUtil 清除原有的缓存时需要注入的cacheutil
-     * @param $Names 名称字符串
+     * @param $cacheUtil \Souii\Redis\RedisUtils 清除原有的缓存时需要注入的cacheutil
+     * @param $Names string 名称字符串
      * @return string id字符串
      */
-    public static function getIDs($cacheUtil,$Names,$isUpdate = true){
-        $cacheUtil->deleteTableCache('TAGS');
+    public static function getIDs($Names,$cacheUtil = null,$isUpdate = true,$isInsert = true){
+        if($isInsert){
+            $cacheUtil->deleteTableCache('TAGS');
+        }
         $ret = [];
         $Names = explode(',',$Names);
         foreach($Names as $name){
@@ -84,11 +98,13 @@ class Tags extends \Phalcon\Mvc\Model
                     $tag->save();
                 }
             }else{
-                $tag = new Tags();
-                $tag->name = $name;
-                $tag->number = 1;
-                $tag->create();
-                $ret[] = $tag->id;
+                if($isInsert){
+                    $tag = new Tags();
+                    $tag->name = $name;
+                    $tag->number = 1;
+                    $tag->create();
+                    $ret[] = $tag->id;
+                }
             }
         }
         return implode(',',$ret);

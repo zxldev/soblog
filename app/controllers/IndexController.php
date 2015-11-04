@@ -19,7 +19,6 @@ class IndexController extends ControllerBase
      */
     public function indexAction($page = 1,$tag = '',$cate='')
     {
-        Text::random(Text::R,32);
         $this->tag->setDefault("tag", $tag);
         $this->tag->setDefault("cate", $cate);
         //爬虫特殊处理

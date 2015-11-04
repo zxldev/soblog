@@ -5,8 +5,9 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
         blogTotalPages: 1,
         //根据页码生成ajax请求链接
         pageUrl: function (page) {
-            var tag = $('#tag').val() ||  '';
-            return "/api/page=" + page + "/tag=" + tag + "/blog";
+            var tag = $('#tag').val() ||  '',
+                cate = $('#cate').val() ||  '';
+            return "/api/page=" + page + "/tag=" + tag + "/cate=" + cate + "/blog";
         },
         //ajax回调绘制列表页面
         buildListPage: function (data) {
@@ -72,17 +73,23 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
             });
         },
         //ajax请求博客列表首页
-        blogList: function (page, tag) {
+        blogList: function (page, tag, cate) {
             page = page || 1;
             tag = tag || '';
             $.ajax({
-                url: '/api/page=' + page + '/tag=' + tag + '/blog',
+                url: '/api/page=' + page + '/tag=' + tag + '/cate=' + cate + '/blog',
                 type: 'get',
                 dataType: 'json',
                 cache: false,
                 success: function (data) {
+                    debugger;
                     exports.buildListPage(data);
                     exports.infiniteScrollList();
+                },
+                error: function (a,b) {
+                    debugger;
+                   console.log(a);
+                    console.log();
                 }
             });
         },

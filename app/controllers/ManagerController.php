@@ -198,7 +198,7 @@ class ManagerController extends ControllerBase
         $article->user_id = $this->getSession('user')['id'];
         $article->title = $this->request->getPost("title");
         $article->content = $this->request->getPost("content");
-        $article->tags = Tags::getIDs($this->redisUtils,$this->request->getPost("tags")) ;
+        $article->tags = Tags::getIDs($this->request->getPost("tags"),$this->redisUtils) ;
         $article->updated_at = date('Y-m-d H:i:s',time());
         $article->pic = $this->request->getPost("pic");
         

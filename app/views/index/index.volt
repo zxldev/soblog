@@ -5,6 +5,7 @@
 
     </div>
     {{ hidden_field("tag") }}
+    {{ hidden_field("cate") }}
     <div class="_nav">
         <a class="" href="/api/page=1/blog"></a>
     </div>
@@ -16,8 +17,9 @@
     require(['domready'], function (domready) {
         domready(function () {
             require(['jquery', 'blog'], function ($, blog) {
-                var tag = $('#tag').val() || '';
-                blog.blogList(1,tag);
+                var tag = $('#tag').val() || '',
+                        cate = $('#cate').val() || '';
+                blog.blogList(1,tag,cate);
             });
         });
     });
