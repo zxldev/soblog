@@ -24,6 +24,13 @@ h6 {
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 800;
 }
+
+h1:before, h2:before, h3:before, h4:before, h5:before, h6:before{
+    display: block;
+    content: "";
+    height: 45px;
+    margin: -45px 0 0;
+}
 a {
     color: #404040;
 }

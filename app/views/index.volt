@@ -14,7 +14,14 @@
     <meta property="qc:admins" content="21417660276375116375" />
     <meta baidu-gxt-verify-token="a67fb56f024c39aecc4f03815dcf9085">
 
-   {{getTitle()  }}
+    <!--DNS预取-->
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    <!--缓存控制-->
+    <meta http-equiv="Cache-Control" content="max-age=7200" />
+
+
+
+    {{getTitle()  }}
     <script data-main="/js/main" src="http://apps.bdimg.com/libs/require.js/2.1.11/require.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +56,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">{{ elements.getSysVar('siteName') }}</a>
+            <a class="navbar-brand"  href="/">{{ elements.getSysVar('siteName') }}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

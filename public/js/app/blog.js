@@ -134,6 +134,24 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                     $('.markdown-body a').each(function () {
                         $(this).attr('target', '_blank');
                     });
+                    $('.markdown-body h1 a').each(function () {
+                        $(this).attr('target', '_self');
+                    });
+                    $('.markdown-body h2 a').each(function () {
+                        $(this).attr('target', '_self');
+                    });
+                    $('.markdown-body h3 a').each(function () {
+                        $(this).attr('target', '_self');
+                    });
+                    $('.markdown-body h4 a').each(function () {
+                        $(this).attr('target', '_self');
+                    });
+                    $('.markdown-body h5 a').each(function () {
+                        $(this).attr('target', '_self');
+                    });
+                    $('.markdown-body h6 a').each(function () {
+                        $(this).attr('target', '_self');
+                    });
                 }
             });
         },

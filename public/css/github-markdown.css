@@ -9,6 +9,7 @@
     text-size-adjust: 100%;
     color: #333;
     overflow: hidden;
+    padding: 30px;
     font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
     font-size: 16px;
     line-height: 1.6;
@@ -202,9 +203,7 @@
     user-select: none;
 }
 
-.markdown-body .octicon-link:before {
-    content: '\f05c';
-}
+
 
 .markdown-body>*:first-child {
     margin-top: 0 !important;
@@ -246,12 +245,12 @@
     line-height: 1.4;
 }
 
-.markdown-body h1 .octicon-link,
-.markdown-body h2 .octicon-link,
-.markdown-body h3 .octicon-link,
-.markdown-body h4 .octicon-link,
-.markdown-body h5 .octicon-link,
-.markdown-body h6 .octicon-link {
+.markdown-body h1 .fa-link,
+.markdown-body h2 .fa-link,
+.markdown-body h3 .fa-link,
+.markdown-body h4 .fa-link,
+.markdown-body h5 .fa-link,
+.markdown-body h6 .fa-link {
     display: none;
     color: #000;
     vertical-align: middle;
@@ -264,16 +263,17 @@
 .markdown-body h5:hover .anchor,
 .markdown-body h6:hover .anchor {
     padding-left: 8px;
-    margin-left: -30px;
+    margin-top: 45px;
+    margin-left: -38px;
     text-decoration: none;
 }
 
-.markdown-body h1:hover .anchor .octicon-link,
-.markdown-body h2:hover .anchor .octicon-link,
-.markdown-body h3:hover .anchor .octicon-link,
-.markdown-body h4:hover .anchor .octicon-link,
-.markdown-body h5:hover .anchor .octicon-link,
-.markdown-body h6:hover .anchor .octicon-link {
+.markdown-body h1:hover .anchor .fa-link,
+.markdown-body h2:hover .anchor .fa-link,
+.markdown-body h3:hover .anchor .fa-link,
+.markdown-body h4:hover .anchor .fa-link,
+.markdown-body h5:hover .anchor .fa-link,
+.markdown-body h6:hover .anchor .fa-link {
     display: inline-block;
 }
 

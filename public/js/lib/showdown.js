@@ -1617,9 +1617,10 @@ showdown.subParser('headers', function (text, options, globals) {
   //
   text = text.replace(/^(#{1,6})[ \t]*(.+?)[ \t]*#*\n+/gm, function (wholeMatch, m1, m2) {
     var span = showdown.subParser('spanGamut')(m2, options, globals),
-        hID = (options.noHeaderId) ? '' : ' id="' + headerId(m2) + '"',
+        id = headerId(m2),
+        hID = (options.noHeaderId) ? '' : ' id="' + id + '"',
         hLevel = headerLevelStart - 1 + m1.length,
-        header = '<h' + hLevel + hID + '>' + span + '</h' + hLevel + '>';
+        header = '<h' + hLevel + hID + '>' + '<a id="' + id + '" class="anchor" href="#' + id + '" aria-hidden="true"><span class="fa fa-link"></span></a>'+ span  + '</h' + hLevel + '>';
 
     return showdown.subParser('hashBlock')(header, options, globals);
   });
