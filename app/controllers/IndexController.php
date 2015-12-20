@@ -115,15 +115,14 @@ class IndexController extends ControllerBase
         $EchoStr = "";
 
         $wxcpt = new \Souii\WeiXinQiYe\WXBizMsgCrypt($token, $encodingAesKey, $corpId);
+        $sEchoStr = "";
         $errCode = $wxcpt->VerifyURL($sVerifyMsgSig, $sVerifyTimeStamp, $sVerifyNonce, $sVerifyEchoStr, $sEchoStr);
-        if ($errCode == 0) {
-           $response = new Response();
-            $response->setStatusCode(200);
-            $response->send($errCode);
-            die;
-        } else {
-            print("ERR: " . $errCode . "\n\n");
-            die;
-        }
+//        if ($errCode == 0) {
+            $this->response->setContent($sEchoStr);
+            $this->response->setStatusCode("200");
+//        } else {
+//            $this->response->setContent("1");
+//            $this->response->setStatusCode("200");
+//        }
     }
 }
