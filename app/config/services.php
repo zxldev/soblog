@@ -245,3 +245,7 @@ $di->setShared('qiniuToken',function() use ($config){
     // 生成上传 Token
     return  $auth->uploadToken($bucket);
 });
+
+$di->setShared('weixinMsg',function() use ($config){
+   return new \Souii\WeiXinQiYe\WXBizMsgCrypt();
+});

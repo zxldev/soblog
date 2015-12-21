@@ -7,6 +7,8 @@ namespace Souii\WeiXinQiYe;
  */
 
 
+use Phalcon\Mvc\User\Component;
+
 include_once "sha1.php";
 include_once "xmlparse.php";
 include_once "pkcs7Encoder.php";
@@ -16,8 +18,29 @@ include_once "errorCode.php";
  * 1.第三方回复加密消息给公众平台；
  * 2.第三方收到公众平台发送的消息，验证消息的安全性，并对消息进行解密。
  */
-class WXBizMsgCrypt
+class WXBizMsgCrypt extends Component
 {
+
+    /**
+     * 接受消息类型
+     */
+    const MSG_TYPE_TEXT = 'text';
+    const MSG_TYPE_IMAGE = 'image';
+    const MSG_TYPE_VOICE = 'voice';
+    const MSG_TYPE_VIDEO = 'video';
+    const MSG_TYPE_SHORT_VIDEO = 'shortvideo';
+    const MSG_TYPE_LOCATION = 'location';
+
+    /**
+     * 回复消息类型
+     */
+    const REPLY_MSG_TYPE_TEXT = 'text';
+    const REPLY_MSG_TYPE_IMAGE = 'image';
+    const REPLY_MSG_TYPE_VOICE = 'voice';
+    const REPLY_MSG_TYPE_VIDEO = 'video';
+    const REPLY_MSG_TYPE_NEWS = 'news';
+
+
 	private $m_sToken;
 	private $m_sEncodingAesKey;
 	private $m_sCorpid;
@@ -27,25 +50,13 @@ class WXBizMsgCrypt
      * @param $encodingAesKey string 公众平台上，开发者设置的EncodingAESKey
      * @param $Corpid string 公众平台的Corpid
      */
-    public function __construct($token, $encodingAesKey, $Corpid)
+    public function __construct()
     {
-        $this->m_sToken = $token;
-        $this->m_sEncodingAesKey = $encodingAesKey;
-        $this->m_sCorpid = $Corpid;
+        $this->m_sToken = $this->config->thirdpart->weixinqiye['token'];
+        $this->m_sEncodingAesKey = $this->config->thirdpart->weixinqiye['encodingAesKey'];
+        $this->m_sCorpid = $this->config->thirdpart->weixinqiye['corpId'];
     }
-	/**
-	 * 构造函数
-	 * @param $token string 公众平台上，开发者设置的token
-	 * @param $encodingAesKey string 公众平台上，开发者设置的EncodingAESKey
-	 * @param $Corpid string 公众平台的Corpid
-	 */
-	public function WXBizMsgCrypt($token, $encodingAesKey, $Corpid)
-	{
-		$this->m_sToken = $token;
-		$this->m_sEncodingAesKey = $encodingAesKey;
-		$this->m_sCorpid = $Corpid;
-	}
-	
+
     /*
 	*验证URL
     *@param sMsgSignature: 签名串，对应URL参数的msg_signature
@@ -195,5 +206,46 @@ class WXBizMsgCrypt
 		return ErrorCode::$OK;
 	}
 
+    /**
+     * 回复消息
+     * @param $sMsg 解密后的用户xml格式消息
+     */
+    public function replayMsg(){
+        $sReqMsgSig =$this->request->get('msg_signature');
+        $sReqTimeStamp = $this->request->get('timestamp');
+        $sReqNonce = $this->request->get('nonce');
+        $sReqData = $this->request->getRawBody();
+
+        $sMsg = "";  // 解析之后的明文
+        $errCode = $this->weixinMsg->DecryptMsg($sReqMsgSig, $sReqTimeStamp, $sReqNonce, $sReqData, $sMsg);
+        $xml = new \DOMDocument();
+        $xml->loadXML($sMsg);
+
+        $FromUserName = $xml->getElementsByTagName('FromUserName')->item(0)->nodeValue;
+        $ToUserName = $xml->getElementsByTagName('ToUserName')->item(0)->nodeValue;
+        $CreateTime = $xml->getElementsByTagName('CreateTime')->item(0)->nodeValue;
+        $MsgType = $xml->getElementsByTagName('MsgType')->item(0)->nodeValue;
+        $content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
+        $MsgId = $xml->getElementsByTagName('MsgId')->item(0)->nodeValue;
+
+        if($MsgType == self::MSG_TYPE_TEXT){
+            self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$content);
+        }
+    }
+
+    public function replyTextMsg($FromUserName,$ToUserName,$CreateTime,$text){
+        $CreateTime = time();
+        $sReqTimeStamp = $this->request->get('timestamp');
+        $sReqNonce = $this->request->get('nonce');
+        $sRespData = "<xml>
+        <ToUserName><![CDATA[$ToUserName]]></ToUserName>
+        <FromUserName><![CDATA[$FromUserName]]></FromUserName>
+        <CreateTime>$CreateTime</CreateTime>
+        <MsgType><![CDATA[".self::REPLY_MSG_TYPE_TEXT."]]></MsgType>
+        <Content><![CDATA[$text]]></Content>
+        </xml>";
+        self::EncryptMsg($sRespData, $sReqTimeStamp, $sReqNonce, $sEncryptMsg);
+        echo $sEncryptMsg;
+    }
 }
 
