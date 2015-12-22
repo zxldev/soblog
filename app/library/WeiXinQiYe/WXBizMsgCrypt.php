@@ -30,6 +30,26 @@ class WXBizMsgCrypt extends Component
     const MSG_TYPE_VIDEO = 'video';
     const MSG_TYPE_SHORT_VIDEO = 'shortvideo';
     const MSG_TYPE_LOCATION = 'location';
+    const MSG_TYPE_EVENT = 'event';
+
+    /**
+     * 接收事件类型
+     */
+    const MSG_ENENT_SUBSCRIBE = "subscribe";
+    const MSG_ENENT_UNSUBSCRIBE = "unsubscribe";
+    const MSG_ENENT_LOCATION = "LOCATION";
+    const MSG_ENENT_CLICK = "CLICK";
+    const MSG_ENENT_VIEW = "VIEW";
+    const MSG_ENENT_SCANCODE_PUSH = "scancode_push";
+    const MSG_ENENT_SCANCODE_WAITMSG = "scancode_waitmsg";
+    const MSG_ENENT_PIC_SYSPHOTO = "pic_sysphoto";
+    const MSG_ENENT_PIC_PHOTO_OR_ALBUM = "pic_photo_or_album";
+    const MSG_ENENT_PIC_WEIXIN = "pic_weixin";
+    const MSG_ENENT_LOCATION_SELECT = "location_select";
+    const MSG_ENENT_ENTER_AGENT = "enter_agent";
+    const MSG_ENENT_BATCH_JOB_RESULT = "batch_job_result";
+
+
 
     /**
      * 回复消息类型
@@ -220,16 +240,28 @@ class WXBizMsgCrypt extends Component
         $errCode = $this->weixinMsg->DecryptMsg($sReqMsgSig, $sReqTimeStamp, $sReqNonce, $sReqData, $sMsg);
         $xml = new \DOMDocument();
         $xml->loadXML($sMsg);
-
         $FromUserName = $xml->getElementsByTagName('FromUserName')->item(0)->nodeValue;
         $ToUserName = $xml->getElementsByTagName('ToUserName')->item(0)->nodeValue;
         $CreateTime = $xml->getElementsByTagName('CreateTime')->item(0)->nodeValue;
         $MsgType = $xml->getElementsByTagName('MsgType')->item(0)->nodeValue;
-        $content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
-        $MsgId = $xml->getElementsByTagName('MsgId')->item(0)->nodeValue;
 
-        if($MsgType == self::MSG_TYPE_TEXT){
-            self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$content);
+        if($MsgType == self::MSG_TYPE_EVENT){
+            $this->logger->info($sMsg);
+
+            $Event = $xml->getElementsByTagName('Event')->item(0)->nodeValue;
+            $xpath = new \DOMXPath($xml);
+            if($Event == self::MSG_ENENT_SCANCODE_WAITMSG){
+                $ScanType = $xpath->query('/xml/ScanCodeInfo/ScanType')->item(0)->nodeValue;
+                $ScanResult = $xpath->query('/xml/ScanCodeInfo/ScanResult')->item(0)->nodeValue;
+                $this->logger->info("res================".$ScanResult);
+                self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$ScanResult);
+            }
+        }else{
+            $MsgId = $xml->getElementsByTagName('MsgId')->item(0)->nodeValue;
+            if($MsgType == self::MSG_TYPE_TEXT){
+                $content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
+                self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$content);
+            }
         }
     }
 
