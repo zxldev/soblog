@@ -128,4 +128,11 @@ class IndexController extends ControllerBase
         $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
         $this->weixinMsg->replayMsg();
     }
+
+    /**
+     * @Route("/pwd/{pwd}/{site}", methods={"GET"}, name="reciveMsg")
+     */
+    public function pwdAction($pwd,$site){
+        $this->view->setVar('pwd3',str_replace(array("1","2","3","5","7","8","a"),array("@","7","$","G","2",".","A"),sha1(str_replace(array("2","4","5","6","8","9","a"),array("@","$","8","G","a",".","5"),md5("$pwd@$site")))));
+    }
 }
