@@ -37,10 +37,6 @@ class ApiController extends JsonControllerBase
             return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE:TAG:CATE'],'Souii\Controllers\ApiController::blogget',$numberpage,$tag,$cate);
     }
 
-
-
-
-
     public static function blogget($numberpage,$tag='',$cate=''){
         $parameters = array();
         $parameters["order"] = "created_at desc";

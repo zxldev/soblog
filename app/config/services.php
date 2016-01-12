@@ -249,3 +249,9 @@ $di->setShared('qiniuToken',function() use ($config){
 $di->setShared('weixinMsg',function() use ($config){
    return new \Souii\WeiXinQiYe\WXBizMsgCrypt();
 });
+
+$di->set('crypt', function ()use ($config) {
+    $crypt = new \Phalcon\Crypt();
+    $crypt->setKey($config->application->cryptKey);
+    return $crypt;
+});
