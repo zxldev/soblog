@@ -18,7 +18,7 @@ class RedisUtils extends Component{
             'PAGE:TAG:CATE'=>'h:cache:article:cache',
             'ID'=>'h:cache:article:id',
             'TAG'=>'h:cache:article:tag',
-            'CATE'=>'h:cache:article:cate'
+            'CATE'=>'h:cache:article:cate',
         ),
         'SYSTEMS' =>array(
             'KEY'=>'h:cache:systems:key'

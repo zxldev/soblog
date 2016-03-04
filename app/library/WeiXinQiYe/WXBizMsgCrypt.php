@@ -8,6 +8,7 @@ namespace Souii\WeiXinQiYe;
 
 
 use Phalcon\Mvc\User\Component;
+use Souii\Redis\RedisUtils;
 
 include_once "sha1.php";
 include_once "xmlparse.php";
@@ -64,6 +65,13 @@ class WXBizMsgCrypt extends Component
 	private $m_sToken;
 	private $m_sEncodingAesKey;
 	private $m_sCorpid;
+
+    public static $command = array(
+        '!help'=>'帮助',
+        '!enterCMD' => '进如命令模式',
+        '!exitCMD' => '退出命令模式',
+        '!shell' => '控制台命令'
+    );
     /**
      * 构造函数
      * @param $token string 公众平台上，开发者设置的token
@@ -260,9 +268,35 @@ class WXBizMsgCrypt extends Component
             $MsgId = $xml->getElementsByTagName('MsgId')->item(0)->nodeValue;
             if($MsgType == self::MSG_TYPE_TEXT){
                 $content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
-                self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$content);
+                $retMsg = $content;
+                if(substr($content,0,1)=="!"&&@array_key_exists(explode(' ',$content)[0],self::$command)){
+                    $retMsg = self::execCommand(explode(' ',$content)[0],$content);
+                }
+                self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$retMsg);
             }
         }
+    }
+
+    public static function execCommand($command,$param){
+        $command = substr($command,1);
+        return self::$command($param);
+    }
+
+    public static function help(){
+        $msg = '';
+        foreach(self::$command as $cmd => $val){
+            $msg .= "$cmd : $val\n";
+        }
+        return $msg;
+    }
+
+    public static function shell($param){
+        $shell = substr($param,7);
+        return shell_exec($shell);
+    }
+
+    public static function enterCMD($param){
+        return RedisUtils::$CACHEKEYS;
     }
 
     public function replyTextMsg($FromUserName,$ToUserName,$CreateTime,$text){
