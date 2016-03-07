@@ -26,6 +26,7 @@ class CategoryController extends ControllerBase
     }
 
     /**
+     * @privateResource(allowYlx="1")
      * Searches for category
      */
     public function searchAction()
@@ -65,6 +66,7 @@ class CategoryController extends ControllerBase
     }
 
     /**
+     * @privateResource(allowYlx="1")
      * Displays the creation form
      */
     public function newAction()
@@ -74,7 +76,7 @@ class CategoryController extends ControllerBase
 
     /**
      * Edits a category
-     *
+     * @privateResource(allowYlx="1")
      * @param string $id
      */
     public function editAction($id)
@@ -110,6 +112,7 @@ class CategoryController extends ControllerBase
 
     /**
      * Creates a new category
+     * @privateResource(allowYlx="1")
      */
     public function createAction()
     {
@@ -159,7 +162,7 @@ class CategoryController extends ControllerBase
 
     /**
      * Saves a category edited
-     *
+     * @privateResource(allowYlx="1")
      */
     public function saveAction()
     {
@@ -218,7 +221,7 @@ class CategoryController extends ControllerBase
 
     /**
      * Deletes a category
-     *
+     * @privateResource(allowYlx="1")
      * @param string $id
      */
     public function deleteAction($id)

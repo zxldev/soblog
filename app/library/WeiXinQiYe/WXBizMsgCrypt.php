@@ -271,24 +271,42 @@ class WXBizMsgCrypt extends Component
                 self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$ScanResult);
             }
         }else{
-            $MsgId = $xml->getElementsByTagName('MsgId')->item(0)->nodeValue;
-            if($MsgType == self::MSG_TYPE_TEXT){
-                $content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
-                $retMsg = $content;
-                if(substr($content,0,1)=="!"){
-                    $command = substr(explode(' ',$content)[0],1);
-                    if(array_key_exists($command,self::$command)){
-                        $content = substr($content,strlen($command)+2);
-                        $retMsg = self::execCommand($command,$content,array('FromUserName'=>$FromUserName));
-                    }
-                }else{
-                    $session_flag = $this->redis->hGet(RedisUtils::$WEIXIN['USER'].$FromUserName,'session_flag');
-                    if(!empty($session_flag)){
-                        $command = $session_flag;
-                        $retMsg = self::execCommand($command,$content,array('FromUserName'=>$FromUserName));
-                    }
+            $AgentID = $xml->getElementsByTagName('AgentID')->item(0)->nodeValue;
+            //如果是用记事本客户端发来的消息，则直接计入记事本
+            if($AgentID == '4'){
+                if($MsgType == self::MSG_TYPE_TEXT){
+                    //插入文本到记事本
+                    $content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
+                    $note = new \Souii\Models\Note();
+                    $note->content = $content;
+                    $note->created_at = date('Y-m-d');
+                    $note->state = 1;
+                    $ret = $note->save();
+                    $retMsg = "保存note:$ret";
+                    self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$retMsg);
                 }
-                self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$retMsg);
+
+
+            }else{
+                $MsgId = $xml->getElementsByTagName('MsgId')->item(0)->nodeValue;
+                if($MsgType == self::MSG_TYPE_TEXT){
+                    $content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
+                    $retMsg = $content;
+                    if(substr($content,0,1)=="!"){
+                        $command = substr(explode(' ',$content)[0],1);
+                        if(array_key_exists($command,self::$command)){
+                            $content = substr($content,strlen($command)+2);
+                            $retMsg = self::execCommand($command,$content,array('FromUserName'=>$FromUserName));
+                        }
+                    }else{
+                        $session_flag = $this->redis->hGet(RedisUtils::$WEIXIN['USER'].$FromUserName,'session_flag');
+                        if(!empty($session_flag)){
+                            $command = $session_flag;
+                            $retMsg = self::execCommand($command,$content,array('FromUserName'=>$FromUserName));
+                        }
+                    }
+                    self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$retMsg);
+                }
             }
         }
     }

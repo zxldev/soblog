@@ -49,7 +49,7 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                     finishedMsg: "<em>已经到达最后一页，无更多内容。</em>",
                     //img: null,
                     //msg: null,
-                    msgText: "<em>载入下一页中s...</em>",
+                    msgText: "<em>载入下一页中...</em>",
                     selector: null,
                     speed: 'fast',
                     start: undefined
