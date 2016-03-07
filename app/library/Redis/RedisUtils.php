@@ -31,6 +31,10 @@ class RedisUtils extends Component{
         )
     );
 
+    public static $WEIXIN = array(
+        'USER' => 'h:weixin:user:',
+    );
+
     /**
      * 获取redis缓存
      * @param $prefix

@@ -66,11 +66,16 @@ class WXBizMsgCrypt extends Component
 	private $m_sEncodingAesKey;
 	private $m_sCorpid;
 
+    /**
+     * @var \Redis
+     */
+    public static $redis;
+
     public static $command = array(
-        '!help'=>'帮助',
-        '!enterCMD' => '进如命令模式',
-        '!exitCMD' => '退出命令模式',
-        '!shell' => '控制台命令'
+        'help'=>'帮助',
+        'enterSession' => '进如命令模式',
+        'exitSession' => '退出命令模式',
+        'shell' => '控制台命令'
     );
     /**
      * 构造函数
@@ -83,6 +88,7 @@ class WXBizMsgCrypt extends Component
         $this->m_sToken = $this->config->thirdpart->weixinqiye['token'];
         $this->m_sEncodingAesKey = $this->config->thirdpart->weixinqiye['encodingAesKey'];
         $this->m_sCorpid = $this->config->thirdpart->weixinqiye['corpId'];
+        self::$redis = $this->redis;
     }
 
     /*
@@ -269,34 +275,50 @@ class WXBizMsgCrypt extends Component
             if($MsgType == self::MSG_TYPE_TEXT){
                 $content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
                 $retMsg = $content;
-                if(substr($content,0,1)=="!"&&@array_key_exists(explode(' ',$content)[0],self::$command)){
-                    $retMsg = self::execCommand(explode(' ',$content)[0],$content);
+                if(substr($content,0,1)=="!"){
+                    $command = substr(explode(' ',$content)[0],1);
+                    if(array_key_exists($command,self::$command)){
+                        $content = substr($content,strlen($command)+2);
+                        $retMsg = self::execCommand($command,$content,array('FromUserName'=>$FromUserName));
+                    }
+                }else{
+                    $session_flag = $this->redis->hGet(RedisUtils::$WEIXIN['USER'].$FromUserName,'session_flag');
+                    if(!empty($session_flag)){
+                        $command = $session_flag;
+                        $retMsg = self::execCommand($command,$content,array('FromUserName'=>$FromUserName));
+                    }
                 }
                 self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$retMsg);
             }
         }
     }
 
-    public static function execCommand($command,$param){
-        $command = substr($command,1);
-        return self::$command($param);
+    public static function execCommand($command,$param,$data){
+        return self::$command($param,$data);
     }
 
     public static function help(){
         $msg = '';
         foreach(self::$command as $cmd => $val){
-            $msg .= "$cmd : $val\n";
+            $msg .= "!$cmd : $val\n";
         }
         return $msg;
     }
 
-    public static function shell($param){
-        $shell = substr($param,7);
+    public static function shell($shell){
         return shell_exec($shell);
     }
 
-    public static function enterCMD($param){
-        return RedisUtils::$CACHEKEYS;
+    public static function enterSession($session,$data){
+        $FromUserName = $data['FromUserName'];
+        $ret = self::$redis->hSet(RedisUtils::$WEIXIN['USER'].$FromUserName,'session_flag',$session);
+        return "进入会话$session:".$ret;
+    }
+
+    public static function exitSession($dummny,$data){
+        $FromUserName = $data['FromUserName'];
+        $ret = self::$redis->hDel(RedisUtils::$WEIXIN['USER'].$FromUserName,'session_flag');
+        return "退出会话:$ret";
     }
 
     public function replyTextMsg($FromUserName,$ToUserName,$CreateTime,$text){
