@@ -66,10 +66,6 @@ class WXBizMsgCrypt extends Component
 	private $m_sEncodingAesKey;
 	private $m_sCorpid;
 
-    /**
-     * @var \Redis
-     */
-    public static $redis;
 
     public static $command = array(
         'help'=>'帮助',
@@ -88,7 +84,6 @@ class WXBizMsgCrypt extends Component
         $this->m_sToken = $this->config->thirdpart->weixinqiye['token'];
         $this->m_sEncodingAesKey = $this->config->thirdpart->weixinqiye['encodingAesKey'];
         $this->m_sCorpid = $this->config->thirdpart->weixinqiye['corpId'];
-        self::$redis = $this->redis;
     }
 
     /*
@@ -311,11 +306,11 @@ class WXBizMsgCrypt extends Component
         }
     }
 
-    public static function execCommand($command,$param,$data){
+    public  function execCommand($command,$param,$data){
         return self::$command($param,$data);
     }
 
-    public static function help(){
+    public  function help(){
         $msg = '';
         foreach(self::$command as $cmd => $val){
             $msg .= "!$cmd : $val\n";
@@ -323,19 +318,19 @@ class WXBizMsgCrypt extends Component
         return $msg;
     }
 
-    public static function shell($shell){
+    public  function shell($shell){
         return shell_exec($shell);
     }
 
-    public static function enterSession($session,$data){
+    public  function enterSession($session,$data){
         $FromUserName = $data['FromUserName'];
-        $ret = self::$redis->hSet(RedisUtils::$WEIXIN['USER'].$FromUserName,'session_flag',$session);
+        $ret = $this->redis->hSet(RedisUtils::$WEIXIN['USER'].$FromUserName,'session_flag',$session);
         return "进入会话$session:".$ret;
     }
 
-    public static function exitSession($dummny,$data){
+    public  function exitSession($dummny,$data){
         $FromUserName = $data['FromUserName'];
-        $ret = self::$redis->hDel(RedisUtils::$WEIXIN['USER'].$FromUserName,'session_flag');
+        $ret = $this->redis->hDel(RedisUtils::$WEIXIN['USER'].$FromUserName,'session_flag');
         return "退出会话:$ret";
     }
 
