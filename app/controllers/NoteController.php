@@ -98,6 +98,7 @@ class NoteController extends ControllerBase
             $this->tag->setDefault("content", $note->content);
             $this->tag->setDefault("created_at", $note->created_at);
             $this->tag->setDefault("state", $note->state);
+            $this->tag->setDefault("type", $note->type);
             
         }
     }
@@ -118,9 +119,10 @@ class NoteController extends ControllerBase
         $note = new \Souii\Models\Note();
 
         $note->content = $this->request->getPost("content");
-        $note->created_at = date('Y-m-d');
+        $note->created_at = date('Y-m-d H:i:s');
         $note->state = 1;
-        
+        $note->type = 'note';
+
 try{
     if (!$note->save()) {
         foreach ($note->getMessages() as $message) {
@@ -176,6 +178,7 @@ try{
         $note->content = $this->request->getPost("content");
         $note->created_at = $this->request->getPost("created_at");
         $note->state = $this->request->getPost("state");
+        $note->type = $this->request->getPost("type");
         
 
         if (!$note->save()) {

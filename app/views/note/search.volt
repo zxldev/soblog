@@ -19,6 +19,7 @@
             <th>Content</th>
             <th>Created</th>
             <th>State</th>
+            <th>Type</th>
 
             <th colspan="2">操作</th></tr>
     </thead>
@@ -30,6 +31,7 @@
             <td>{{ note.content }}</td>
             <td>{{ note.created_at }}</td>
             <td>{{ note.state }}</td>
+            <td>{{ note.type }}</td>
             <td>{{ link_to("note/edit/"~note.id, "编辑","class":"label label-info") }}</td>
             <td>{{ link_to("note/delete/"~note.id, "删除","class":"label label-danger") }}</td>
         </tr>

@@ -44,6 +44,14 @@
             {{ text_field("state", "type" : "numeric","class":"form-control") }}
         </td>
     </tr>
+    <tr>
+        <td align="right">
+            <label for="type">Type</label>
+        </td>
+        <td align="left">
+            {{ text_field("type", "size" : 30,"class":"form-control") }}
+        </td>
+    </tr>
 
     <tr>
         <td></td>

@@ -39,7 +39,7 @@ class WXBizMsgCrypt extends Component
     const MSG_ENENT_SUBSCRIBE = "subscribe";
     const MSG_ENENT_UNSUBSCRIBE = "unsubscribe";
     const MSG_ENENT_LOCATION = "LOCATION";
-    const MSG_ENENT_CLICK = "CLICK";
+    const MSG_ENENT_CLICK = "click";
     const MSG_ENENT_VIEW = "VIEW";
     const MSG_ENENT_SCANCODE_PUSH = "scancode_push";
     const MSG_ENENT_SCANCODE_WAITMSG = "scancode_waitmsg";
@@ -262,8 +262,11 @@ class WXBizMsgCrypt extends Component
             if($Event == self::MSG_ENENT_SCANCODE_WAITMSG){
                 $ScanType = $xpath->query('/xml/ScanCodeInfo/ScanType')->item(0)->nodeValue;
                 $ScanResult = $xpath->query('/xml/ScanCodeInfo/ScanResult')->item(0)->nodeValue;
-                $this->logger->info("res================".$ScanResult);
                 self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$ScanResult);
+            }elseif ($Event == self::MSG_ENENT_CLICK){
+                $EventKey = $xpath->query('/xml/EventKey')->item(0)->nodeValue;
+                $resultMsg = \Souii\Models\Note::replayEventKey($EventKey);
+                self::replyTextMsg($ToUserName,$FromUserName,$CreateTime,$resultMsg);
             }
         }else{
             $AgentID = $xml->getElementsByTagName('AgentID')->item(0)->nodeValue;
@@ -274,7 +277,8 @@ class WXBizMsgCrypt extends Component
                     $content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
                     $note = new \Souii\Models\Note();
                     $note->content = $content;
-                    $note->created_at = date('Y-m-d');
+                    $note->type = 'note';
+                    $note->created_at = date('Y-m-d H:i:s');
                     $note->state = 1;
                     $ret = $note->save();
                     $retMsg = "保存note:$ret";

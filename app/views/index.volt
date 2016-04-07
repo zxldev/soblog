@@ -13,7 +13,7 @@
 
     <meta property="qc:admins" content="21417660276375116375" />
     <meta baidu-gxt-verify-token="a67fb56f024c39aecc4f03815dcf9085">
-
+    <meta property="wb:webmaster" content="8f8773c633cb0ede" />
     <!--DNS预取-->
     <meta http-equiv="x-dns-prefetch-control" content="on" />
     <!--缓存控制-->
@@ -67,7 +67,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">友情链接 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"></a></li>
+                        <li><a href="http://www.matrix-tel.com/">oliver lv的博客</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#"></a></li>
                     </ul>
