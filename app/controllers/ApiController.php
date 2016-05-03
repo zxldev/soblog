@@ -92,7 +92,12 @@ class ApiController extends JsonControllerBase
 
     public static function bloggetinfo($id)
     {
-        $atricle = Article::findFirstById($id);
+        $atricle = Article::findFirst(
+            array(
+                "id = :id:",
+                'bind' => array('id' => $id)
+            )
+        );
         $map = Tags::getAll();
         $ret = [];
         $tags = explode(',', $atricle->tags);

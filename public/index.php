@@ -10,7 +10,7 @@ use Phalcon\Config\Adapter\Ini as ConfigIni;
 
 try {
 
-	define('APP_PATH', realpath('..') . '/');
+	define('APP_PATH', realpath('..') .DIRECTORY_SEPARATOR);
 
 	/**
 	 * Read the configuration

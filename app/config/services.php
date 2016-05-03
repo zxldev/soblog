@@ -75,7 +75,16 @@ $di->set('view', function() use ($config) {
 
 
 require APP_PATH . 'app/config/Volt.php';
-
+/**
+ * 注解
+ */
+$di->setShared('annotations', function () {
+    $reader = $annotations = new \Phalcon\Annotations\Adapter\Files(
+    array(
+        'annotationsDir' => APP_PATH.'cache/annotations/'
+    ));
+    return $reader;
+});
 /**
  * 注解路由
  */
@@ -136,7 +145,7 @@ $di->set('db',function () use ($config,$di) {
  */
 $di->setShared('logger',function(){
     $data = date('Y-m-d');
-    return   new Phalcon\Logger\Adapter\File(APP_PATH."/app/logs/debug$data.log");
+    return   new Phalcon\Logger\Adapter\File(APP_PATH."app/logs/debug$data.log");
 });
 
 
@@ -169,7 +178,7 @@ $di->setShared('redis',function()  use ($config){
 });
 
 $di->setShared('redisUtils',function(){
-    return new Souii\Redis\RedisUtils();
+    return new \Souii\Redis\RedisUtils();
 });
 
 /**
@@ -209,16 +218,10 @@ $di->set('elements', function(){
 
 $di->set('config', $config);
 
-/**
- * 注解
- */
-$di->setShared('annotations', function () {
-    $reader = new Phalcon\Annotations\Adapter\Xcache();
-    return $reader;
-});
+
 
 $di->setShared('sphinx',function() use ($config){
-    include APP_PATH.'/app/library/sphinxapi.php';  // 加载Sphinx API
+    include APP_PATH.'app/library/sphinxapi.php';  // 加载Sphinx API
     $sc = new SphinxClient(); // 实例化Api
     $sc->setServer($config->server->sphinx->ip, $config->server->sphinx->port); // 设置服务端，第一个参数sphinx服务器地址，第二个sphinx监听端口
     $sc->setArrayResult(true);

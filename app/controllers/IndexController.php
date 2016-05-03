@@ -4,6 +4,7 @@ use Phalcon\Http\Response;
 use Phalcon\Mvc\View;
 use Phalcon\Text;
 use Souii\Models;
+use Souii\Redis\RedisUtils;
 use Souii\Site\NetWorkUtils;
 use Souii\WeiXinQiYe;
 
@@ -132,5 +133,42 @@ class IndexController extends ControllerBase
      */
     public function pwdAction($pwd,$site){
         $this->view->setVar('pwd3',str_replace(array("1","2","3","5","7","8","a"),array("@","7","$","G","2",".","A"),sha1(str_replace(array("2","4","5","6","8","9","a"),array("@","$","8","G","a",".","5"),md5("$pwd@$site")))));
+    }
+
+    public function testAction(){
+        $articles = Models\Article::find();
+        $cates =$this->redisUtils->getCache(RedisUtils::$CACHEKEYS['CATEGORY']['ALL'],'Souii\Controllers\ManagerController::categoryAll');
+        $catemap = array();
+        foreach($cates as $cate){
+            $catemap[$cate->id] = $cate->name;
+        }
+
+        $tagmap = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['TAGS']['ALL'],'Souii\Models\TAGS::getAll','ALL');
+
+        foreach($articles as $article){
+            $title = $article->title;
+            $date = $article->created_at;
+            $tagsarr = explode(',',$article->tags);
+            $tagnames = array();
+            foreach($tagsarr as $tagid){
+                $tagnames = $tagmap[$tagid];
+            }
+
+            $tags = "[".implode(',',$tagnames)."]";
+            $category = empty($article->cate_id)?'':$catemap[$article->cate_id];
+            $content = <<<EOF
+---
+title: $title
+date: $date
+tags: $tags
+category: $category
+---
+
+EOF;
+
+            $content .= $article->content;
+            $filename = iconv("utf-8","GBK",APP_PATH.'cache'.DIRECTORY_SEPARATOR.$article->title.'.md');
+            file_put_contents($filename,$content);
+        }
     }
 }
