@@ -75,7 +75,7 @@ class SessionController extends ControllerBase
             $this->flash->error('用户名或密码错误！');
         }
 
-        return $this->forward('session/index');
+        return $this->forward('/session/index');
     }
 
 
