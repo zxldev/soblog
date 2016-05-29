@@ -10,12 +10,12 @@ use Phalcon\Config\Adapter\Ini as ConfigIni;
 
 try {
 
-	define('APP_PATH', realpath('..') .DIRECTORY_SEPARATOR);
+	define('APP_PATH', realpath('..') . DIRECTORY_SEPARATOR);
 
 	/**
 	 * Read the configuration
 	 */
-    $config = include APP_PATH . "app/config/config.bak";
+    $config = include APP_PATH . "app/config/config.php";
 
 	/**
 	 * Auto-loader configuration

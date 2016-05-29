@@ -108,7 +108,7 @@ class ManagerController extends ControllerBase
             $this->tag->setDefault("cate_id", $article->cate_id);
             $this->tag->setDefault("title", $article->title);
             $this->tag->setDefault("content", $article->content);
-            $namesArr = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['TAGS']['ALL'],'Souii\Models\TAGS::getAll','ALL');
+            $namesArr = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['TAGS']['ALL'],'\Souii\Models\Tags::getAll','ALL');
             $names = [];
             foreach(explode(',',$article->tags) as $id){
                 if(!empty($id)){
