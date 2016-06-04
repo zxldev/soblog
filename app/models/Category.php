@@ -106,5 +106,13 @@ class Category extends \Phalcon\Mvc\Model
         }
         return $ret;
     }
+    public static function  getAllStaticSelect(){
+        $tags = Category::find()->toArray();
+        $ret = [];
+        foreach($tags as $tag){
+            $ret[$tag['id']]= $tag['cate_name'];
+        }
+        return $ret;
+    }
 
 }

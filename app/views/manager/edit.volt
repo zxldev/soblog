@@ -26,7 +26,7 @@
             <label for="cate_id">Cate</label>
         </td>
         <td align="left">
-            {{ select('cate_id', cates, 'using': ['id', 'cate_name'], 'useEmpty': false, 'emptyText': '请选择分类...', 'emptyValue': '@','class':'form-control') }}
+            {{ selectstatic(['cate_id', cates, 'using': ['id', 'cate_name'], 'useEmpty': false, 'emptyText': '请选择分类...', 'emptyValue': '@','class':'form-control']) }}
         </td>
     </tr>
     <tr>

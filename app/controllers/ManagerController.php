@@ -74,12 +74,10 @@ class ManagerController extends ControllerBase
      */
     public function newAction()
     {
-        $this->view->cates =$this->redisUtils->getCache(RedisUtils::$CACHEKEYS['CATEGORY']['ALL'],'Souii\Controllers\ManagerController::categoryAll');
+        $this->view->cates =$this->redisUtils->getCache(RedisUtils::$CACHEKEYS['CATEGORY']['ALL'],'Souii\Models\Category::getAllStaticSelect');
     }
 
-    public static function categoryAll(){
-        return  Category::find();
-    }
+
 
     /**
      * @privateResource(allowYlx="1")
@@ -117,7 +115,7 @@ class ManagerController extends ControllerBase
             }
             $this->tag->setDefault("tags", implode(',',$names));
             $this->tag->setDefault("pic", $article->pic);
-            $this->view->cates = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['CATEGORY']['ALL'],'Souii\Controllers\ManagerController::categoryAll');
+            $this->view->cates = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['CATEGORY']['ALL'],'Souii\Models\Category::getAllStaticSelect');
         }
     }
 
