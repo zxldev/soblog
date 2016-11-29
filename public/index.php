@@ -1,7 +1,7 @@
 <?php
 
 error_reporting(E_ALL);
-
+date_default_timezone_set('PRC');
 use Phalcon\Mvc\Application;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
 

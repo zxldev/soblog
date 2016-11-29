@@ -188,14 +188,6 @@ $di->set('modelsMetadata', function() {
     return new MetaData();
 });
 
-/**
- * Start the session the first time some component request the session service
- */
-//$di->set('session', function() {
-//	$session = new SessionAdapter();
-//	$session->start();
-//	return $session;
-//});
 
 /**
  * Register the flash service with custom CSS classes

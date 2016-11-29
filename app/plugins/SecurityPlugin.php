@@ -70,9 +70,9 @@ class SecurityPlugin extends Plugin
                     return true;
                 } else {
                     if ($this->getSessionValue('user', 'id') == '') {
-                        $this->response->redirect("session/index/?callback=" . urlencode($_SERVER[REQUEST_URI]));
+                        $this->response->redirect("session/index/?callback=" . urlencode($_SERVER['REQUEST_URI']));
                     }else{
-                        $this->response->redirect("errors/show401/?callback=" . urlencode($_SERVER[REQUEST_URI]));
+                        $this->response->redirect("errors/show401/?callback=" . urlencode($_SERVER['REQUEST_URI']));
                     }
 
                     return false;
@@ -81,7 +81,7 @@ class SecurityPlugin extends Plugin
                 if ($this->getSessionValue('user', 'id') != '') {
                     return true;
                 } else {
-                        $this->response->redirect("login?callback=" . urlencode($_SERVER[REQUEST_URI]));
+                        $this->response->redirect("login?callback=" . urlencode($_SERVER['REQUEST_URI']));
                 }
             }
         } else {

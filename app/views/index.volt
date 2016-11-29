@@ -31,7 +31,7 @@
     <link href="/css/github-markdown.css" rel="stylesheet">
     <link href="/css/highlight.min.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="http://libs.useso.com/js/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
