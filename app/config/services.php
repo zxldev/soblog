@@ -156,7 +156,7 @@ $di->setShared('logger',function(){
 $di->set('session', function ()  use ($config) {
     $reids = $config->server['redis'];
     $array = array(
-        'path' => "http://".$reids['ip'].":".$reids['port']."?auth=".$reids['auth']."",
+        'path' => "http://".$reids['ip'].":".$reids['port']."?auth=".$reids['auth']."&database=".$reids['dbindex'],
 //        'name'=>'',
 //        'lifetime'=>'',
 //        'cookie_lifetime'=>'',
@@ -174,6 +174,7 @@ $di->setShared('redis',function()  use ($config){
     $redis = new Redis();
     $redis->connect($reids['ip'],$reids['port']);
     $redis->auth($reids['auth']);
+    $redis->select($reids['dbindex']);
     return $redis;
 });
 
