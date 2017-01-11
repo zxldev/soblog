@@ -35,7 +35,7 @@ class IndexController extends ControllerBase
                 $tags = '';
             for ($i = 0; $i < $length; $i++) {
                 $html .= '<div class="post-preview"><a href="'.$this->config->site['url'].'/article/info/' .
-                    $items[$i]['id'] . '"><h2 class="post-title">' .
+                    $items[$i]['id'] . '.html"><h2 class="post-title">' .
                 $items[$i]['title'] . '</h2></a><h4  class="post-subtitle">';
 
                     $tags =  explode(',',$items[$i]['tags']);

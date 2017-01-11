@@ -19,7 +19,7 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                 tagsClass = '';
             for (i = 0; i < length; i++) {
                 html += '<div class="post-preview"><a href="/article/info/' +
-                    data.records.items[i].id + '"><h3 class="post-title">' +
+                    data.records.items[i].id + '.html"><h3 class="post-title">' +
                     data.records.items[i].title + '</h3></a><h4  class="post-subtitle">';
 
                 html += '</h4><p class="post-meta"><span class="post-meta-index post-meta-date-index"><i class="glyphicon glyphicon-calendar"></i>'

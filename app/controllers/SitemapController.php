@@ -42,7 +42,7 @@ class SitemapController extends ControllerBase
             $urls = array();
             $baseUrl = $this->config->site->url;
             foreach ($posts as $post) {
-                $urls[]= $baseUrl . '/article/info/' . $post->id;
+                $urls[]= $baseUrl . '/article/info/' . $post->id.'.html';
             }
             $api = 'http://data.zz.baidu.com/urls?site=www.souii.com&token=qk80mIWjrRA6tnEu';
             $ch = curl_init();
@@ -90,7 +90,7 @@ class SitemapController extends ControllerBase
             foreach ($posts as $post) {
 
                 $url = $sitemap->createElement('url');
-                $href = $baseUrl . '/article/info/' . $post->id;
+                $href = $baseUrl . '/article/info/' . $post->id.'.html';
                 $url->appendChild(
                     $sitemap->createElement('loc', $href)
                 );

@@ -115,7 +115,7 @@ class ManagerController extends ControllerBase
             }
             $this->tag->setDefault("tags", implode(',',$names));
             $this->tag->setDefault("pic", $article->pic);
-            $this->view->cates = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['CATEGORY']['ALL'],'Souii\Models\Category::getAllStaticSelect');
+            $this->view->cates = $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['CATEGORY']['ALL'],'\Souii\Models\Category::getAllStaticSelect');
         }
     }
 

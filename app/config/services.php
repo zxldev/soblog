@@ -250,3 +250,7 @@ $di->set('crypt', function ()use ($config) {
     $crypt->setKey($config->application->cryptKey);
     return $crypt;
 });
+
+$di->set('markdown', function ()use ($config) {
+    return new Parsedown();
+});

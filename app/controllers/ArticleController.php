@@ -245,13 +245,18 @@ class ArticleController extends ControllerBase
         ));
     }
 
+    /**
+     * @title
+     * @Route("/article/info/{id}.html", methods={"GET"}, name="blogget")
+     * @param $id
+     */
     public function infoAction($id){
         $this->view->setVar('blogid',$id);
         if(NetWorkUtils::isSpider()){
             $atricle = ApiController::bloggetinfo($id);
             $htmlTail = '<ul class="pager"><li class="next"><a href="/"> &larr;返回</a></li></ul>';
             $html = '<div class="row"><div class="col-md-6"></div>';
-            $ret =  $html . '</div></div><div class="markdown-body">' . $atricle->content . '</div>' . $htmlTail;
+            $ret =  $html . '</div></div><div class="markdown-body">' . $this->markdown->text($atricle->content) . '</div>' . $htmlTail;
             echo $ret;
         }
     }

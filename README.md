@@ -1,16 +1,21 @@
 # iiblog
 
-##require
+## require
  * php
  * phalcon
- * xcache
  * redis
+ * composer
+
+## install
+1. install all requirements above
+2. copy ```/app/config/config.example.php``` to ```/app/config/config.php``` and complete the config in ```/app/config/config.php```
+3. run composer ```composer update```
 
 
 
 
 # iimarkdown
-##require
+## require
  * jquery
  * showdown
  * hightlight
@@ -31,9 +36,9 @@ $('').bind('scroll', function (e) {
 ```
 
 ##TODO list
-  * iimarkdown editor toolbar
-  * sina qq login
-  * rss
-  * a better way to dispaly blog
-  * user login and comment
-  * tags[tokenfield]
+- [ ] iimarkdown editor toolbar
+- [ ] sina qq login
+- [ ] rss
+- [ ] better way to dispaly blog
+- [x] user login and comment
+- [ ] tags[tokenfield]
