@@ -102,6 +102,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
+                    {%if elements.getSysVar('githubURL')%}
                     <li>
                         <a href="{{ elements.getSysVar('githubURL') }}" target="_blank">
                                 <span class="fa-stack fa-lg">
@@ -110,6 +111,8 @@
                                 </span>
                         </a>
                     </li>
+                    {%endif%}
+                    {%if elements.getSysVar('weiboURL')%}
                     <li>
                         <a href="{{ elements.getSysVar('weiboURL') }}" target="_blank">
                                 <span class="fa-stack fa-lg">
@@ -118,6 +121,28 @@
                                 </span>
                         </a>
                     </li>
+                    {%endif%}
+                    {%if elements.getSysVar('mailAddress')%}
+                    <li>
+                        <a href="{{ elements.getSysVar('mailAddress') }}">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a>
+                    </li>
+                    {%endif%}
+                    {%if elements.getSysVar('weixinURL')%}
+                    <li>
+                        <div class="_weixinURLimg"></div>
+                        <a  data-url="{{ elements.getSysVar('weixinURL') }}" class="_weixinURL" >
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-weixin fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a>
+                    </li>
+                    {%endif%}
                 </ul>
                 <p class="copyright text-muted"> &copy; {{ elements.getSysVar('copyright') }}</p>
             </div>
@@ -132,6 +157,27 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(bp, s);
     })();
+    require(['domready'], function (domready) {
+        domready(function () {
+            require(['jquery','qrcode'], function ($, blog) {
+                $(document).on('mouseover','._weixinURL',function () {
+                    if($('._weixinURLimg').html()==''){
+                        $('._weixinURLimg').qrcode($(this).attr('data-url'));
+                    }
+                    $('._weixinURLimg').show();
+                });
+                $(document).on('mouseleave','._weixinURL',function () {
+                    $('._weixinURLimg').hide();
+                });
+                $(document).on('click touch','._weixinURL',function () {
+                    if($('._weixinURLimg').html()==''){
+                        $('._weixinURLimg').qrcode($(this).attr('data-url'));
+                    }
+                    $('._weixinURLimg').toggle();
+                });
+            });
+        });
+    });
 </script>
 </body>
 </html>

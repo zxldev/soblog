@@ -158,6 +158,11 @@ footer .list-inline {
     margin: 0;
     padding: 0;
 }
+
+footer .list-inline li{
+    position: relative;
+}
+
 footer .copyright {
     font-size: 14px;
     text-align: center;
@@ -284,4 +289,28 @@ a:hover{
 ._blog_title{
     margin-top: 35px;
     margin-bottom: 40px;
+}
+
+@media screen and (min-width: 500px) {
+    ._weixinURLimg{
+        display: none;
+        position: absolute;
+        bottom: 75px;
+        right: -115px;
+        padding: 5px;
+        background: #fff;
+        border: 1px solid #ccc;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    ._weixinURLimg{
+        display: none;
+        position: absolute;
+        bottom: 75px;
+        align-self: center;
+        padding: 5px;
+        background: #fff;
+        border: 1px solid #ccc;
+    }
 }
