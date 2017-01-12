@@ -49,7 +49,7 @@ class ApiController extends JsonControllerBase
         }
         if($tag!=''){
             $ids = Tags::getIDs($tag,null,false,false);
-            $conditions .= " AND tags in (:tags:)";
+            $conditions .= " AND find_in_set(:tags:,tags)";
             $parameter['tags']=$ids;
         }
         $parameters['conditions'] = $conditions;
