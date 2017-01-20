@@ -61,7 +61,7 @@ class Elements extends Component
         '个人设置' => array(
             'controller' => 'user',
             'action' => 'info',
-            'iconClass'=>'gglyphicon glyphicon-user',
+            'iconClass'=>'glyphicon glyphicon-user',
             'any' => true
         ),
     );
