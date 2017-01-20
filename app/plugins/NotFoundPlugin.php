@@ -34,6 +34,18 @@ class NotFoundPlugin extends Plugin
 			}
 		}
 
+		if ($exception instanceof \Souii\Exception\Exception) {
+			if($this->request->isAjax()){
+				$records = array('code'=>$exception->getCode());
+				$response =new \Souii\Responses\JSONResponse();
+				$response->useEnvelope(true)
+					->convertSnakeCase(false)
+					->send($records,true);
+				exit();
+			}
+		}
+
+
 		$dispatcher->forward(array(
 			'controller' => 'errors',
 			'action'     => 'show500'

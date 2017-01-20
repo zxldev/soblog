@@ -1,4 +1,5 @@
 <?php
+defined('APP_PATH') or define('APP_PATH', realpath('../..') . DIRECTORY_SEPARATOR);
 
 return new \Phalcon\Config(
     array(

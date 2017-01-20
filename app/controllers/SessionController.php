@@ -69,7 +69,7 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('欢迎 ' . $user->name);
-                return $this->forward($callback);
+                return $this->response->redirect($callback);
             }
 
             $this->flash->error('用户名或密码错误！');
@@ -89,7 +89,7 @@ class SessionController extends ControllerBase
         $user  =new Users();
         $user->created_at = date('Y-m-d H:i:s');
         $user->updated_at = date('Y-m-d H:i:s');
-        $user->password = '000000';
+        $user->password = sha1('000000');
         if($name!=null){
             $user->name = $name;
         }else{

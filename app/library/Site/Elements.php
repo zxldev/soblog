@@ -58,6 +58,12 @@ class Elements extends Component
             'iconClass'=>'glyphicon glyphicon-pencil',
             'any' => true
         ),
+        '个人设置' => array(
+            'controller' => 'user',
+            'action' => 'info',
+            'iconClass'=>'glyphicon glyphicon-pencil',
+            'any' => true
+        ),
     );
 
     /**

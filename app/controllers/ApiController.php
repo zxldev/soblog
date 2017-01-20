@@ -1,11 +1,16 @@
 <?php
 namespace Souii\Controllers;
+use Github\Api\User;
+use Phalcon\Http\Response\Exception;
+use Souii\Exception\ExceptionConst;
 use Souii\Models\Article as Article;
 use Souii\Models\Category;
 use Souii\Models\Tags as Tags;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Souii\Models\Users;
 use Souii\Redis\RedisUtils as RedisUtils;
+use Souii\Responses\Response;
 
 /**
  * @RoutePrefix("/api")
@@ -136,6 +141,38 @@ class ApiController extends JsonControllerBase
     public function  endsessionAction(){
         $this->destorySession();
         return true;
+    }
+
+    /**
+     * @Route("/updatepwd", methods={"POST"}, name="updatepwd")
+     * @return bool
+     */
+    public function  updatePwdAction(){
+        $oldpwd = $this->request->getPost('oldpwd',null);
+        $newpwd = $this->request->getPost('newpwd',null);
+        $user = $this->getSession('user',false);
+        if(!$user){
+           throw new \Souii\Exception\Exception(ExceptionConst::ERR_UN_LOGIN);
+        }
+        if(empty($oldpwd)||empty($newpwd)){
+            throw new \Souii\Exception\Exception(ExceptionConst::ERR_PARAM);
+        }
+        $userid = $user['id'];
+        /** @var Users $userEntity */
+        $userEntity = Users::findFirstByid($userid);
+        if(empty($userEntity)){
+            return false;
+        }
+        if($userEntity->password==sha1($oldpwd)){
+            $userEntity->password = sha1($newpwd);
+            $ret = $userEntity->save();
+            if($ret){
+                $this->destorySession();
+                return $ret;
+            }
+        }
+
+        return false;
     }
 
 }
