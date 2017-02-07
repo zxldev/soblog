@@ -45,7 +45,7 @@ class ApiController extends JsonControllerBase
     public static function blogget($numberpage,$tag='',$cate=''){
         $parameters = array();
         $parameters["order"] = "created_at desc";
-        $parameters['columns'] = array('id,title,tags,cate_id,updated_at');
+        $parameters['columns'] = array('id,title,tags,cate_id,created_at');
         $conditions = "1=1";
         $parameter = array();
         if($cate!=''){

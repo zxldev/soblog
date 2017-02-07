@@ -43,7 +43,7 @@ class IndexController extends ControllerBase
                     $html .= '<span  class="">' . $tag . '</span> ';
                 }
 
-                $html .= '</h4><p class="post-meta">发布于' . $items[$i]['updated_at'] . '</p></div><hr>';
+                $html .= '</h4><p class="post-meta">发布于' . $items[$i]['created_at'] . '</p></div><hr>';
             }
             if($page<$totalpage){
                 $html.=' <ul class="pager">

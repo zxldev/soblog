@@ -23,7 +23,7 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                     data.records.items[i].title + '</h3></a><h4  class="post-subtitle">';
 
                 html += '</h4><p class="post-meta"><span class="post-meta-index post-meta-date-index"><i class="glyphicon glyphicon-calendar"></i>'
-                    +  data.records.items[i].updated_at.substr(0, 10) + '</span><span class="post-meta-index post-meta-tag-index"><a href="/page=1/tag=/cate=' + data.records.items[i].cate_id + '"><span class="post-meta-index post-meta-cate-index"><i class="' + data.records.items[i].class_name + '"></i>' + data.records.items[i].cate_name + '</span></a>';
+                    +  data.records.items[i].created_at.substr(0, 10) + '</span><span class="post-meta-index post-meta-tag-index"><a href="/page=1/tag=/cate=' + data.records.items[i].cate_id + '"><span class="post-meta-index post-meta-cate-index"><i class="' + data.records.items[i].class_name + '"></i>' + data.records.items[i].cate_name + '</span></a>';
                 if (data.records.items[i].tags.length > 0) {
                     tags = data.records.items[i].tags.split(',');
                     if (tags.length === 1) {

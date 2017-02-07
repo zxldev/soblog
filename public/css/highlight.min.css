@@ -1,94 +1,95 @@
-/* Base16 Atelier Seaside Dark - Theme */
-/* by Bram de Haan (http://atelierbram.github.io/syntax-highlighting/atelier-schemes/seaside) */
-/* Original Base16 color scheme by Chris Kempson (https://github.com/chriskempson/base16) */
-
-/* Atelier-Seaside Comment */
-.hljs-comment {
-    color: #809980;
-}
-
-/* Atelier-Seaside Red */
-.hljs-variable,
-.hljs-attribute,
-.hljs-tag,
-.hljs-regexp,
-.hljs-name,
-.ruby .hljs-constant,
-.xml .hljs-tag .hljs-title,
-.xml .hljs-pi,
-.xml .hljs-doctype,
-.html .hljs-doctype,
-.css .hljs-id,
-.css .hljs-class,
-.css .hljs-pseudo {
-    color: #e6193c;
-}
-
-/* Atelier-Seaside Orange */
-.hljs-number,
-.hljs-preprocessor,
-.hljs-built_in,
-.hljs-literal,
-.hljs-params,
-.hljs-constant {
-    color: #87711d;
-}
-
-/* Atelier-Seaside Yellow */
-.ruby .hljs-class .hljs-title,
-.css .hljs-rule .hljs-attribute {
-    color: #98981b;
-}
-
-/* Atelier-Seaside Green */
-.hljs-string,
-.hljs-value,
-.hljs-inheritance,
-.hljs-header,
-.ruby .hljs-symbol,
-.xml .hljs-cdata {
-    color: #29a329;
-}
-
-/* Atelier-Seaside Aqua */
-.hljs-title,
-.css .hljs-hexcolor {
-    color: #1999b3;
-}
-
-/* Atelier-Seaside Blue */
-.hljs-function,
-.python .hljs-decorator,
-.python .hljs-title,
-.ruby .hljs-function .hljs-title,
-.ruby .hljs-title .hljs-keyword,
-.perl .hljs-sub,
-.javascript .hljs-title,
-.coffeescript .hljs-title {
-    color: #3d62f5;
-}
-
-/* Atelier-Seaside Purple */
-.hljs-keyword,
-.javascript .hljs-function {
-    color: #ad2bee;
-}
+/*
+Intellij Idea-like styling (c) Vasily Polovnyov <vast@whiteants.net>
+*/
 
 .hljs {
     display: block;
     overflow-x: auto;
-    background: #131513;
-    color: #8ca68c;
     padding: 0.5em;
-    -webkit-text-size-adjust: none;
+    color: #000;
+    background: #fff;
 }
 
-.coffeescript .javascript,
-.javascript .xml,
-.tex .hljs-formula,
-.xml .javascript,
-.xml .vbscript,
-.xml .css,
-.xml .hljs-cdata {
-    opacity: 0.5;
+.hljs-subst,
+.hljs-title {
+    font-weight: normal;
+    color: #000;
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: #808080;
+    font-style: italic;
+}
+
+.hljs-meta {
+    color: #808000;
+}
+
+.hljs-tag {
+    background: #efefef;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-literal,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type,
+.hljs-selector-id,
+.hljs-selector-class {
+    font-weight: bold;
+    color: #000080;
+}
+
+.hljs-attribute,
+.hljs-number,
+.hljs-regexp,
+.hljs-link {
+    font-weight: bold;
+    color: #0000ff;
+}
+
+.hljs-number,
+.hljs-regexp,
+.hljs-link {
+    font-weight: normal;
+}
+
+.hljs-string {
+    color: #008000;
+    font-weight: bold;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-formula {
+    color: #000;
+    background: #d0eded;
+    font-style: italic;
+}
+
+.hljs-doctag {
+    text-decoration: underline;
+}
+
+.hljs-variable,
+.hljs-template-variable {
+    color: #660e7a;
+}
+
+.hljs-addition {
+    background: #baeeba;
+}
+
+.hljs-deletion {
+    background: #ffc8bd;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
 }
