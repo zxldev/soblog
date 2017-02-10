@@ -3,6 +3,7 @@
  */
 require.config({
     baseUrl: '/js/lib',
+    waitSeconds: 100,
     paths: {
         app: '/js/app/app',
         cleanblog: '/js/app/cleanblog',
