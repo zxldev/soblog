@@ -18,12 +18,11 @@ class IndexController extends ControllerBase
     }
 
     /**
-     * @Route("/page={page}/tag={tag}/cate={cate}", methods={"GET"}, name="index")
+     * @Route("/page={page}/tag={tag}/cate={cate}/text={text}", methods={"GET"}, name="index")
      * @param string $tag
      */
-    public function indexAction($page = 1,$tag = '',$cate='')
+    public function indexAction($page = 1,$tag = '',$cate='',$text='')
     {
-
         //爬虫特殊处理
         if(NetWorkUtils::isSpider()){
             $data = ApiController::blogget($page);
@@ -58,10 +57,23 @@ class IndexController extends ControllerBase
 
         $this->tag->setDefault("tag", $tag);
         $this->tag->setDefault("cate", $cate);
+        $this->tag->setDefault("searchtext", $text);
         $this->view->tag = $tag;
         if($cate!=''){
             $this->view->cateEntity = Models\Category::findFirst($cate);
         }
+    }
+
+    /**
+     * @Route("/search={text}", methods={"GET"}, name="index")
+     * @param string $tag
+     */
+    public function searchAction($text = 1)
+    {
+        $s = $this->sphinx->Query($text);
+        $this->tag->setDefault("tag", '');
+        $this->tag->setDefault("cate", '');
+        $this->view->tag = '';
     }
 
     public function uploadAction(){

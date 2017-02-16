@@ -9,6 +9,7 @@
 
     {{ hidden_field("tag") }}
     {{ hidden_field("cate") }}
+    {{ hidden_field("searchtext") }}
     <div class="_nav">
         <a class="" href="/api/page=1/blog"></a>
     </div>
@@ -21,8 +22,16 @@
         domready(function () {
             require(['jquery', 'blog'], function ($, blog) {
                 var tag = $('#tag').val() || '',
+                        text = $('#searchtext').val() || '',
                         cate = $('#cate').val() || '';
-                blog.blogList(1,tag,cate);
+                blog.blogList(1,tag,cate,text);
+
+                $('._blog_search').val(text);
+                $('._blog_search').bind('keyup',function(e){
+                    if (e.keyCode == 13) {
+                        window.location.href = '/page=1/tag=/cate=/text='+encodeURIComponent($(this).val())
+                    }
+                });
             });
         });
     });

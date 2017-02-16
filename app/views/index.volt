@@ -90,6 +90,9 @@
                         </li>
                 {% endif %}
             </ul>
+            <div class="navbar-form navbar-right">
+                <input id="searchinput" type="text" class="form-control _blog_search" placeholder="搜索..." >
+            </div>
         </div>
         <!-- /.navbar-collapse -->
     </div>

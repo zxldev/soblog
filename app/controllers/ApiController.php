@@ -33,31 +33,44 @@ class ApiController extends JsonControllerBase
     }
 
     /**
-     * @Route("/page={numberpage}/tag={tag}/cate={cate}/blog", methods={"GET"}, name="blogget")
+     * @Route("/page={numberpage}/tag={tag}/cate={cate}/text={text}/blog", methods={"GET"}, name="blogget")
      * @param int $numberPage
      * @return stdclass
      */
-    public function bloggetAction($numberpage = 1,$tag='',$cate='')
+    public function bloggetAction($numberpage = 1,$tag='',$cate='',$text='')
     {
+        if(empty($text)){
             return $this->redisUtils->getCache(RedisUtils::$CACHEKEYS['ARTICLE']['PAGE:TAG:CATE'],'Souii\Controllers\ApiController::blogget',$numberpage,$tag,$cate);
+        }else{
+            $result = $this->sphinx->Query($text,'mysql');
+            if(!empty($result)&&empty($result['error'])&&!empty($result['matches'])){
+                $ids = array_column($result['matches'],'id');
+                return self::blogget($numberpage,$tag,$cate,$ids);
+            }
+        }
     }
 
-    public static function blogget($numberpage,$tag='',$cate=''){
+    public static function blogget($numberpage,$tag='',$cate='',$ids = ''){
         $parameters = array();
         $parameters["order"] = "created_at desc";
         $parameters['columns'] = array('id,title,tags,cate_id,created_at');
-        $conditions = "1=1";
+        $conditions = array();
         $parameter = array();
+        if(!empty($ids)){
+            $conditions[]= " id in ({ids:array}) ";
+            $parameter['ids']=$ids;
+        }
         if($cate!=''){
-            $conditions .= " AND cate_id = :cate_id:";
+            $conditions[]= " cate_id = :cate_id: ";
             $parameter['cate_id']=$cate;
         }
         if($tag!=''){
             $ids = Tags::getIDs($tag,null,false,false);
-            $conditions .= " AND find_in_set(:tags:,tags)";
+            $conditions[] = "  find_in_set(:tags:,tags) ";
             $parameter['tags']=$ids;
         }
-        $parameters['conditions'] = $conditions;
+
+        $parameters['conditions'] = implode(' AND ',$conditions);
         $parameters['bind'] = $parameter;
 
         $article = Article::find($parameters);

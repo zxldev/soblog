@@ -214,10 +214,10 @@ $di->set('config', $config);
 
 
 $di->setShared('sphinx',function() use ($config){
-    include APP_PATH.'app/library/sphinxapi.php';  // 加载Sphinx API
-    $sc = new SphinxClient(); // 实例化Api
-    $sc->setServer($config->server->sphinx->ip, $config->server->sphinx->port); // 设置服务端，第一个参数sphinx服务器地址，第二个sphinx监听端口
-    $sc->setArrayResult(true);
+    /** @var \Souii\Sphinx\SphinxClient $sc */
+    $sc = new \SphinxClient(); // 实例化Api
+    $sc->SetServer($config->server->sphinx->ip, $config->server->sphinx->port); // 设置服务端，第一个参数sphinx服务器地址，第二个sphinx监听端口
+    $sc->SetArrayResult(true);
     return $sc;
 });
 
