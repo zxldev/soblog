@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ elements.getSysVar('seo_desc') }}">
     <meta name="keywords" content="{{ elements.getSysVar('seo_key') }}">
-    <meta name="author" content="">
+    <meta name="siteName" content="{{ elements.getSysVar('siteName') }}">
     <meta name="currentUser" username="{{ (user is not empty) ?user['name']:'' }}" role="{{ (user is not empty)?user['type']:''  }}">
 
     <meta property="qc:admins" content="21417660276375116375" />

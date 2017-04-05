@@ -104,7 +104,7 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                         tags = blog.tags.split(','),
                         converter = new showdown.Converter();
                     $('._blog_title h1').html(blog.title);
-                    $('title').html(blog.title+ ' - 赵枫杨的博客');
+                    $('title').html(blog.title+ ' - '+$('meta[name=siteName]').attr('content'));
                     /* * * CONFIGURATION VARIABLES * * */
                     var disqus_shortname = 'souii';
 
