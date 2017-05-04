@@ -61,6 +61,7 @@
                 return window.open('{{ weiboCallBack }}', 'oauth2Login_weibo' ,'height=525,width=585, toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes');
             });
             //qq登陆按钮
+            window.qc = QC;
             QC.Login({
                 btnId:"qqLoginBtn"    //插入按钮的节点id
             });

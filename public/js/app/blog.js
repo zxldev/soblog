@@ -174,10 +174,9 @@ define("blog", ['jquery', 'showdown', 'hljs', 'infintescroll'], function ($, sho
                 dataType: 'json',
                 cache: false,
                 success: function () {
-                    debugger;
                     try{
-                        if(QC.Login.check()){
-                            QC.Login.signOut();
+                        if(window.qc.Login.check()){
+                            window.qc.Login.signOut();
                         }
                     }catch (e ) {
                     }

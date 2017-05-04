@@ -4,6 +4,9 @@ use Souii\Models\Users as Users;
 use Souii\Github\Users as GithubUsers;
 use Souii\Github\OAuth;
 use Phalcon\Mvc\Model as Model;
+use Souii\Weibo\OAuthException;
+use Souii\Weibo\WeiBoOAuth;
+
 /**
  * SessionController
  *
@@ -114,6 +117,7 @@ class SessionController extends ControllerBase
     public function weibologincallbackAction()
     {
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+        /** @var WeiBoOAuth $o */
         $o = $this->weiboOauth;
 
         if (isset($_REQUEST['code'])) {
@@ -126,7 +130,7 @@ class SessionController extends ControllerBase
             }
         }
 
-        if ($token) {
+        if (!empty($token)) {
             //登陆
             $user = SessionController::registerUser($token['uid'],Users::USER_SOURCE_WEIBO);
             $this->_registerSession($user);
