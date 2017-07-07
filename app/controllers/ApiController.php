@@ -188,4 +188,28 @@ class ApiController extends JsonControllerBase
         return false;
     }
 
+
+
+    /**
+     * @Route("/api/upload", methods={"POST"}, name="upload")
+     */
+    public function uploadAction(){
+        $name = date('YmdHis').random_int(100000,999999);
+        // 检查是否有文件上传
+        if ($this->request->hasFiles() == true) {
+
+            // 打印文件信息
+            foreach ($this->request->getUploadedFiles() as $file) {
+                // 上传文件名
+                $filename =$name.".".$file->getExtension();
+                $fileFullName = APP_PATH."public/images/".$filename;
+                // 移动到指定目录
+                $ret = $file->moveTo($fileFullName);
+            }
+
+            echo json_encode(['state'=>$ret,
+            'url'=>$this->config->site->url."/images/".$filename]);
+        }
+    }
+
 }

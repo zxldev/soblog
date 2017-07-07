@@ -1,7 +1,7 @@
 /**
  * Created by zx on 2015/8/21.
  */
-define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs) {
+define('iimarkdown', ['jquery', 'showdown', 'hljs','webuploader'], function ($, showdown, hljs,WebUploader) {
     var iimarkdown =
     {
         prototype: {
@@ -11,6 +11,7 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
             },
             isimmediately : true, //if transform text immediately
             selector:'',
+            uploader:null,
             save:function(){
                 $(iimarkdown.prototype.selector).blur();
                 $(iimarkdown.prototype.selector).parent().removeClass('markdown-pen-view');
@@ -37,18 +38,8 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
             </div>\
                                                                      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">\
                                                                              <ul class="nav navbar-nav navbar-right">\
-                                                                                 <li><a href="#">Link</a></li>\
+                                                                                 <li><a><div class="_insert_pic"><span  class="glyphicon glyphicon-picture" aria-hidden="true">插入图片</span></div></a></li>\
                                                                                  <li><a class="_immedateflaga"><span  class="_immedateflag glyphicon glyphicon-pause" aria-hidden="true">停止同步</span></a></li>\
-                                                                                 <li class="dropdown">\
-                                                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>\
-                                                                                     <ul class="dropdown-menu">\
-                                                                                         <li><a href="#">Action</a></li>\
-                                                                                         <li><a href="#">Another action</a></li>\
-                                                                                         <li><a href="#">Something else here</a></li>\
-                                                                                         <li role="separator" class="divider"></li>\
-                                                                                         <li><a href="#">Separated link</a></li>\
-                                                                                     </ul>\
-                                                                                 </li>\
                                                                                  <li><a class="iimarkdown-btn-finish">完成</a></li>\
                                                                              </ul>\
                                                                          </div>\
@@ -95,6 +86,23 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
             }).bind('focus', function () {
                 //add editor css ,show viewer
                 $(this).parent().addClass('markdown-pen-view');
+                if (iimarkdown.prototype.uploader == null){
+                    iimarkdown.prototype.uploader = WebUploader.create({
+                        // 文件接收服务端。
+                        server: '/api/upload',
+                        auto:true,
+                        // 选择文件的按钮。可选。
+                        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                        pick: '._insert_pic',
+
+                        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                        resize: false
+                    });
+                    iimarkdown.prototype.uploader.on( 'uploadSuccess', function( file,response ) {
+                        iimarkdown.insertAtCursor(document.getElementById("content"),"![]("+response.url+")\n");
+                        iimarkdown.updateMarkdownBody(iimarkdown.prototype.selector);
+                    });
+                }
                 $('.iiMarkdownContainer').show();
             }).bind('blur', function () {
                 //remove editor css ,hide viewer
@@ -136,6 +144,34 @@ define('iimarkdown', ['jquery', 'showdown', 'hljs'], function ($, showdown, hljs
                 $('._immedateflag').removeClass('glyphicon-pause');
                 $('._immedateflag').addClass('glyphicon-play');
                 $('._immedateflag').html('开始同步');
+            }
+        },
+        insertAtCursor: function (myField, myValue) {
+            console.log(myField,myValue);
+            //IE support
+            if (document.selection) {
+                myField.focus();
+                sel = document.selection.createRange();
+                sel.text = myValue;
+                sel.select();
+            }
+            //MOZILLA/NETSCAPE support
+            else if (myField.selectionStart || myField.selectionStart == '0') {
+                var startPos = myField.selectionStart;
+                var endPos = myField.selectionEnd;
+                // save scrollTop before insert
+                var restoreTop = myField.scrollTop;
+                myField.value = myField.value.substring(0, startPos) + myValue + myField.value.substring(endPos, myField.value.length);
+                if (restoreTop > 0) {
+                    // restore previous scrollTop
+                    myField.scrollTop = restoreTop;
+                }
+                myField.focus();
+                myField.selectionStart = startPos + myValue.length;
+                myField.selectionEnd = startPos + myValue.length;
+            } else {
+                myField.value += myValue;
+                myField.focus();
             }
         }
 
